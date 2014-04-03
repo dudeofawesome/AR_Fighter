@@ -1,2 +1,6 @@
 Hi 
+<<<<<<< HEAD
 HUEAA
+=======
+OK THIS SHOULD BE TO MASTER
+>>>>>>> origin/Alpha-Yash
