@@ -19,11 +19,11 @@ public class CharacterController : MonoBehaviour {
 		GameObject _Player1 = GameObject.Find ("Player1");
 		if (Input.GetKey ("a")) {
 			print("bang");
-			_Player1.transform.position = new Vector3(_Player1.transform.position.x - 0.1f,_Player1.transform.position.y,_Player1.transform.position.z);
+			_Player1.transform.position = new Vector3(_Player1.transform.position.x - 0.5f,_Player1.transform.position.y,_Player1.transform.position.z);
 		}
 		if (Input.GetKey ("d")) {
 			print ("boom");
-			_Player1.transform.position = new Vector3(_Player1.transform.position.x + 0.1f,_Player1.transform.position.y,_Player1.transform.position.z);
+			_Player1.transform.position = new Vector3(_Player1.transform.position.x + 0.5f,_Player1.transform.position.y,_Player1.transform.position.z);
 		}
 
 
