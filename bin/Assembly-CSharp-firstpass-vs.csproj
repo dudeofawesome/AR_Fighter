@@ -52,7 +52,6 @@
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\RenderVideoBackground.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Plugins\release_history.txt" />
-     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
      <None Include="Assets\Editor\QCAR\WebcamProfiles\profiles.xml" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\DepthMask.shader" />
