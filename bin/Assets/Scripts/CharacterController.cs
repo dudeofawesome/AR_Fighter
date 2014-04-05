@@ -13,15 +13,28 @@ public class CharacterController : MonoBehaviour {
 	public string keyRight = "d";
 
 
+	private bool touchingGround = false;
+	private bool doubleJumpUsed = false;
+
+
 	// Use this for initialization
 	void Start () {
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (keyUp)) {
+		if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
 			rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
 			rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+			if (!touchingGround)
+				doubleJumpUsed = true;
+			touchingGround = false;
+		}
+		if (Input.GetKeyDown (keyDown)) {
+			transform.localScale = new Vector3(4,1,4);
+		}
+		if (Input.GetKeyUp (keyDown)) {
+			transform.localScale = new Vector3(4,4,4);
 		}
 
 		//apply max velocity
@@ -44,6 +57,13 @@ public class CharacterController : MonoBehaviour {
 		}
 		else if (transform.position.y >= 2.5) {
 			rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (0.95f), rigidbody.velocity.y, 0);
+		}
+	}
+
+	void OnCollisionEnter (Collision collision) {
+		if (collision.gameObject.tag == "Terrain" || collision.gameObject.tag == "Player") {
+			touchingGround = true;
+			doubleJumpUsed = false;
 		}
 	}
 }
