@@ -7,7 +7,9 @@ public class CharacterController : MonoBehaviour {
 	public int movementForce = 10000;
 	public float drag = 0.3f;
 
-	public int health = 100;
+	public GameObject feet = null;
+
+	public float damage = 100;
 
 	public string keyUp = "w";
 	public string keyLeft = "a";
@@ -18,6 +20,8 @@ public class CharacterController : MonoBehaviour {
 
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
+
+	private GameObject touchingEnemy = null;
 
 	private Player.Attack currentAttack = null;
 
@@ -33,7 +37,6 @@ public class CharacterController : MonoBehaviour {
 			rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
 			if (!touchingGround)
 				doubleJumpUsed = true;
-			touchingGround = false;
 		}
 		if (Input.GetKeyDown (keyDown)) {
 			transform.localScale = new Vector3(4,1,4);
@@ -44,6 +47,14 @@ public class CharacterController : MonoBehaviour {
 		if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
 			// TODO		change "this.gameObject" to the hitbox holder for the attack
 			currentAttack = new Player.Attack(this.gameObject);
+		}
+
+		if (feet.GetComponent<CollisionHandeler>().collidingWith != null && (feet.GetComponent<CollisionHandeler>().collidingWith.tag == "Terrain" || feet.GetComponent<CollisionHandeler>().collidingWith.tag == "Player")) {
+			touchingGround = true;
+			doubleJumpUsed = false;
+		}
+		else{
+			touchingGround = false;
 		}
 
 		//apply max velocity
@@ -76,10 +87,24 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
+	public void hurt (float damage) {
+		this.damage += damage;
+		rigidbody.AddForce (new Vector3 (Mathf.Pow (this.damage, 2) * 100, Mathf.Pow (this.damage, 2) * 30000, 0));
+	}
+
 	void OnCollisionEnter (Collision collision) {
-		if (collision.gameObject.tag == "Terrain" || collision.gameObject.tag == "Player") {
-			touchingGround = true;
-			doubleJumpUsed = false;
+		if (collision.gameObject.tag == "Player") {
+			touchingEnemy = collision.gameObject;
 		}
+	}
+
+	void OnCollisionExit (Collision collision) {
+		if (collision.gameObject.tag == "Player") {
+			touchingEnemy = null;
+		}
+	}
+
+	public GameObject attackLanded () {
+		return touchingEnemy;
 	}
 }

@@ -6,7 +6,7 @@ namespace Player {
 		private int warmup = 0;
 		private int cooldown = 10;
 
-		private int damage = 100;
+		private int damage = 3;
 
 		private GameObject parent;
 
@@ -29,7 +29,9 @@ namespace Player {
 		}
 
 		private void performAttack() {
-
+			if (parent.GetComponent<CharacterController>().attackLanded() != null) {
+				parent.GetComponent<CharacterController>().attackLanded().GetComponent<CharacterController>().hurt(damage);
+			}
 		}
 	}
 }
