@@ -7,14 +7,19 @@ public class CharacterController : MonoBehaviour {
 	public int movementForce = 10000;
 	public float drag = 0.3f;
 
+	public int health = 100;
+
 	public string keyUp = "w";
 	public string keyLeft = "a";
 	public string keyDown = "s";
 	public string keyRight = "d";
+	public string keyAttack = "space";
 
 
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
+
+	private Player.Attack currentAttack = null;
 
 
 	// Use this for initialization
@@ -36,6 +41,10 @@ public class CharacterController : MonoBehaviour {
 		if (Input.GetKeyUp (keyDown)) {
 			transform.localScale = new Vector3(4,4,4);
 		}
+		if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
+			// TODO		change "this.gameObject" to the hitbox holder for the attack
+			currentAttack = new Player.Attack(this.gameObject);
+		}
 
 		//apply max velocity
 		if (rigidbody.velocity.x > 20f || rigidbody.velocity.x < -20f) 
@@ -52,11 +61,18 @@ public class CharacterController : MonoBehaviour {
 			rigidbody.AddForce(new Vector3(movementForce,0,0));
 		}
 
-		if (!Input.GetKey (keyLeft) && !Input.GetKey (keyRight) && transform.position.y < 2.5) {
+		if (!Input.GetKey (keyLeft) && !Input.GetKey (keyRight) && touchingGround) {
 			rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (1 - drag), rigidbody.velocity.y, 0);
 		}
-		else if (transform.position.y >= 2.5) {
+		else if (!touchingGround) {
 			rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (0.95f), rigidbody.velocity.y, 0);
+		}
+
+
+		if (currentAttack != null) {
+			if (currentAttack.countdown()) {
+				currentAttack = null;
+			}
 		}
 	}
 

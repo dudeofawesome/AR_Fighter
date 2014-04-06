@@ -104,6 +104,7 @@
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\VirtualButtonBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WebCamBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WordBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Attack.cs" />
      <Compile Include="Assets\Scripts\ChangeMainPlatformPosition.cs" />
      <Compile Include="Assets\Scripts\CharacterController.cs" />
      <None Include="Assets\readme_SDK.txt" />
