@@ -19,7 +19,6 @@ public class CollisionHandeler : MonoBehaviour {
 	}
 	
 	void OnTriggerExit (Collider collision) {
-		print ("exit");
 		collidingWith = null;
 	}
 }

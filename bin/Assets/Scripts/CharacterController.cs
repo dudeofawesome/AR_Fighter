@@ -89,7 +89,7 @@ public class CharacterController : MonoBehaviour {
 
 	public void hurt (float damage) {
 		this.damage += damage;
-		rigidbody.AddForce (new Vector3 (Mathf.Pow (this.damage, 2) * 100, Mathf.Pow (this.damage, 2) * 30000, 0));
+		rigidbody.AddForce (new Vector3 (Mathf.Pow (this.damage, 2) * 100, this.damage * 3000, 0));
 	}
 
 	void OnCollisionEnter (Collision collision) {
