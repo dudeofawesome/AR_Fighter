@@ -4,5 +4,7 @@
     <ImageTarget name="test" size="100.000000 100.000000" />
     <ImageTarget name="PlatformLeft" size="10.000000 10.000000" />
     <ImageTarget name="PlatformRight" size="10.000000 10.000000" />
+    <ImageTarget name="FloatingPlatformMarker" size="10.000000 10.000000" />
+    <ImageTarget name="TowerMarker" size="10.000000 10.000000" />
   </Tracking>
 </QCARConfig>
