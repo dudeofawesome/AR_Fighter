@@ -11,7 +11,7 @@ public class ChangeMainPlatformPosition : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 //		float _width = ((GameObject.Find ("ImageTarget-PlatformRight").transform.position.x == 0) ? GameObject.Find ("ImageTarget-PlatformLeft").transform.position.x : GameObject.Find ("ImageTarget-PlatformRight").transform.position.x) / 100;
-		float _width = GameObject.Find ("ImageTarget-PlatformRight").transform.position.x * 0.00143822f + 0.01313395f;
+		float _width = GameObject.Find ("ImageTarget-PlatformRight").transform.position.x * 0.00143822f;
 		//find right platform x set to 0, find left platform in terms of x, width = left.x, position = left.x/2
 
 		transform.localScale = new Vector3(_width, 0.1f, 0.1f);
