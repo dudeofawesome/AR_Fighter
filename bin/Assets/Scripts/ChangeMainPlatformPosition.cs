@@ -15,6 +15,6 @@ public class ChangeMainPlatformPosition : MonoBehaviour {
 		//find right platform x set to 0, find left platform in terms of x, width = left.x, position = left.x/2
 
 		transform.localScale = new Vector3(_width, 0.1f, 0.1f);
-		transform.position = new Vector3(_width * 2, transform.position.y, transform.position.z);
+//		transform.position = new Vector3(_width * 2, transform.position.y, transform.position.z);
 	}
 }

@@ -66,6 +66,10 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
 
     private void OnTrackingFound()
     {
+		if (mTrackableBehaviour.TrackableName == "PlatformRight") {
+			Time.timeScale = 1;
+		}
+
         Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
         Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
@@ -87,6 +91,10 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
 
     private void OnTrackingLost()
     {
+		if (mTrackableBehaviour.TrackableName == "PlatformRight") {
+			Time.timeScale = 0;
+		}
+
         Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
         Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
