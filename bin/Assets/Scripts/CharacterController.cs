@@ -108,7 +108,7 @@ public class CharacterController : MonoBehaviour {
 		this.damage += damage;
 		if (damage > 20) {
 			stunned = true;
-			stunnedCountDown = damage;
+			stunnedCountDown = (int) damage;
 		}
 		rigidbody.AddForce (movementForce * this.damage * ((source.x > 0) ? -1 : 1), jumpForce / 40 * this.damage, 0);
 	}
