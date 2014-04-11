@@ -21,4 +21,12 @@ public class CollisionHandeler : MonoBehaviour {
 	void OnTriggerExit (Collider collision) {
 		collidingWith = null;
 	}
+
+	void OnCollisionEnter (Collision collision) {
+		collidingWith = collision.gameObject;
+	}
+	
+	void OnCollisionExit (Collision collision) {
+		collidingWith = null;
+	}
 }
