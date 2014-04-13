@@ -83,7 +83,25 @@ public class CharacterController : MonoBehaviour {
 				movementKeyDown = true;
 			}
 
-			if (!Input.GetKey (keyLeft) && !Input.GetKey (keyRight) && touchingGround) {
+
+
+			// Phone controls
+			float _tilt = Mathf.Clamp (Mathf.RoundToInt (Input.acceleration.x * 4), -1, 1);
+			if (_tilt > -0.1 && _tilt < 0.1)
+				_tilt = 0;
+			rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
+			if (Mathf.RoundToInt (Input.acceleration.x * 4) > 0) {
+				transform.rotation = Quaternion.Euler( 0, 0, 0);
+				movementKeyDown = true;
+			}
+			else if (Mathf.RoundToInt (Input.acceleration.x * 4) < 0) {
+				transform.rotation = Quaternion.Euler( 0, 180, 0);
+				movementKeyDown = true;
+			}
+
+
+
+			if (!movementKeyDown && touchingGround) {
 				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (1 - drag), rigidbody.velocity.y, 0);
 			}
 			else if (!touchingGround) {
