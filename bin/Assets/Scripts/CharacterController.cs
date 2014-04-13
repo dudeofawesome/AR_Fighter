@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CharacterController : MonoBehaviour {
 
+	public bool controlMe = false;
+
 	public int jumpForce = 500000;
 	public int movementForce = 10000;
 	public float drag = 0.15f;
@@ -37,22 +39,39 @@ public class CharacterController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!stunned){
-			if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
-				rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
-				rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
-				if (!touchingGround)
-					doubleJumpUsed = true;
-			}
-			if (Input.GetKeyDown (keyDown)) {
-				transform.localScale = new Vector3(0.2f, 0.1f, 0.2f);
-			}
-			if (Input.GetKeyUp (keyDown)) {
-				transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-			}
-			if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
-				currentAttack = new Player.Attack(this.gameObject);
-			}
+			if (controlMe) {
+				if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
+					rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
+					rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+					if (!touchingGround)
+						doubleJumpUsed = true;
+				}
+				if (Input.GetKeyDown (keyDown)) {
+					transform.localScale = new Vector3(0.2f, 0.1f, 0.2f);
+				}
+				if (Input.GetKeyUp (keyDown)) {
+					transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+				}
+				if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
+					currentAttack = new Player.Attack(this.gameObject);
+				}
 
+
+				//Phone Controls
+				//#if UNITY_ANDROID
+					foreach (Touch _touch in Input.touches){
+						if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
+							rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
+							rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+							if (!touchingGround)
+								doubleJumpUsed = true;
+						}
+						if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
+							currentAttack = new Player.Attack(this.gameObject);
+						}
+					}
+				//#endif
+			}
 			if (feet.GetComponent<CollisionHandeler>().collidingWith != null && (feet.GetComponent<CollisionHandeler>().collidingWith.layer == 8 || feet.GetComponent<CollisionHandeler>().collidingWith.layer == 9)) {
 				touchingGround = true;
 				doubleJumpUsed = false;
@@ -70,33 +89,35 @@ public class CharacterController : MonoBehaviour {
 	void FixedUpdate () {
 		if (!stunned) {
 			movementKeyDown = false;
-			if (Input.GetKey (keyLeft)) {
-	//			Player.transform.position = new Vector3(Player1.transform.position.x - 0.5f,Player1.transform.position.y,Player1.transform.position.z);
-				rigidbody.AddForce(new Vector3(movementForce * -1,0,0));
-				transform.rotation = Quaternion.Euler( 0, 180, 0);
-				movementKeyDown = true;
-			}
-			if (Input.GetKey (keyRight)) {
-	//			Player.transform.position = new Vector3(Player.transform.position.x + 0.5f,Player.transform.position.y,Player.transform.position.z);
-				rigidbody.AddForce(new Vector3(movementForce,0,0));
-				transform.rotation = Quaternion.Euler( 0, 0, 0);
-				movementKeyDown = true;
-			}
+			if (controlMe) {
+				if (Input.GetKey (keyLeft)) {
+		//			Player.transform.position = new Vector3(Player1.transform.position.x - 0.5f,Player1.transform.position.y,Player1.transform.position.z);
+					rigidbody.AddForce(new Vector3(movementForce * -1,0,0));
+					transform.rotation = Quaternion.Euler( 0, 180, 0);
+					movementKeyDown = true;
+				}
+				if (Input.GetKey (keyRight)) {
+		//			Player.transform.position = new Vector3(Player.transform.position.x + 0.5f,Player.transform.position.y,Player.transform.position.z);
+					rigidbody.AddForce(new Vector3(movementForce,0,0));
+					transform.rotation = Quaternion.Euler( 0, 0, 0);
+					movementKeyDown = true;
+				}
 
 
 
-			// Phone controls
-			float _tilt = Mathf.Clamp (Mathf.RoundToInt (Input.acceleration.x * 4), -1, 1);
-			if (_tilt > -0.1 && _tilt < 0.1)
-				_tilt = 0;
-			rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
-			if (Mathf.RoundToInt (Input.acceleration.x * 4) > 0) {
-				transform.rotation = Quaternion.Euler( 0, 0, 0);
-				movementKeyDown = true;
-			}
-			else if (Mathf.RoundToInt (Input.acceleration.x * 4) < 0) {
-				transform.rotation = Quaternion.Euler( 0, 180, 0);
-				movementKeyDown = true;
+				// Phone controls
+				float _tilt = Mathf.Clamp (Mathf.RoundToInt (Input.acceleration.x * 4), -1, 1);
+				if (_tilt > -0.1 && _tilt < 0.1)
+					_tilt = 0;
+				rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
+				if (Mathf.RoundToInt (Input.acceleration.x * 4) > 0) {
+					transform.rotation = Quaternion.Euler( 0, 0, 0);
+					movementKeyDown = true;
+				}
+				else if (Mathf.RoundToInt (Input.acceleration.x * 4) < 0) {
+					transform.rotation = Quaternion.Euler( 0, 180, 0);
+					movementKeyDown = true;
+				}
 			}
 
 
