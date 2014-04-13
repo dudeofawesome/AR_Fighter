@@ -36,9 +36,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 <<<<<<< HEAD
+<<<<<<< HEAD
 																																											GlobalSection(MonoDevelopProperties) = preSolution
 =======
 																																	GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																																															GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> Alpha-Kevin
 																										GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> FETCH_HEAD
 		StartupItem = Assembly-CSharp.csproj
