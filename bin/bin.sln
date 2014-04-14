@@ -37,6 +37,12 @@ Global
 	EndGlobalSection
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+																																																											GlobalSection(MonoDevelopProperties) = preSolution
+=======
+<<<<<<< HEAD
+>>>>>>> Alpha-Louis
 																																											GlobalSection(MonoDevelopProperties) = preSolution
 =======
 																																	GlobalSection(MonoDevelopProperties) = preSolution
@@ -45,6 +51,7 @@ Global
 >>>>>>> Alpha-Kevin
 																										GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> FETCH_HEAD
+>>>>>>> master
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

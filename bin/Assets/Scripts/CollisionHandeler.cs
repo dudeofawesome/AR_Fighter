@@ -15,11 +15,17 @@ public class CollisionHandeler : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider collision) {
-		collidingWith = collision.gameObject;
+		if (collision.gameObject.name == "AttackHitbox") {
+			collidingWith = collision.gameObject.transform.parent.gameObject;
+		}
+		else {
+			collidingWith = collision.gameObject;
+		}
 	}
 	
 	void OnTriggerExit (Collider collision) {
-		collidingWith = null;
+		if (collision.gameObject == collidingWith)
+			collidingWith = null;
 	}
 
 	void OnCollisionEnter (Collision collision) {
@@ -27,6 +33,7 @@ public class CollisionHandeler : MonoBehaviour {
 	}
 	
 	void OnCollisionExit (Collision collision) {
-		collidingWith = null;
+		if (collision.gameObject == collidingWith)
+			collidingWith = null;
 	}
 }
