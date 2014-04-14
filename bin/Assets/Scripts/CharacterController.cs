@@ -58,19 +58,17 @@ public class CharacterController : MonoBehaviour {
 
 
 				//Phone Controls
-				//#if UNITY_ANDROID
-					foreach (Touch _touch in Input.touches){
-						if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
-							rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
-							rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
-							if (!touchingGround)
-								doubleJumpUsed = true;
-						}
-						if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
-							currentAttack = new Player.Attack(this.gameObject);
-						}
+				foreach (Touch _touch in Input.touches){
+					if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
+						rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
+						rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+						if (!touchingGround)
+							doubleJumpUsed = true;
 					}
-				//#endif
+					if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
+						currentAttack = new Player.Attack(this.gameObject);
+					}
+				}
 			}
 			if (feet.GetComponent<CollisionHandeler>().collidingWith != null && (feet.GetComponent<CollisionHandeler>().collidingWith.layer == 8 || feet.GetComponent<CollisionHandeler>().collidingWith.layer == 9)) {
 				touchingGround = true;
@@ -106,15 +104,16 @@ public class CharacterController : MonoBehaviour {
 
 
 				// Phone controls
-				float _tilt = Mathf.Clamp (Mathf.RoundToInt (Input.acceleration.x * 4), -1, 1);
+				float _tilt = Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
+				print (_tilt);
 				if (_tilt > -0.1 && _tilt < 0.1)
 					_tilt = 0;
 				rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
-				if (Mathf.RoundToInt (Input.acceleration.x * 4) > 0) {
+				if (_tilt > 0) {
 					transform.rotation = Quaternion.Euler( 0, 0, 0);
 					movementKeyDown = true;
 				}
-				else if (Mathf.RoundToInt (Input.acceleration.x * 4) < 0) {
+				else if (_tilt < 0) {
 					transform.rotation = Quaternion.Euler( 0, 180, 0);
 					movementKeyDown = true;
 				}
@@ -126,7 +125,7 @@ public class CharacterController : MonoBehaviour {
 				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (1 - drag), rigidbody.velocity.y, 0);
 			}
 			else if (!touchingGround) {
-				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (0.95f), rigidbody.velocity.y, 0);
+				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (0.97f), rigidbody.velocity.y, 0);
 			}
 
 
