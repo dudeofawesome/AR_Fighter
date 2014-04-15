@@ -4,6 +4,7 @@ using System.Collections;
 public class CollisionHandeler : MonoBehaviour {
 
 	public GameObject collidingWith = null;
+	public Collision collisionObj = null;
 
 	// Use this for initialization
 	void Start () {
@@ -30,10 +31,13 @@ public class CollisionHandeler : MonoBehaviour {
 
 	void OnCollisionEnter (Collision collision) {
 		collidingWith = collision.gameObject;
+		collisionObj = collision;
 	}
 	
 	void OnCollisionExit (Collision collision) {
-		if (collision.gameObject == collidingWith)
+		if (collision.gameObject == collidingWith){
 			collidingWith = null;
+			collisionObj = null;
+		}
 	}
 }

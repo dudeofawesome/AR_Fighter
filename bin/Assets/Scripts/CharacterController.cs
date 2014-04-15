@@ -10,6 +10,8 @@ public class CharacterController : MonoBehaviour {
 	public float drag = 0.15f;
 
 	public GameObject feet = null;
+	public GameObject attackHitbox = null;
+	public GameObject ledgeGrabHitbox = null;
 
 	public float damage = 100;
 	public bool stunned = false;
@@ -24,6 +26,7 @@ public class CharacterController : MonoBehaviour {
 
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
+	public bool ledgeHanging = false;
 
 	private GameObject touchingEnemy = null;
 
@@ -40,36 +43,77 @@ public class CharacterController : MonoBehaviour {
 	void Update () {
 		if (!stunned){
 			if (controlMe) {
-				if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
-					rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
-					rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
-					if (!touchingGround)
-						doubleJumpUsed = true;
-				}
-				if (Input.GetKeyDown (keyDown)) {
-					transform.localScale = new Vector3(0.2f, 0.1f, 0.2f);
-				}
-				if (Input.GetKeyUp (keyDown)) {
-					transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-				}
-				if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
-					currentAttack = new Player.Attack(this.gameObject);
-				}
-
-
-				//Phone Controls
-				foreach (Touch _touch in Input.touches){
-					if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
+				if (!ledgeHanging){
+					if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
 						rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
 						rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
 						if (!touchingGround)
 							doubleJumpUsed = true;
 					}
-					if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
+					if (Input.GetKeyDown (keyDown)) {
+						transform.localScale = new Vector3(0.2f, 0.1f, 0.2f);
+					}
+					if (Input.GetKeyUp (keyDown)) {
+						transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+					}
+					if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
 						currentAttack = new Player.Attack(this.gameObject);
+					}
+
+
+					//Phone Controls
+					foreach (Touch _touch in Input.touches){
+						if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
+							rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
+							rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+							if (!touchingGround)
+								doubleJumpUsed = true;
+						}
+						if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
+							currentAttack = new Player.Attack(this.gameObject);
+						}
 					}
 				}
 			}
+
+			if (!touchingGround) {
+				GameObject _ledge = ledgeGrabHitbox.GetComponent<CollisionHandeler>().collidingWith;
+				if (_ledge != null && rigidbody.velocity.y <= 0 && _ledge.tag == "LedgeGrab") {
+					rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+					rigidbody.velocity = new Vector3(0, 0, 0);
+					ledgeHanging = true;
+					transform.position = new Vector3(transform.position.x, _ledge.transform.position.y, 0);
+				}
+			}
+
+			if (ledgeHanging) {
+				if (Input.GetKeyDown (keyUp)) {
+					rigidbody.AddForce(0, jumpForce, 0);
+					rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+					ledgeHanging = false;
+				}
+				if (Input.GetKeyDown (keyDown)) {
+//					transform.position = new Vector3(transform.position.x, transform.position.y - 2, 0);
+					stunned = true;
+					stunnedCountDown = 15;
+					rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+					ledgeHanging = false;
+				}
+
+
+				//Phone controls
+				foreach (Touch _touch in Input.touches){
+					if (_touch.phase == TouchPhase.Began && _touch.position.x > Screen.width / 2) {
+						rigidbody.AddForce(0, jumpForce, 0);
+						rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+						ledgeHanging = false;
+					}
+//					if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
+//						currentAttack = new Player.Attack(this.gameObject);
+//					}
+				}
+			}
+			
 			if (feet.GetComponent<CollisionHandeler>().collidingWith != null && (feet.GetComponent<CollisionHandeler>().collidingWith.layer == 8 || feet.GetComponent<CollisionHandeler>().collidingWith.layer == 9)) {
 				touchingGround = true;
 				doubleJumpUsed = false;
@@ -105,7 +149,6 @@ public class CharacterController : MonoBehaviour {
 
 				// Phone controls
 				float _tilt = Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
-				print (_tilt);
 				if (_tilt > -0.1 && _tilt < 0.1)
 					_tilt = 0;
 				rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
@@ -164,6 +207,6 @@ public class CharacterController : MonoBehaviour {
 //	}
 
 	public GameObject attackLanded () {
-		return GameObject.Find (gameObject.name + "/AttackHitbox").GetComponent<CollisionHandeler> ().collidingWith;
+		return attackHitbox.GetComponent<CollisionHandeler> ().collidingWith;
 	}
 }
