@@ -7,7 +7,7 @@ public class MainMenuGUI : MonoBehaviour {
 
 	public string mainLevel;
 
-	public enum MenuState {MAIN, SETTINGS, LEVELLOADER};
+	public enum MenuState {MAIN, LEVELLOADER, SETTINGS, HOWTOPLAY};
 
 	public MenuState menuPosition = MenuState.MAIN;
 
@@ -48,34 +48,46 @@ public class MainMenuGUI : MonoBehaviour {
 			
 		case MenuState.MAIN:
 			
-			GUI.Box (new Rect(0, 0, 800, 480), "");
+			//GUI.Box (new Rect(0, 0, 800, 480), "");
 			
 			GUI.Label (new Rect(50, 50, 300, 300), "TITLE");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 			
 			if(GUI.Button (new Rect(450, 50, 300, 70), "Start")){
 				menuPosition = MenuState.LEVELLOADER;
-				Application.LoadLevel (mainLevel);
+
 				
 			}
 			else if(GUI.Button (new Rect(450, 150, 300, 70), "Settings")){
 				menuPosition = MenuState.SETTINGS;
-				Application.LoadLevel (mainLevel);
+
 				
 			}
-			else if(GUI.Button (new Rect(450, 250, 300, 70), "Exit")){
+			else if(GUI.Button (new Rect(450,250, 300, 70), "How To Play")){
+				menuPosition = MenuState.HOWTOPLAY;
+
+
+			}
+
+			else if(GUI.Button (new Rect(450, 350, 300, 70), "Exit")){
 				//QUIT GAME
 			}
 			
 			
 			break;
 		case MenuState.SETTINGS:
-			
+			GUI.Box (new Rect(50,20, 700, 70), "Set Visual Effects Intensity");
+			GUI.Box (new Rect(30, 90, 770, 390),"");
 			break;
 		case MenuState.LEVELLOADER:
-			GUI.Label (new Rect(100, 100, 100, 50), "Level Loader");
-			
+			GUI.Box (new Rect(50, 20, 500, 70), "Select Visual Style");
+			GUI.Box (new Rect(30, 90, 770, 390),"");
 			break;
+		case MenuState.HOWTOPLAY:
+			GUI.Box(new Rect(50, 20, 500, 70), "How To Play");
+			GUI.Box (new Rect(30, 90, 770, 390),"");
+			break;
+		
 		}
 
 

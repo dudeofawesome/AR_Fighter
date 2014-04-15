@@ -1,11 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MainMenuGUI.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RotateAroundByAccel.cs">
     <Files>
-      <File FileName="Assets/MainMenuGUI.cs" Line="51" Column="36" />
+      <File FileName="Assets/Scripts/RotateAroundByAccel.cs" Line="44" Column="63" />
       <File FileName="Assets/Scripts/ChangeMainPlatformPosition.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ChangeTowerPosition.cs" Line="1" Column="1" />
-      <File FileName="Assets/CollisionHandeler.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/CharacterController.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Attack.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ChangeFloatingPlatformPosition.cs" Line="1" Column="1" />
@@ -13,15 +12,7 @@
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Qualcomm Augmented Reality" expanded="True">
-              <Node name="Scripts" expanded="True" />
-            </Node>
-            <Node name="Scripts" expanded="True" />
-            <Node name="MainMenuGUI.cs" selected="True" />
-          </Node>
-        </State>
+        <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
