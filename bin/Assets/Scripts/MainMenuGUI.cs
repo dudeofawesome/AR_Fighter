@@ -19,6 +19,9 @@ public class MainMenuGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (!Application.genuine) {
+			print ("thief :P");
+		}
 
 		Screen.orientation = ScreenOrientation.LandscapeRight;
 
@@ -33,7 +36,6 @@ public class MainMenuGUI : MonoBehaviour {
 
 
 	void OnGUI () {
-
 		GUI.skin = guiSkin;
 
 		scale.x = Screen.width/originalWidth; // calculate hor scale
@@ -71,6 +73,7 @@ public class MainMenuGUI : MonoBehaviour {
 
 			else if(GUI.Button (new Rect(450, 350, 300, 70), "Exit")){
 				//QUIT GAME
+				Application.Quit();
 			}
 			
 			
