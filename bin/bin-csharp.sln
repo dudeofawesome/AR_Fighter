@@ -23,8 +23,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-<<<<<<< HEAD
-																																																													GlobalSection(MonoDevelopProperties) = preSolution
+																																																															GlobalSection(MonoDevelopProperties) = preSolution
 =======
 																																																															GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> FETCH_HEAD
@@ -34,22 +33,13 @@ Global
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-																																												GlobalSection(MonoDevelopProperties) = preSolution
 =======
-																																		GlobalSection(MonoDevelopProperties) = preSolution
-																											GlobalSection(MonoDevelopProperties) = preSolution
->>>>>>> FETCH_HEAD
+																																																											GlobalSection(MonoDevelopProperties) = preSolution
 =======
-																																																GlobalSection(MonoDevelopProperties) = preSolution
-																										GlobalSection(MonoDevelopProperties) = preSolution
->>>>>>> Alpha-Kevin
-=======
-																																																												GlobalSection(MonoDevelopProperties) = preSolution
-=======
-																																																																GlobalSection(MonoDevelopProperties) = preSolution
+																																																															GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> Alpha-Louis
 =======
-																																																																GlobalSection(MonoDevelopProperties) = preSolution
+																																																															GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> origin/Alpha-Vik
 >>>>>>> master
 =======
