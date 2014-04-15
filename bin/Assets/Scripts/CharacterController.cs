@@ -82,6 +82,21 @@ public class CharacterController : MonoBehaviour {
 			if (movementKeyDown && (rigidbody.velocity.x > 20f || rigidbody.velocity.x < -20f))
 				rigidbody.velocity = new Vector3 (Mathf.Clamp (rigidbody.velocity.x, -20f, 20f), rigidbody.velocity.y, 0);
 		}
+
+			// Right Boundary
+		if (transform.position.x > ((GameObject.Find ("Ground").transform.position.x) * 2) + 6 && transform.position.y < - 40){
+					transform.position = new Vector3 (0, 5, 0);
+			}
+		// Left Boundary
+		if (transform.position.x < - 6 && transform.position.y < - 40){
+			transform.position = new Vector3 (0, 5, 0);
+		}
+
+		//If it falls down below anways
+		if (transform.position.y < - 40) {
+			transform.position = new Vector3 (0, 5, 0);
+		}
+
 	}
 
 	void FixedUpdate () {
