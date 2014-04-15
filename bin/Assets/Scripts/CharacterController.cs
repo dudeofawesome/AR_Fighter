@@ -99,6 +99,8 @@ public class CharacterController : MonoBehaviour {
 
 	}
 
+
+
 	void FixedUpdate () {
 		if (!stunned) {
 			movementKeyDown = false;
