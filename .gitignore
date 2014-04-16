@@ -12,3 +12,5 @@
 /bin/*.pidb
 /bin/*.booproj
 */thumbs.db
+*.csproj
+*.sln
