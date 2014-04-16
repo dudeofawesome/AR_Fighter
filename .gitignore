@@ -16,3 +16,5 @@
 *.sln
 *.sln
 *.sln
+bin/bin-csharp.sln
+bin/bin.sln
