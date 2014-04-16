@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour {
 	public GameObject attackHitbox = null;
 	public GameObject ledgeGrabHitbox = null;
 
-	public float damage = 100;
+	public float damage = 0;
 	public bool stunned = false;
 	private int stunnedCountDown = 30;
 
@@ -127,20 +127,10 @@ public class CharacterController : MonoBehaviour {
 				rigidbody.velocity = new Vector3 (Mathf.Clamp (rigidbody.velocity.x, -20f, 20f), rigidbody.velocity.y, 0);
 		}
 
-			// Right Boundary
-		if (transform.position.x > ((GameObject.Find ("Ground/LedgeGrabRight").transform.position.x)) + 6 && transform.position.y < - 40){
-			transform.position = new Vector3 (0, 5, 0);
+		// Right Boundary
+		if (transform.position.x < -40 || transform.position.x > ((GameObject.Find ("Ground/LedgeGrabRight").transform.position.x)) + 40 || transform.position.y < - 40 || transform.position.y > 80){
+			respawn();
 		}
-		// Left Boundary
-		if (transform.position.x < - 6 && transform.position.y < - 40){
-			transform.position = new Vector3 (0, 5, 0);
-		}
-
-		//If it falls down below anways
-		if (transform.position.y < - 40) {
-			transform.position = new Vector3 (0, 5, 0);
-		}
-
 	}
 
 	void FixedUpdate () {
@@ -190,7 +180,7 @@ public class CharacterController : MonoBehaviour {
 						//Rotate to face
 						transform.rotation = Quaternion.Euler( 0, ((player.transform.position.x > transform.position.x) ? 0 : 180), 0);
 						//Consider attacking
-						if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 3f)) {
+						if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f)) {
 							if (currentAttack == null) {
 								currentAttack = new Player.Attack(this.gameObject);
 							}
@@ -233,6 +223,18 @@ public class CharacterController : MonoBehaviour {
 			if (stunnedCountDown <= 0)
 				stunned = false;
 		}
+	}
+
+	private void respawn () {
+		transform.position = new Vector3 (0, 5, 0);
+		rigidbody.velocity = new Vector3(0, 0, 0);
+		damage = 0;
+		stunned = false;
+		touchingGround = false;
+		doubleJumpUsed = false;
+		ledgeHanging = false;
+		touchingEnemy = null;
+		currentAttack = null;
 	}
 
 	public void hurt (float damage, Vector3 source) {
