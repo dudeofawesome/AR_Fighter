@@ -94,7 +94,6 @@ public class CharacterController : MonoBehaviour {
 					ledgeHanging = false;
 				}
 				if (Input.GetKeyDown (keyDown)) {
-//					transform.position = new Vector3(transform.position.x, transform.position.y - 2, 0);
 					stunned = true;
 					stunnedCountDown = 15;
 					rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
@@ -175,6 +174,40 @@ public class CharacterController : MonoBehaviour {
 						transform.rotation = Quaternion.Euler( 0, 180, 0);
 						movementKeyDown = true;
 					}
+<<<<<<< HEAD
+=======
+				}
+			}
+			// AI !!!
+			else {
+				GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+				foreach (GameObject player in players) {
+					if (player.name != gameObject.name) {
+						//Track to this player
+						rigidbody.AddForce(new Vector3(movementForce * ((player.transform.position.x > transform.position.x) ? 1 : -1),0,0));
+						movementKeyDown = true;
+						//Rotate to face
+						transform.rotation = Quaternion.Euler( 0, ((player.transform.position.x > transform.position.x) ? 0 : 180), 0);
+						//Consider attacking
+						if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 3f)) {
+							if (currentAttack == null) {
+								currentAttack = new Player.Attack(this.gameObject);
+							}
+						}
+						//Decide whether or not to drop off ledge
+						if (ledgeHanging && Random.Range(0,50) == 0) {
+							stunned = true;
+							stunnedCountDown = 15;
+							rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+							ledgeHanging = false;
+						}
+						else if (ledgeHanging && Random.Range(0,50) == 0) {
+							rigidbody.AddForce(0, jumpForce, 0);
+							rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+							ledgeHanging = false;
+						}
+					}
+>>>>>>> Alpha-Louis
 				}
 			}
 

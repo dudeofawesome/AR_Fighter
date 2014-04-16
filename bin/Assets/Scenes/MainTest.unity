@@ -3061,7 +3061,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlMe: 1
+<<<<<<< HEAD
   jumpForce: 250000
+=======
+  jumpForce: 240000
+>>>>>>> Alpha-Louis
   movementForce: 7000
   drag: .150000006
   feet: {fileID: 1146805881}
@@ -5878,7 +5882,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlMe: 1
+<<<<<<< HEAD
   jumpForce: 250000
+=======
+  jumpForce: 240000
+>>>>>>> Alpha-Louis
   movementForce: 7000
   drag: .150000006
   feet: {fileID: 1406476989}
