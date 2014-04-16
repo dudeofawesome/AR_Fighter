@@ -128,9 +128,9 @@ public class CharacterController : MonoBehaviour {
 		}
 
 			// Right Boundary
-		if (transform.position.x > ((GameObject.Find ("Ground").transform.position.x) * 2) + 6 && transform.position.y < - 40){
-					transform.position = new Vector3 (0, 5, 0);
-			}
+		if (transform.position.x > ((GameObject.Find ("Ground/LedgeGrabRight").transform.position.x)) + 6 && transform.position.y < - 40){
+			transform.position = new Vector3 (0, 5, 0);
+		}
 		// Left Boundary
 		if (transform.position.x < - 6 && transform.position.y < - 40){
 			transform.position = new Vector3 (0, 5, 0);
@@ -184,7 +184,8 @@ public class CharacterController : MonoBehaviour {
 				foreach (GameObject player in players) {
 					if (player.name != gameObject.name) {
 						//Track to this player
-						rigidbody.AddForce(new Vector3(movementForce * ((player.transform.position.x > transform.position.x) ? 1 : -1),0,0));
+						if (player.transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x && player.transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x)
+							rigidbody.AddForce(new Vector3(movementForce * ((player.transform.position.x > transform.position.x) ? 1 : -1),0,0));
 						movementKeyDown = true;
 						//Rotate to face
 						transform.rotation = Quaternion.Euler( 0, ((player.transform.position.x > transform.position.x) ? 0 : 180), 0);
