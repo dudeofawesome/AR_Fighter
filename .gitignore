@@ -11,4 +11,4 @@
 /bin/*.userprefs
 /bin/*.pidb
 /bin/*.booproj
-*thumbs.db
+*/thumbs.db
