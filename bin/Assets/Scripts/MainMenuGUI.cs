@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MainMenuGUI : MonoBehaviour {
 
-	public GUISkin guiSkin;
+	public GUISkin guiSkin, verticalSkin;
 
 	public string mainLevel;
 
@@ -15,6 +15,8 @@ public class MainMenuGUI : MonoBehaviour {
 	private float originalWidth = 800; 
 	private float originalHeight = 480; 
 	private Vector3 scale; 
+
+
 
 
 	// Use this for initialization
@@ -79,8 +81,26 @@ public class MainMenuGUI : MonoBehaviour {
 			
 			break;
 		case MenuState.SETTINGS:
+			GUI.skin = verticalSkin;
+
 			GUI.Box (new Rect(50,20, 700, 70), "Set Visual Effects Intensity");
 			GUI.Box (new Rect(30, 90, 770, 390),"");
+			var names = QualitySettings.names;
+
+
+			GUILayout.BeginArea (new Rect (120, 100, 680, 600));
+			for (var i = 0; i < names.Length; i++)
+			{
+				if (GUILayout.Button (names[i]))
+					QualitySettings.SetQualityLevel (i, true);
+			}
+			GUILayout.EndArea ();
+
+			if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.MAIN;
+			}
+
+
 			break;
 		case MenuState.LEVELLOADER:
 			GUI.Box (new Rect(50, 20, 500, 70), "Select Visual Style");
