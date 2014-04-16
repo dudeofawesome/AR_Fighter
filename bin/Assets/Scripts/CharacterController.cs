@@ -82,7 +82,8 @@ public class CharacterController : MonoBehaviour {
 					rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 					rigidbody.velocity = new Vector3(0, 0, 0);
 					ledgeHanging = true;
-					transform.position = new Vector3(transform.position.x, _ledge.transform.position.y, 0);
+					transform.position = new Vector3(_ledge.transform.position.x + (_ledge.transform.forward.x * 3000000), _ledge.transform.position.y, 0);
+					print(_ledge.transform.forward.x);
 				}
 			}
 
@@ -147,38 +148,38 @@ public class CharacterController : MonoBehaviour {
 		if (!stunned) {
 			movementKeyDown = false;
 			if (controlMe) {
-				if (Input.GetKey (keyLeft)) {
-		//			Player.transform.position = new Vector3(Player1.transform.position.x - 0.5f,Player1.transform.position.y,Player1.transform.position.z);
-					rigidbody.AddForce(new Vector3(movementForce * -1,0,0));
-					transform.rotation = Quaternion.Euler( 0, 180, 0);
-					movementKeyDown = true;
-				}
-				if (Input.GetKey (keyRight)) {
-		//			Player.transform.position = new Vector3(Player.transform.position.x + 0.5f,Player.transform.position.y,Player.transform.position.z);
-					rigidbody.AddForce(new Vector3(movementForce,0,0));
-					transform.rotation = Quaternion.Euler( 0, 0, 0);
-					movementKeyDown = true;
-				}
+				if (!ledgeHanging){
+					if (Input.GetKey (keyLeft)) {
+						rigidbody.AddForce(new Vector3(movementForce * -1,0,0));
+						transform.rotation = Quaternion.Euler( 0, 180, 0);
+						movementKeyDown = true;
+					}
+					if (Input.GetKey (keyRight)) {
+						rigidbody.AddForce(new Vector3(movementForce,0,0));
+						transform.rotation = Quaternion.Euler( 0, 0, 0);
+						movementKeyDown = true;
+					}
 
 
 
-				// Phone controls
-				float _tilt = Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
-				if (_tilt > -0.1 && _tilt < 0.1)
-					_tilt = 0;
-				rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
-				if (_tilt > 0) {
-					transform.rotation = Quaternion.Euler( 0, 0, 0);
-					movementKeyDown = true;
-				}
-				else if (_tilt < 0) {
-					transform.rotation = Quaternion.Euler( 0, 180, 0);
-					movementKeyDown = true;
+					// Phone controls
+					float _tilt = Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
+					if (_tilt > -0.1 && _tilt < 0.1)
+						_tilt = 0;
+					rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
+					if (_tilt > 0) {
+						transform.rotation = Quaternion.Euler( 0, 0, 0);
+						movementKeyDown = true;
+					}
+					else if (_tilt < 0) {
+						transform.rotation = Quaternion.Euler( 0, 180, 0);
+						movementKeyDown = true;
+					}
 				}
 			}
 
 
-
+			// Drag
 			if (!movementKeyDown && touchingGround) {
 				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (1 - drag), rigidbody.velocity.y, 0);
 			}
