@@ -183,6 +183,13 @@ public class CharacterController : MonoBehaviour {
 								currentAttack = new Player.Attack(this.gameObject);
 							}
 						}
+						//Decide whether or not to take a chance and jump (this is not pathing jumping)
+						if (Random.Range(0,500) == 0){
+							rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
+							rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+							if (!touchingGround)
+								doubleJumpUsed = true;
+						}
 						//Decide whether or not to drop off ledge
 						if (ledgeHanging && Random.Range(0,50) == 0) {
 							stunned = true;
