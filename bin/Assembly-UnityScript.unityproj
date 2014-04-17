@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{D51B61B7-13E7-63B3-C700-F5A7F3EEB244}</ProjectGuid>
+	<ProjectGuid>{42805026-8894-0BF7-22C6-4844907A437B}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,39 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CloudRecoBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CylinderTargetBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\DataSetLoadBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\DefaultInitializationErrorHandler.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\DefaultTrackableEventHandler.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\GLErrorHandler.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\ImageTargetBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\AndroidUnityPlayer.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\BGRenderingBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\ComponentFactoryStarterBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\VuforiaBehaviourComponentFactory.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\KeepAliveBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\MarkerBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\MaskOutBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\MultiTargetBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\QCARBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\SetBGCameraLayerBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TextRecoBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TurnOffBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TurnOffWordBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\UserDefinedTargetBuildingBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\VirtualButtonBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WebCamBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WordBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Attack.cs" />
-     <Compile Include="Assets\Scripts\ChangeFloatingPlatformPosition.cs" />
-     <Compile Include="Assets\Scripts\ChangeMainPlatformPosition.cs" />
-     <Compile Include="Assets\Scripts\ChangeTowerPosition.cs" />
-     <Compile Include="Assets\Scripts\CharacterController.cs" />
-     <Compile Include="Assets\Scripts\CollisionHandeler.cs" />
-     <Compile Include="Assets\Scripts\InputManager.cs" />
-     <Compile Include="Assets\Scripts\MainMenuGUI.cs" />
-     <Compile Include="Assets\Scripts\RotateAroundByAccel.cs" />
+     <Compile Include="Assets\GUITouchScroll\GUITouchScrollJS.js" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\license_3rdpartynotice.txt" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\RenderVideoBackground.shader" />
@@ -91,12 +59,13 @@
      <None Include="Assets\StreamingAssets\QCAR\unity.txt" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\BrightTexture.shader" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\Text3D.shader" />
- <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
- <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
  <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
  <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
+      <Project>{E6E97609-E598-9DC3-D957-B36941D7E49B}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
