@@ -164,8 +164,6 @@ public class CharacterController : MonoBehaviour {
 						transform.rotation = Quaternion.Euler( 0, 180, 0);
 						movementKeyDown = true;
 					}
-<<<<<<< HEAD
-=======
 				}
 			}
 			// AI !!!
@@ -205,7 +203,6 @@ public class CharacterController : MonoBehaviour {
 							ledgeHanging = false;
 						}
 					}
->>>>>>> Alpha-Louis
 				}
 			}
 
