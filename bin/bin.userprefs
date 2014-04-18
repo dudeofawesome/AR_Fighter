@@ -1,33 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CharacterController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MainMenuGUI.cs">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets/Scripts/CharacterController.cs" Line="262" Column="1" />
+      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="60" Column="3" />
     </Files>
-=======
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="54" Column="4" />
-      <File FileName="Assets/Scripts/RotateAroundByAccel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ChangeMainPlatformPosition.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ChangeTowerPosition.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CharacterController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Attack.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ChangeFloatingPlatformPosition.cs" Line="1" Column="1" />
-      <File FileName="Assets/Qualcomm Augmented Reality/Scripts/DefaultTrackableEventHandler.cs" Line="1" Column="1" />
-    </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="GUITouchScroll" expanded="True" />
-            <Node name="Scripts" expanded="True">
-              <Node name="MainMenuGUI.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
->>>>>>> Alpha-Kevin
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
