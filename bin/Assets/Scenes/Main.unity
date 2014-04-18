@@ -5753,9 +5753,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1603656812}
   - 33: {fileID: 1603656817}
-  - 65: {fileID: 1603656816}
   - 23: {fileID: 1603656815}
   - 114: {fileID: 1603656814}
+  - 65: {fileID: 1603656816}
   - 54: {fileID: 1603656813}
   m_Layer: 9
   m_Name: Player2
@@ -5813,6 +5813,7 @@ MonoBehaviour:
   ledgeGrabHitbox: {fileID: 222259455}
   damage: 0
   stunned: 0
+  carefulness: 10
   keyUp: w
   keyLeft: a
   keyDown: s
@@ -8484,6 +8485,7 @@ MonoBehaviour:
   ledgeGrabHitbox: {fileID: 906173561}
   damage: 0
   stunned: 0
+  carefulness: 10
   keyUp: up
   keyLeft: left
   keyDown: down
