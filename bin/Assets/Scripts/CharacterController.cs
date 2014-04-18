@@ -16,6 +16,7 @@ public class CharacterController : MonoBehaviour {
 	public float damage = 0;
 	public bool stunned = false;
 	private int stunnedCountDown = 30;
+	public int carefulness = 10;
 
 	public string keyUp = "w";
 	public string keyLeft = "a";
@@ -43,35 +44,27 @@ public class CharacterController : MonoBehaviour {
 	void Update () {
 		if (!stunned){
 			if (controlMe) {
-				if (!ledgeHanging){
-					if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
-						rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
-						rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
-						if (!touchingGround)
-							doubleJumpUsed = true;
-					}
-					if (Input.GetKeyDown (keyDown)) {
-						transform.localScale = new Vector3(0.2f, 0.1f, 0.2f);
-					}
-					if (Input.GetKeyUp (keyDown)) {
-						transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-					}
-					if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
-						currentAttack = new Player.Attack(this.gameObject);
-					}
+				if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
+					jump();
+				}
+				if (Input.GetKeyDown (keyDown)) {
+					crouch(true);
+				}
+				if (Input.GetKeyUp (keyDown)) {
+					crouch(false);
+				}
+				if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
+					attack();
+				}
 
 
-					//Phone Controls
-					foreach (Touch _touch in Input.touches){
-						if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
-							rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
-							rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
-							if (!touchingGround)
-								doubleJumpUsed = true;
-						}
-						if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
-							currentAttack = new Player.Attack(this.gameObject);
-						}
+				//Phone Controls
+				foreach (Touch _touch in Input.touches){
+					if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
+						jump();
+					}
+					if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
+						attack();
 					}
 				}
 			}
@@ -89,28 +82,10 @@ public class CharacterController : MonoBehaviour {
 
 			if (ledgeHanging) {
 				if (Input.GetKeyDown (keyUp)) {
-					rigidbody.AddForce(0, jumpForce, 0);
-					rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-					ledgeHanging = false;
+					jump();
 				}
 				if (Input.GetKeyDown (keyDown)) {
-					stunned = true;
-					stunnedCountDown = 15;
-					rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-					ledgeHanging = false;
-				}
-
-
-				//Phone controls
-				foreach (Touch _touch in Input.touches){
-					if (_touch.phase == TouchPhase.Began && _touch.position.x > Screen.width / 2) {
-						rigidbody.AddForce(0, jumpForce, 0);
-						rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-						ledgeHanging = false;
-					}
-//					if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
-//						currentAttack = new Player.Attack(this.gameObject);
-//					}
+					crouch(true);
 				}
 			}
 			
@@ -139,14 +114,10 @@ public class CharacterController : MonoBehaviour {
 			if (controlMe) {
 				if (!ledgeHanging){
 					if (Input.GetKey (keyLeft)) {
-						rigidbody.AddForce(new Vector3(movementForce * -1,0,0));
-						transform.rotation = Quaternion.Euler( 0, 180, 0);
-						movementKeyDown = true;
+						move(true, 1);
 					}
 					if (Input.GetKey (keyRight)) {
-						rigidbody.AddForce(new Vector3(movementForce,0,0));
-						transform.rotation = Quaternion.Euler( 0, 0, 0);
-						movementKeyDown = true;
+						move(false, 1);
 					}
 
 
@@ -168,39 +139,33 @@ public class CharacterController : MonoBehaviour {
 			}
 			// AI !!!
 			else {
+				// Find all players
 				GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 				foreach (GameObject player in players) {
 					if (player.name != gameObject.name) {
-						//Track to this player
-						if (player.transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x && player.transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x)
-							rigidbody.AddForce(new Vector3(movementForce * ((player.transform.position.x > transform.position.x) ? 1 : -1),0,0));
-						movementKeyDown = true;
-						//Rotate to face
-						transform.rotation = Quaternion.Euler( 0, ((player.transform.position.x > transform.position.x) ? 0 : 180), 0);
+						//Track to this player if it's not near the edge of the platform
+						if (player.transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x && player.transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x){
+							if (!((transform.position.x > GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 5 && transform.rotation.y == 0) || (transform.position.x < 5 && transform.rotation.y == 0))) {
+								move(player.transform.position.x > transform.position.x ? false : true, 1);
+							}
+							else{
+								move(player.transform.position.x > transform.position.x ? false : true, (transform.rotation.y == 0) ? (GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - transform.position.x) / (carefulness * 1) : (transform.position.x - GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x) / (carefulness * 1));
+							}
+						}
 						//Consider attacking
 						if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f)) {
-							if (currentAttack == null) {
-								currentAttack = new Player.Attack(this.gameObject);
-							}
+							attack();
 						}
 						//Decide whether or not to take a chance and jump (this is not pathing jumping)
 						if (Random.Range(0,500) == 0){
-							rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
-							rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
-							if (!touchingGround)
-								doubleJumpUsed = true;
+							jump();
 						}
 						//Decide whether or not to drop off ledge
 						if (ledgeHanging && Random.Range(0,50) == 0) {
-							stunned = true;
-							stunnedCountDown = 15;
-							rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-							ledgeHanging = false;
+							crouch(true);
 						}
 						else if (ledgeHanging && Random.Range(0,50) == 0) {
-							rigidbody.AddForce(0, jumpForce, 0);
-							rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-							ledgeHanging = false;
+							jump();
 						}
 					}
 				}
@@ -241,13 +206,53 @@ public class CharacterController : MonoBehaviour {
 		currentAttack = null;
 	}
 
+	private void move (bool left, float speed) {
+		rigidbody.AddForce(new Vector3(movementForce * (left ? -1 : 1) * speed,0,0));
+		transform.rotation = Quaternion.Euler( 0, (left ? 180 : 0), 0);
+		movementKeyDown = true;
+	}
+
+	private void jump () {
+		if (!ledgeHanging) {
+			rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
+			rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+			if (!touchingGround)
+				doubleJumpUsed = true;
+		}
+		else{
+			rigidbody.AddForce(0, jumpForce, 0);
+			rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+			ledgeHanging = false;
+		}
+	}
+
+	private void crouch (bool down) {
+		if (!ledgeHanging){
+			if (down)
+				transform.localScale = new Vector3(0.2f, 0.1f, 0.2f);
+			else
+				transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+		}
+		else {
+			stunned = true;
+			stunnedCountDown = 15;
+			rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+			ledgeHanging = false;
+		}
+	}
+
+	private void attack () {
+		if (currentAttack == null)
+			currentAttack = new Player.Attack(this.gameObject);
+	}
+
 	public void hurt (float damage, Vector3 source) {
 		this.damage += damage;
 		if (damage > 20) {
 			stunned = true;
 			stunnedCountDown = (int) damage;
 		}
-		rigidbody.AddForce (movementForce * this.damage * ((source.x > 0) ? -1 : 1), jumpForce / 40 * this.damage, 0);
+		rigidbody.AddForce (movementForce * this.damage * (damage / 10) * ((source.x > 0) ? -1 : 1), jumpForce / 40 * this.damage, 0);
 	}
 
 //	void OnCollisionEnter (Collision collision) {

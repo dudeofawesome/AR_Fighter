@@ -6,7 +6,7 @@ namespace Player {
 		private int warmup = 0;
 		private int cooldown = 10;
 
-		private int damage = 20;
+		private int damage = 10;
 
 		private GameObject parent;
 
