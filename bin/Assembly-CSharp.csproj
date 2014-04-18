@@ -78,6 +78,7 @@
      <Compile Include="Assets\Scripts\CollisionHandeler.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\MainMenuGUI.cs" />
+     <Compile Include="Assets\Scripts\RotateAroundByAccel.cs" />
      <Compile Include="Assets\Scripts\TestStarter.cs" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\license_3rdpartynotice.txt" />

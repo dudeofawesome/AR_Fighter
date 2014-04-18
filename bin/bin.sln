@@ -35,7 +35,23 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+																																																																																							GlobalSection(MonoDevelopProperties) = preSolution
+=======
+<<<<<<< HEAD
+																																																																																				GlobalSection(MonoDevelopProperties) = preSolution
+=======
+<<<<<<< HEAD
+																																																																																			GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> FETCH_HEAD
+>>>>>>> FETCH_HEAD
+=======
+																																															GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> FETCH_HEAD
+																										GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> Alpha-Kevin
+=======
 	GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> Alpha-Louis
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -53,4 +69,5 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
+
 EndGlobal
