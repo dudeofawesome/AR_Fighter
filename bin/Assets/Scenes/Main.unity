@@ -5790,7 +5790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05981207d1a04f49b64bd5f42169245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guiSkin: {fileID: 11400000, guid: 192434db35abe4affae30d72e15798fc, type: 2}
+  guiSkin: {fileID: 11400000, guid: f37051e2dc10c474b88f4369eb86e928, type: 2}
 --- !u!4 &1464610724
 Transform:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ namespace HUD {
 		public GameObject relatesTo = null;
 
 		public string text = "NULL";
+		public Texture image = null;
 
 		public enum ElementType {MESSAGE, OTHERTEXT, SCORE, HEALTH, LIVES, POSITIONINDICATOR, DEATHINDICATOR}
 		public ElementType type = ElementType.OTHERTEXT;
@@ -39,6 +40,7 @@ namespace HUD {
 				break;
 				case ElementType.DEATHINDICATOR :
 					displayTime = 60;
+					image = (Texture) Resources.Load("crap-flame", typeof(Texture2D));
 				break;
 			}
 		}

@@ -61,7 +61,29 @@ public class GameGUI : MonoBehaviour {
 		GUI.skin = guiSkin;
 		
 		foreach	(HUD.GUIelement element in GUIelements) {
-			GUI.Box(element.rectangle, element.text);
+			switch (element.type) {
+				case HUD.GUIelement.ElementType.MESSAGE :
+
+				break;
+				case HUD.GUIelement.ElementType.OTHERTEXT :
+
+				break;
+				case HUD.GUIelement.ElementType.SCORE :
+
+				break;
+				case HUD.GUIelement.ElementType.HEALTH :
+					GUI.Box(element.rectangle, element.text);
+				break;
+				case HUD.GUIelement.ElementType.LIVES :
+
+				break;
+				case HUD.GUIelement.ElementType.POSITIONINDICATOR :
+
+				break;
+				case HUD.GUIelement.ElementType.DEATHINDICATOR :
+					GUI.DrawTexture(element.rectangle, element.image);
+				break;
+			}
 		}
 	}
 
