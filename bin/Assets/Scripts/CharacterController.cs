@@ -195,7 +195,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	private void respawn () {
-		GameObject.Find("GUI").GetComponent<GameGUI>().onPlayerDeath(transform.position, rigidbody.velocity);
+		GameObject.Find("GUI").GetComponent<GameGUI>().onPlayerDeath(gameObject);
 		transform.position = new Vector3 (0, 5, 0);
 		rigidbody.velocity = new Vector3(0, 0, 0);
 		damage = 0;
