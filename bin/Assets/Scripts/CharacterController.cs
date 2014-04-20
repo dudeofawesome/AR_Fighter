@@ -102,7 +102,7 @@ public class CharacterController : MonoBehaviour {
 				rigidbody.velocity = new Vector3 (Mathf.Clamp (rigidbody.velocity.x, -20f, 20f), rigidbody.velocity.y, 0);
 		}
 
-		// Right Boundary
+		// Boundaries
 		if (transform.position.x < -40 || transform.position.x > ((GameObject.Find ("Ground/LedgeGrabRight").transform.position.x)) + 40 || transform.position.y < - 40 || transform.position.y > 80){
 			respawn();
 		}
@@ -195,6 +195,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	private void respawn () {
+		GameObject.Find("GUI").GetComponent<GameGUI>().onPlayerDeath(transform.position, rigidbody.velocity);
 		transform.position = new Vector3 (0, 5, 0);
 		rigidbody.velocity = new Vector3(0, 0, 0);
 		damage = 0;
