@@ -12,7 +12,7 @@ namespace HUD {
 		public string text = "NULL";
 		public Texture image = null;
 
-		public enum ElementType {MESSAGE, OTHERTEXT, SCORE, HEALTH, LIVES, POSITIONINDICATOR, DEATHINDICATOR}
+		public enum ElementType {MESSAGE, OTHERTEXT, SCORE, HEALTH, LIVES, POSITIONINDICATOR}
 		public ElementType type = ElementType.OTHERTEXT;
 
 		public GUIelement (ElementType type, Rect rectangle) {
@@ -37,10 +37,6 @@ namespace HUD {
 				break;
 				case ElementType.POSITIONINDICATOR :
 
-				break;
-				case ElementType.DEATHINDICATOR :
-					displayTime = 60;
-					image = (Texture) Resources.Load("crap-flame", typeof(Texture2D));
 				break;
 			}
 		}
@@ -68,9 +64,6 @@ namespace HUD {
 				break;
 				case ElementType.POSITIONINDICATOR :
 
-				break;
-				case ElementType.DEATHINDICATOR :
-					displayTime = 60;
 				break;
 			}
 		}

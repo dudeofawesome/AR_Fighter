@@ -76,6 +76,7 @@
      <Compile Include="Assets\Scripts\ChangeTowerPosition.cs" />
      <Compile Include="Assets\Scripts\CharacterController.cs" />
      <Compile Include="Assets\Scripts\CollisionHandeler.cs" />
+     <Compile Include="Assets\Scripts\DestroyParticlesOnEnd.cs" />
      <Compile Include="Assets\Scripts\GUIelement.cs" />
      <Compile Include="Assets\Scripts\GameGUI.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />

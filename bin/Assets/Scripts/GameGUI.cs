@@ -6,6 +6,9 @@ public class GameGUI : MonoBehaviour {
 	private List<HUD.GUIelement> GUIelements = new List<HUD.GUIelement>();
 
 	public GUISkin guiSkin;
+	public GameObject deathIndicator = null;
+
+	public bool paused = false;
 
 
 	// Use this for initialization
@@ -39,10 +42,13 @@ public class GameGUI : MonoBehaviour {
 				case HUD.GUIelement.ElementType.POSITIONINDICATOR :
 
 				break;
-				case HUD.GUIelement.ElementType.DEATHINDICATOR :
-					
-				break;
 			}
+		}
+
+		// Global keys
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			paused = !paused;
+			Time.timeScale = !paused ? 1 : 0;
 		}
 	}
 
@@ -80,14 +86,12 @@ public class GameGUI : MonoBehaviour {
 				case HUD.GUIelement.ElementType.POSITIONINDICATOR :
 
 				break;
-				case HUD.GUIelement.ElementType.DEATHINDICATOR :
-					GUI.DrawTexture(element.rectangle, element.image);
-				break;
 			}
 		}
 	}
 
 	public void onPlayerDeath (GameObject player) {
-		GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.DEATHINDICATOR, new Rect(Camera.main.WorldToScreenPoint(player.transform.position).x, Camera.main.WorldToScreenPoint(player.transform.position).y, 200, 200), player));
+		Instantiate(deathIndicator, player.transform.position, Quaternion.Euler(-90, Mathf.Atan2(10 - player.transform.position.y, GameObject.Find ("Ground/LedgeGrabRight").transform.position.x / 2 - player.transform.position.x), 0));
+		// GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.DEATHINDICATOR, new Rect(Camera.main.WorldToScreenPoint(player.transform.position).x, Camera.main.WorldToScreenPoint(player.transform.position).y, 200, 200), player));
 	}
 }
