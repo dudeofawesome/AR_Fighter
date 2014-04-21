@@ -44,7 +44,7 @@ public class CharacterController : MonoBehaviour {
 	void Update () {
 		if (!stunned){
 			if (controlMe) {
-				if (Input.GetKeyDown (keyUp) && !doubleJumpUsed) {
+				if (Input.GetKeyDown (keyUp) && (!doubleJumpUsed || ledgeHanging)) {
 					jump();
 				}
 				if (Input.GetKeyDown (keyDown)) {
@@ -60,13 +60,14 @@ public class CharacterController : MonoBehaviour {
 
 				//Phone Controls
 				foreach (Touch _touch in Input.touches){
-					if (_touch.phase == TouchPhase.Began && !doubleJumpUsed && _touch.position.x > Screen.width / 2) {
+					if (_touch.phase == TouchPhase.Began && (!doubleJumpUsed || ledgeHanging) && _touch.position.x > Screen.width / 2) {
 						jump();
 					}
 					if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
 						attack();
 					}
 				}
+
 			}
 
 			if (!touchingGround) {
@@ -80,15 +81,6 @@ public class CharacterController : MonoBehaviour {
 				}
 			}
 
-			if (ledgeHanging) {
-				if (Input.GetKeyDown (keyUp)) {
-					jump();
-				}
-				if (Input.GetKeyDown (keyDown)) {
-					crouch(true);
-				}
-			}
-			
 			if (feet.GetComponent<CollisionHandeler>().collidingWith != null && (feet.GetComponent<CollisionHandeler>().collidingWith.layer == 8 || feet.GetComponent<CollisionHandeler>().collidingWith.layer == 9)) {
 				touchingGround = true;
 				doubleJumpUsed = false;

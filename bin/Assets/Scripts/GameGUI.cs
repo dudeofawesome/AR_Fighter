@@ -47,12 +47,12 @@ public class GameGUI : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		foreach (HUD.GUIelement element in GUIelements) {
-			if (element.displayTime > 0) {
-				element.displayTime--;
+		for (int i = 0; i < GUIelements.Count; i++) {
+			if (GUIelements[i].displayTime > 0) {
+				GUIelements[i].displayTime--;
 			}
-			else if (element.displayTime != -1) {
-				GUIelements.Remove(element);
+			else if (GUIelements[i].displayTime != -1) {
+				GUIelements.RemoveAt(i);
 			}
 		}
 	}

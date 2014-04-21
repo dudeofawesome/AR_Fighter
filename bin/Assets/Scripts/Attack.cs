@@ -29,7 +29,7 @@ namespace Player {
 		}
 
 		private void performAttack() {
-			if (parent.GetComponent<CharacterController>().attackLanded() != null) {
+			if (parent.GetComponent<CharacterController>().attackLanded() != null && parent.GetComponent<CharacterController>().attackLanded().GetComponent<CharacterController>() != null) {
 				parent.GetComponent<CharacterController>().attackLanded().GetComponent<CharacterController>().hurt(damage, parent.transform.position - parent.GetComponent<CharacterController>().attackLanded().transform.position);
 			}
 		}
