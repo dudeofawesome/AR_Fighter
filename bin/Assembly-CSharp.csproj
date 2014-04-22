@@ -98,6 +98,15 @@
  <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
  <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
+ <Reference Include="Assets\AppWarpS2Unity">
+ <HintPath>Assets\AppWarpS2Unity.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\AppWarpS2UnityMobile">
+ <HintPath>Assets\AppWarpS2UnityMobile.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\AppWarpS2UnityWP8">
+ <HintPath>Assets\AppWarpS2UnityWP8.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
