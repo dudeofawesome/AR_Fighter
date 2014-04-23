@@ -4,6 +4,7 @@ using System.Collections;
 public class CollisionHandeler : MonoBehaviour {
 
 	public GameObject collidingWith = null;
+	public Collision collisionObj = null;
 
 	// Use this for initialization
 	void Start () {
@@ -15,10 +16,25 @@ public class CollisionHandeler : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider collision) {
-		collidingWith = collision.gameObject;
+		if (collision.gameObject.name != "AttackHitbox") {
+			collidingWith = collision.gameObject;
+		}
 	}
 	
 	void OnTriggerExit (Collider collision) {
-		collidingWith = null;
+		if (collision.gameObject == collidingWith)
+			collidingWith = null;
+	}
+
+	void OnCollisionEnter (Collision collision) {
+		collidingWith = collision.gameObject;
+		collisionObj = collision;
+	}
+	
+	void OnCollisionExit (Collision collision) {
+		if (collision.gameObject == collidingWith) {
+			collidingWith = null;
+			collisionObj = null;
+		}
 	}
 }

@@ -66,7 +66,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
 
     private void OnTrackingFound()
     {
-		if (mTrackableBehaviour.TrackableName == "PlatformRight") {
+		if (mTrackableBehaviour.TrackableName == "PlatformRight" && Time.timeScale == 0) {
 			Time.timeScale = 1;
 		}
 
@@ -91,7 +91,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
 
     private void OnTrackingLost()
     {
-		if (mTrackableBehaviour.TrackableName == "PlatformRight") {
+		if (mTrackableBehaviour.TrackableName == "PlatformRight" && Time.timeScale == 1) {
 			Time.timeScale = 0;
 		}
 

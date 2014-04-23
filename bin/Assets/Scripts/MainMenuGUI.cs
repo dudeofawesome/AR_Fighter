@@ -135,10 +135,12 @@ public class MainMenuGUI : MonoBehaviour {
 			
 			// Make four buttons - one in each corner. The coordinate system is defined
 			// by the last parameter to BeginScrollView.
-			GUI.Button (new Rect (0,0,340,70), "Dojo in the Trees");
+			if (GUI.Button (new Rect (0,0,340,70), "Dojo in the Trees")) {
+				Application.LoadLevel (mainLevel);
+			}
 			GUI.Button (new Rect (0,70,340,70), "Setting2");
 			GUI.Button (new Rect (0,140,340,70), "Setting3");
-			if(GUI.Button (new Rect (0,210,340,70), "Setting4")){
+			if (GUI.Button (new Rect (0,210,340,70), "Setting4")){
 				menuPosition = MenuState.MAIN;
 			}
 			GUI.Button (new Rect (0,280,340,70), "Setting5");
