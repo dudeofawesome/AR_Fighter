@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\GUIelement.cs" />
      <Compile Include="Assets\Scripts\GameGUI.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
+     <Compile Include="Assets\Scripts\LightFlicker.cs" />
      <Compile Include="Assets\Scripts\MainMenuGUI.cs" />
      <Compile Include="Assets\Scripts\RotateAroundByAccel.cs" />
      <Compile Include="Assets\Scripts\TestStarter.cs" />
@@ -89,6 +90,7 @@
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\RenderVideoBackground.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Plugins\release_history.txt" />
+     <None Include="Assets\HOTween_License.txt" />
      <None Include="Assets\Editor\QCAR\WebcamProfiles\profiles.xml" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\DepthMask.shader" />
      <None Include="Assets\StreamingAssets\QCAR\AR_Fighter.xml" />
@@ -101,6 +103,9 @@
  </Reference>
  <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
  <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\HOTween">
+ <HintPath>Assets\HOTween.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,8 +11,9 @@ namespace HUD {
 
 		public string text = "NULL";
 		public Texture image = null;
+		public Vector4 lineDef = new Vector4(0,0,0,0);
 
-		public enum ElementType {MESSAGE, OTHERTEXT, SCORE, HEALTH, LIVES, POSITIONINDICATOR}
+		public enum ElementType {MESSAGE, OTHERTEXT, SCORE, HEALTH, LIVES, POSITIONINDICATOR, LINE}
 		public ElementType type = ElementType.OTHERTEXT;
 
 		public GUIelement (ElementType type, Rect rectangle) {
@@ -37,6 +38,13 @@ namespace HUD {
 				break;
 				case ElementType.POSITIONINDICATOR :
 
+				break;
+				case ElementType.LINE :
+					lineDef.x = rectangle.x;
+					lineDef.y = rectangle.y;
+					lineDef.z = rectangle.width;
+					lineDef.w = rectangle.height;
+					displayTime = 1;
 				break;
 			}
 		}
@@ -64,6 +72,12 @@ namespace HUD {
 				break;
 				case ElementType.POSITIONINDICATOR :
 
+				break;
+				case ElementType.LINE :
+					lineDef.x = rectangle.x;
+					lineDef.y = rectangle.y;
+					lineDef.z = rectangle.width;
+					lineDef.w = rectangle.height;
 				break;
 			}
 		}

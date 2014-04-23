@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Holoville.HOTween;
 
 [AddComponentMenu("Camera-Control/Accell-Look")]
 public class RotateAroundByAccel : MonoBehaviour {
@@ -9,14 +10,9 @@ public class RotateAroundByAccel : MonoBehaviour {
 	public float sensitivityX = 15F;
 	public float sensitivityY = 15F;
 	
-	public float minimumX = -360F;
-	public float maximumX = 360F;
-	
-	public float minimumY = -60F;
-	public float maximumY = 60F;
-	
-	float rotationX = 0F;
-	float rotationY = 0F;
+	public float x = 0F;
+	public float y = 0F;
+	public float z = 0F;
 	
 	void Update ()
 	{
@@ -41,7 +37,17 @@ public class RotateAroundByAccel : MonoBehaviour {
 //			
 //			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
 //		}
-		transform.rotation = Quaternion.Euler(Input.acceleration * 5);
+		Vector3 r = Input.acceleration;
+		// r.x = r.y;
+		// r.y = Input.acceleration.x * 8;
+		// r.z = 0;
+		print(r.y);
+		r.x = Mathf.Clamp((r.y) + 1, 0, 1);
+		r.y = 90 + Input.acceleration.x * 5;
+		r.z = 0;
+
+		// transform.rotation = Quaternion.Euler(r * 10);
+		HOTween.To(transform, 1, "rotation", Quaternion.Euler(r * 10));
 	}
 	
 	void Start ()
