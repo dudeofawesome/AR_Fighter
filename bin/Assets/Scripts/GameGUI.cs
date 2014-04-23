@@ -88,6 +88,8 @@ public class GameGUI : MonoBehaviour {
 				break;
 			}
 		}
+
+		LineDraw.Drawing.DrawLine (new Vector2 (0, 0), new Vector2 (100, 100), Color.black, 2, false);
 	}
 
 	public void onPlayerDeath (GameObject player) {

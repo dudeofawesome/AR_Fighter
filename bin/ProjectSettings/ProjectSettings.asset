@@ -10,7 +10,7 @@ PlayerSettings:
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: dudeofawesome
   productName: AR Fighter
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -106,7 +106,7 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  AndroidKeystoreName: 
+  AndroidKeystoreName: /Users/DudeOfAwesome/Google Drive/AR_Fighter/private/user.keystore
   AndroidKeyaliasName: 
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
@@ -116,6 +116,9 @@ PlayerSettings:
       m_Size: 128
   m_BuildTargetBatching:
   - m_BuildTarget: iPhone
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
+  - m_BuildTarget: Android
     m_StaticBatching: 1
     m_DynamicBatching: 1
   webPlayerTemplate: APPLICATION:Default
@@ -157,6 +160,7 @@ PlayerSettings:
   spritePackerPolicy: 
   scriptingDefineSymbols:
     2: 
+    16: 
   metroPackageName: AR_Fighter
   metroPackageLogo: 
   metroPackageVersion: 
