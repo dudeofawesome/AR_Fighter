@@ -35,19 +35,27 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+<<<<<<< HEAD
 																																																																	GlobalSection(MonoDevelopProperties) = preSolution
 =======
-<<<<<<< HEAD
->>>>>>> Alpha-Louis
-																																											GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																																																			GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> origin/Alpha-Louis
 =======
-																																	GlobalSection(MonoDevelopProperties) = preSolution
+<<<<<<< HEAD
+																																																																																				GlobalSection(MonoDevelopProperties) = preSolution
+=======
+<<<<<<< HEAD
+																																																																																			GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> FETCH_HEAD
+>>>>>>> FETCH_HEAD
 =======
 																																															GlobalSection(MonoDevelopProperties) = preSolution
->>>>>>> Alpha-Kevin
-																										GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> FETCH_HEAD
->>>>>>> master
+																										GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> Alpha-Kevin
+=======
+	GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> Alpha-Louis
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
