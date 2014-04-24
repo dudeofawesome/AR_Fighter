@@ -24,9 +24,7 @@ public class MainMenuGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//if (!Application.genuine) {
-		//	print ("thief :P");
-		//}
+	
 
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 
@@ -64,7 +62,9 @@ public class MainMenuGUI : MonoBehaviour {
 		case MenuState.MAIN:
 			
 			//GUI.Box (new Rect(0, 0, 800, 480), "");
-
+			if (!Application.genuine) {
+				GUI.Box (new Rect(0, 410, 430, 70), "PLEASE BUY");
+			}
 
 
 			GUI.Label (new Rect(50, 50, 300, 300), "TITLE");
