@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterController : MonoBehaviour {
 
@@ -35,16 +36,31 @@ public class CharacterController : MonoBehaviour {
 
 	private bool movementKeyDown = false;
 
+	private List<Rect> jumpZones = new List<Rect> ();
+
+
+
 	// Use this for initialization
 	void Start () {
+		GameObject[] ledgeGrabs = GameObject.FindGameObjectsWithTag ("LedgeGrab");
 
+		for (int i = 0; i < ledgeGrabs.Length; i++) {
+			if (ledgeGrabs[i].name == "LedgeGrabLeft") {
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x - 7.5f, ledgeGrabs[i].transform.position.y, 7.5f, 7.5f));
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y + 7.5f, 7.5f, 7.5f));
+			}
+			else {
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y, 7.5f, 7.5f));
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x - 7.5f, ledgeGrabs[i].transform.position.y + 7.5f, 7.5f, 7.5f));
+			}
+		} 
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (!stunned){
 			if (controlMe) {
-				if (Input.GetKeyDown (keyUp) && (!doubleJumpUsed || ledgeHanging)) {
+				if (Input.GetKeyDown (keyUp)) {
 					jump();
 				}
 				if (Input.GetKeyDown (keyDown)) {
@@ -77,7 +93,6 @@ public class CharacterController : MonoBehaviour {
 					rigidbody.velocity = new Vector3(0, 0, 0);
 					ledgeHanging = true;
 					transform.position = new Vector3(_ledge.transform.position.x + (_ledge.transform.forward.x * 3000000), _ledge.transform.position.y, 0);
-					print(_ledge.transform.forward.x);
 				}
 			}
 
@@ -100,7 +115,10 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
+
+
 	void FixedUpdate () {
+
 		if (!stunned) {
 			movementKeyDown = false;
 			if (controlMe) {
@@ -137,11 +155,23 @@ public class CharacterController : MonoBehaviour {
 					if (player.name != gameObject.name) {
 						//Track to this player if it's not near the edge of the platform
 						if (player.transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x && player.transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x){
-							if (!((transform.position.x > GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 5 && transform.rotation.y == 0) || (transform.position.x < 5 && transform.rotation.y == 0))) {
-								move(player.transform.position.x > transform.position.x ? false : true, 1);
+							//prevent AI from getting stuck above player
+							if (Mathf.Abs(player.transform.position.y - transform.position.y) < 0.5 || player.transform.position.y >= transform.position.y) {
+								//prevent AI from getting stuck below player
+								//if (transform.position.y - player.transform.position.y < 5) {
+								//	move (false, 0.5f);
+								//}
+								//else {
+									if (!((transform.position.x > GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 5 && transform.rotation.y == 0) || (transform.position.x < 5 && transform.rotation.y == 0))) {
+										move(player.transform.position.x > transform.position.x ? false : true, 1);
+									}
+									else{
+										move(player.transform.position.x > transform.position.x ? false : true, (transform.rotation.y == 0) ? (GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - transform.position.x) / (carefulness * 1) : (transform.position.x - GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x) / (carefulness * 1));
+									}
+								//}
 							}
-							else{
-								move(player.transform.position.x > transform.position.x ? false : true, (transform.rotation.y == 0) ? (GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - transform.position.x) / (carefulness * 1) : (transform.position.x - GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x) / (carefulness * 1));
+							else if (touchingGround) {
+								move (true, 0.5f);
 							}
 						}
 						//Consider attacking
@@ -149,16 +179,43 @@ public class CharacterController : MonoBehaviour {
 							attack();
 						}
 						//Decide whether or not to take a chance and jump (this is not pathing jumping)
+<<<<<<< HEAD
 						if (Random.Range(0,2) == 0){
 							jump();
+=======
+						//if (Random.Range(0,500) == 0){
+						//	jump();
+						//}
+						//print (player.transform.position.x);// PLAYER
+
+					//	if(transform.position.x
+						if (Mathf.Abs(player.transform.position.y - transform.position.y) > 0.5) {
+							for(int i = 0; i < jumpZones.Count; i++) {
+								//if (rectangleCollision(new Rect (transform.position.x - 0.5f, transform.position.y - 0.5f, 1, 1),jumpZones[i],1)) {
+								if (transform.position.x > jumpZones[i].x && transform.position.x < jumpZones[i].x + jumpZones[i].width && transform.position.y > jumpZones[i].y - jumpZones[i].height && transform.position.y < jumpZones[i].y) {
+									jump();
+									break;
+								}
+								if (!doubleJumpUsed && !touchingGround) {
+									jump();
+									break;
+								}
+							}
+>>>>>>> origin/Alpha-Vik
 						}
+
+					//	print (GameObject.Find ("Step").transform.position.y + " " + GameObject.Find ("Step2").transform.position.y + " " + transform.position.y + " " + player.transform.position.y);
+
+
 						//Decide whether or not to drop off ledge
-						if (ledgeHanging && Random.Range(0,50) == 0) {
+						if (ledgeHanging && player.transform.position.y < transform.position.y && Random.Range(0,30) == 0) {
 							crouch(true);
 						}
-						else if (ledgeHanging && Random.Range(0,50) == 0) {
+						else if (ledgeHanging && player.transform.position.y > transform.position.y && Random.Range(0,30) == 0) {
 							jump();
 						}
+
+						break;
 					}
 				}
 			}
@@ -184,6 +241,13 @@ public class CharacterController : MonoBehaviour {
 			if (stunnedCountDown <= 0)
 				stunned = false;
 		}
+	}
+
+	bool rectangleCollision(Rect r1, Rect r2, int padding) {
+		return !(r1.x > r2.x + r2.width + padding || r1.x + r1.width + padding < r2.x || r1.y > r2.y + r2.height + padding || r1.y + r1.height + padding < r2.y);
+		// bool widthOverlap =  (r1.xMin >= r2.xMin) && (r1.xMin <= r2.xMax) || (r2.xMin >= r1.xMin) && (r2.xMin <= r1.xMax);
+		// bool heightOverlap = (r1.yMin >= r2.yMin) && (r1.yMin <= r2.yMax) || (r2.yMin >= r1.yMin) && (r2.yMin <= r1.yMax);
+		// return (widthOverlap && heightOverlap);
 	}
 
 	private void respawn () {
