@@ -149,7 +149,7 @@ public class CharacterController : MonoBehaviour {
 							attack();
 						}
 						//Decide whether or not to take a chance and jump (this is not pathing jumping)
-						if (Random.Range(0,500) == 0){
+						if (Random.Range(0,2) == 0){
 							jump();
 						}
 						//Decide whether or not to drop off ledge
@@ -206,13 +206,13 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	private void jump () {
-		if (!ledgeHanging) {
+		if (!ledgeHanging && !doubleJumpUsed) {
 			rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
 			rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
 			if (!touchingGround)
 				doubleJumpUsed = true;
 		}
-		else{
+		else if (ledgeHanging) {
 			rigidbody.AddForce(0, jumpForce, 0);
 			rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
 			ledgeHanging = false;

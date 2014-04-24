@@ -101,11 +101,11 @@
  <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
- <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
- <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>
- </Reference>
  <Reference Include="Assets\HOTween">
  <HintPath>Assets\HOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
+ <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

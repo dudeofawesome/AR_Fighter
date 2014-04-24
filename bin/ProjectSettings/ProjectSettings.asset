@@ -107,7 +107,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   AndroidKeystoreName: /Users/DudeOfAwesome/Google Drive/AR_Fighter/private/user.keystore
-  AndroidKeyaliasName: 
+  AndroidKeyaliasName: release
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
   - m_BuildTarget: 

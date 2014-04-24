@@ -63,6 +63,12 @@
  <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
+ <Reference Include="Assets\HOTween">
+ <HintPath>Assets\HOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\Editor\HOTweenV1_Editor">
+ <HintPath>Assets\Editor\HOTweenV1_Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Assets\Editor\QCAR\Scripts\Qualcomm.Vuforia.UnityExtensions.Editor">
  <HintPath>Assets\Editor\QCAR\Scripts\Qualcomm.Vuforia.UnityExtensions.Editor.dll</HintPath>
  </Reference>
@@ -80,12 +86,6 @@
  </Reference>
  <Reference Include="\Applications\Unity\Unity.app\Contents\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions">
  <HintPath>\Applications\Unity\Unity.app\Contents\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="Assets\HOTween">
- <HintPath>Assets\HOTween.dll</HintPath>
- </Reference>
- <Reference Include="Assets\Editor\HOTweenV1_Editor">
- <HintPath>Assets\Editor\HOTweenV1_Editor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
