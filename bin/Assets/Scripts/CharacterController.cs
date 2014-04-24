@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterController : MonoBehaviour {
 
@@ -35,9 +36,22 @@ public class CharacterController : MonoBehaviour {
 
 	private bool movementKeyDown = false;
 
+	List<Rect> jumpZones = new List<Rect> ();
+
 	// Use this for initialization
 	void Start () {
+		GameObject[] ledgeGrabs = GameObject.FindGameObjectsWithTag ("LedgeGrab");
 
+		for (int i = 0; i < ledgeGrabs.Length; i++) {
+			if (ledgeGrabs[i].name == "LedgeGrabLeft") {
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x - 6.5f, ledgeGrabs[i].transform.position.y, 6.5f, 6.5f));
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y + 6.5f, 6.5f, 6.5f));
+			}
+			else {
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y, 6.5f, 6.5f));
+				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x - 6.5f, ledgeGrabs[i].transform.position.y + 6.5f, 6.5f, 6.5f));
+			}
+		}
 	}
 
 	// Update is called once per frame
@@ -103,6 +117,7 @@ public class CharacterController : MonoBehaviour {
 
 
 	void FixedUpdate () {
+
 		if (!stunned) {
 			movementKeyDown = false;
 			if (controlMe) {
@@ -151,9 +166,23 @@ public class CharacterController : MonoBehaviour {
 							attack();
 						}
 						//Decide whether or not to take a chance and jump (this is not pathing jumping)
-						if (Random.Range(0,500) == 0){
-							jump();
+						//if (Random.Range(0,500) == 0){
+						//	jump();
+						//}
+						//print (player.transform.position.x);// PLAYER
+
+					//	if(transform.position.x 
+						for(int i = 0; i < jumpZones.Count; i++){
+							if(transform.position.x > jumpZones[i].x){
+								print ("helo");
+							//	rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
+							// 	rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
+							}
 						}
+
+					//	print (GameObject.Find ("Step").transform.position.y + " " + GameObject.Find ("Step2").transform.position.y + " " + transform.position.y + " " + player.transform.position.y);
+
+
 						//Decide whether or not to drop off ledge
 						if (ledgeHanging && Random.Range(0,50) == 0) {
 							crouch(true);
