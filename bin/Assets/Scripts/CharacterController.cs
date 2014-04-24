@@ -179,10 +179,6 @@ public class CharacterController : MonoBehaviour {
 							attack();
 						}
 						//Decide whether or not to take a chance and jump (this is not pathing jumping)
-<<<<<<< HEAD
-						if (Random.Range(0,2) == 0){
-							jump();
-=======
 						//if (Random.Range(0,500) == 0){
 						//	jump();
 						//}
@@ -201,7 +197,6 @@ public class CharacterController : MonoBehaviour {
 									break;
 								}
 							}
->>>>>>> origin/Alpha-Vik
 						}
 
 					//	print (GameObject.Find ("Step").transform.position.y + " " + GameObject.Find ("Step2").transform.position.y + " " + transform.position.y + " " + player.transform.position.y);

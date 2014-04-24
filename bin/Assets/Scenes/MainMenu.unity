@@ -529,7 +529,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .898039222, g: .752941191, b: .53725493, a: .0196078438}
+  m_BackGroundColor: {r: .839215696, g: .698039234, b: .454901963, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -545,9 +545,9 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
-  m_HDR: 0
+  m_HDR: 1
   m_OcclusionCulling: 1
 --- !u!4 &861056437
 Transform:
@@ -555,7 +555,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 861056432}
-  m_LocalRotation: {x: .326517522, y: 0, z: 0, w: .945191205}
+  m_LocalRotation: {x: .315426469, y: 0, z: 0, w: .948950052}
   m_LocalPosition: {x: 0, y: 7.06197166, z: -12.9651403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
