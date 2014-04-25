@@ -1,2 +1,2 @@
-AR_Fighter
+Sole Champion
 ==========

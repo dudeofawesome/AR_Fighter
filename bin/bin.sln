@@ -35,6 +35,11 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+																																																																																																														GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																																																																																																																																										GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> Alpha-Kevin
+=======
 																																																																																																																																								GlobalSection(MonoDevelopProperties) = preSolution
 =======
 																																																																				GlobalSection(MonoDevelopProperties) = preSolution
@@ -42,6 +47,7 @@ Global
 																																																																																																																																			GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> origin/Alpha-Louis
 >>>>>>> origin/Alpha-Vik
+>>>>>>> Alpha-Louis
 =======
 <<<<<<< HEAD
 																																																																																				GlobalSection(MonoDevelopProperties) = preSolution
