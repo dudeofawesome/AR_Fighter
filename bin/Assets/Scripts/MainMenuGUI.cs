@@ -67,7 +67,7 @@ public class MainMenuGUI : MonoBehaviour {
 			}
 
 
-			GUI.Label (new Rect(50, 50, 300, 300), "TITLE");
+			GUI.Label (new Rect(20, 50, 350, 350), "");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 
 
@@ -99,7 +99,7 @@ public class MainMenuGUI : MonoBehaviour {
 			
 			break;
 		case MenuState.SETTINGS:
-			GUI.Label (new Rect(50, 50, 300, 300), "TITLE");
+			GUI.Label (new Rect(20, 50, 350, 350), "");
 
 			if(GUI.Button (new Rect(340, 150, 460, 70), "Visual Settings")){
 				menuPosition = MenuState.SETTINGSVI;
@@ -182,6 +182,10 @@ public class MainMenuGUI : MonoBehaviour {
 			if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
 				menuPosition = MenuState.MAIN;
 			}
+			else if (GUI.Button (new Rect(200, 400, 150, 70), "Start!")){
+				Application.LoadLevel (mainLevel);
+			}
+
 
 			break;
 		case MenuState.HOWTOPLAY:
