@@ -3,11 +3,12 @@ using System.Collections;
 
 public class MainMenuGUI : MonoBehaviour {
 
-	public GUISkin guiSkin, verticalSkin, scrollSkin;
+	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin;
 
 	public string mainLevel;
 
-	public enum MenuState {MAIN, LEVELLOADER, SETTINGS, HOWTOPLAY};
+	public enum MenuState {MAIN, LEVELLOADER, SETTINGS, SETTINGSVI, SETTINGSCONTROLS, 
+		HOWTOPLAY, HOWTODOWNLOAD, HOWTOPRINT, HOWTOSETUP, HOWTOUSE};
 
 	public MenuState menuPosition = MenuState.MAIN;
 
@@ -23,9 +24,7 @@ public class MainMenuGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (!Application.genuine) {
-			print ("thief :P");
-		}
+	
 
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 
@@ -63,32 +62,35 @@ public class MainMenuGUI : MonoBehaviour {
 		case MenuState.MAIN:
 			
 			//GUI.Box (new Rect(0, 0, 800, 480), "");
+			if (!Application.genuine) {
+				GUI.Box (new Rect(0, 410, 430, 70), "PLEASE BUY");
+			}
 
 
-
-			GUI.Label (new Rect(50, 50, 300, 300), "TITLE");
+			GUI.Label (new Rect(20, 50, 350, 350), "");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 
 
 			
 
-			if(GUI.Button (new Rect(450, 50, 300, 70), "Start")){
+			if(GUI.Button (new Rect(490, 50, 340, 70), "Start")){
+
 				menuPosition = MenuState.LEVELLOADER;
 
 				
 			}
-			else if(GUI.Button (new Rect(450, 150, 300, 70), "Settings")){
+			else if(GUI.Button (new Rect(490, 150, 340, 70), "Settings")){
 				menuPosition = MenuState.SETTINGS;
 
 				
 			}
-			else if(GUI.Button (new Rect(450,250, 300, 70), "How To Play")){
+			else if(GUI.Button (new Rect(490,250, 340, 70), "How To Play")){
 				menuPosition = MenuState.HOWTOPLAY;
 
 
 			}
 
-			else if(GUI.Button (new Rect(450, 350, 300, 70), "Exit")){
+			else if(GUI.Button (new Rect(490, 350, 340, 70), "Exit")){
 				//QUIT GAME
 				Application.Quit();
 			}
@@ -97,13 +99,35 @@ public class MainMenuGUI : MonoBehaviour {
 			
 			break;
 		case MenuState.SETTINGS:
-			GUI.skin = verticalSkin;
+			GUI.Label (new Rect(20, 50, 350, 350), "");
 
+			if(GUI.Button (new Rect(340, 150, 460, 70), "Visual Settings")){
+				menuPosition = MenuState.SETTINGSVI;
+				
+				
+			}
+			else if(GUI.Button (new Rect(340, 250, 460, 70), "Control Settings")){
+				menuPosition = MenuState.SETTINGSCONTROLS;
+				
+				
+			}
+			
+			if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.MAIN;
+			}
+
+
+
+			break;
+		
+		case MenuState.SETTINGSVI:
+			GUI.skin = verticalSkin;
+			
 			GUI.Box (new Rect(50,20, 700, 70), "Set Visual Effects Intensity");
 			GUI.Box (new Rect(30, 90, 770, 390),"");
 			var names = QualitySettings.names;
-
-
+			
+			
 			GUILayout.BeginArea (new Rect (120, 100, 680, 600));
 			for (var i = 0; i < names.Length; i++)
 			{
@@ -111,22 +135,29 @@ public class MainMenuGUI : MonoBehaviour {
 					QualitySettings.SetQualityLevel (i, true);
 			}
 			GUILayout.EndArea ();
+			
+			if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.SETTINGS;
+			}
+
+
+
+			break;
+
+		case MenuState.SETTINGSCONTROLS:
 
 			if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
-				menuPosition = MenuState.MAIN;
+				menuPosition = MenuState.SETTINGS;
 			}
 
 
 			break;
+
 		case MenuState.LEVELLOADER:
 			GUI.skin = scrollSkin;
 
 			GUI.Box (new Rect(50, 20, 500, 70), "Select Visual Style");
 			GUI.Box (new Rect(30, 90, 770, 390),"");
-
-
-		
-
 
 
 			
@@ -148,12 +179,89 @@ public class MainMenuGUI : MonoBehaviour {
 			// End the scroll view that we began above.
 			GUI.EndScrollView ();
 
+			if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.MAIN;
+			}
+			else if (GUI.Button (new Rect(200, 400, 150, 70), "Start!")){
+				Application.LoadLevel (mainLevel);
+			}
+
+
 			break;
 		case MenuState.HOWTOPLAY:
-			GUI.Box(new Rect(50, 20, 500, 70), "How To Play");
-			GUI.Box (new Rect(30, 90, 770, 390),"");
+			GUI.skin = howtoplaySkin;
+			GUI.Box(new Rect(0, 0, 800, 50), "Introduction");
+			GUI.Label (new Rect(0, 50, 800, 450),"");
+
+			if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.MAIN;
+			}
+			else if (GUI.Button (new Rect(630, 400, 150, 70), "Next")){
+				menuPosition = MenuState.HOWTODOWNLOAD;
+			}
 			break;
+
 		
+		case MenuState.HOWTODOWNLOAD:
+			GUI.skin = howtoplaySkin;
+			GUI.Box(new Rect(0, 0, 800, 50), "How to Download");
+			GUI.Label (new Rect(0, 50, 800, 450),"");
+			if (GUI.Button (new Rect(315, 400, 150, 70), "Main")){
+				menuPosition = MenuState.MAIN;
+			}
+			else if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.HOWTOPLAY;
+			}
+			else if (GUI.Button (new Rect(630, 400, 150, 70), "Next")){
+				menuPosition = MenuState.HOWTOPRINT;
+			}
+
+			break;
+
+		case MenuState.HOWTOPRINT:
+			GUI.skin = howtoplaySkin;
+			GUI.Box(new Rect(0, 0, 800, 50), "How to Print");
+			GUI.Label (new Rect(0, 50, 800, 450),"");
+			GUI.skin = howtoplaySkin;
+			if (GUI.Button (new Rect(315, 400, 150, 70), "Main")){
+				menuPosition = MenuState.MAIN;
+			}
+			else if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.HOWTODOWNLOAD;
+			}
+			else if (GUI.Button (new Rect(630, 400, 150, 70), "Next")){
+				menuPosition = MenuState.HOWTOSETUP;
+			}
+			break;
+
+		case MenuState.HOWTOSETUP:
+			GUI.skin = howtoplaySkin;
+			GUI.Box(new Rect(0, 0, 800, 50), "How to Set Up");
+			GUI.Label (new Rect(0, 50, 800, 450),"");
+			if (GUI.Button (new Rect(315, 400, 150, 70), "Main")){
+				menuPosition = MenuState.MAIN;
+			}
+			else if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.HOWTOPRINT;
+			}
+			else if (GUI.Button (new Rect(630, 400, 150, 70), "Next")){
+				menuPosition = MenuState.HOWTOUSE;
+			}
+			break;
+
+		case MenuState.HOWTOUSE:
+			GUI.skin = howtoplaySkin;
+			GUI.Box(new Rect(0, 0, 800, 50), "How to Use");
+			GUI.Label (new Rect(0, 50, 800, 450),"");
+			if (GUI.Button (new Rect(315, 400, 150, 70), "Main")){
+				menuPosition = MenuState.MAIN;
+			}
+			else if (GUI.Button (new Rect(0, 400, 150, 70), "Back")){
+				menuPosition = MenuState.HOWTOSETUP;
+			}
+
+
+			break;
 		}
 
 
