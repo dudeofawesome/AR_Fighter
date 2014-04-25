@@ -52,6 +52,9 @@ public class RotateAroundByAccel : MonoBehaviour {
 	
 	void Start ()
 	{
+		HOTween.Init(false, false, true);
+		HOTween.EnableOverwriteManager();
+
 		// Make the rigid body not change rotation
 		if (rigidbody)
 			rigidbody.freezeRotation = true;

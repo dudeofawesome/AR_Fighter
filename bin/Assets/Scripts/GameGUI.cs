@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Holoville.HOTween;
 
 public class GameGUI : MonoBehaviour {
 	private List<HUD.GUIelement> GUIelements = new List<HUD.GUIelement>();
@@ -13,6 +14,9 @@ public class GameGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		HOTween.Init(false, false, true);
+		HOTween.EnableOverwriteManager();
+
 		GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), GameObject.Find("Player1")));
 		GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(0, 0, 100, 50), GameObject.Find("Player2")));
 	}
@@ -33,13 +37,12 @@ public class GameGUI : MonoBehaviour {
 				case HUD.GUIelement.ElementType.HEALTH :
 					GUIelements[i].text = GUIelements[i].relatesTo.GetComponent<CharacterController>().damage.ToString();
 					// TODO the GUI element may cover other players, so we need to check for that
-					GUIelements[i].rectangle.x = Camera.main.WorldToScreenPoint(GUIelements[i].relatesTo.transform.position).x - GUIelements[i].rectangle.width / 2;
-					GUIelements[i].rectangle.y = Screen.height - Camera.main.WorldToScreenPoint(GUIelements[i].relatesTo.transform.position).y - 100;
+					HOTween.To (GUIelements[i], 0.1f, "rectangle", new Rect(Camera.main.WorldToScreenPoint(GUIelements[i].relatesTo.transform.position).x - GUIelements[i].rectangle.width / 2, Screen.height - Camera.main.WorldToScreenPoint(GUIelements[i].relatesTo.transform.position).y - 100, GUIelements[i].rectangle.width, GUIelements[i].rectangle.height));
 					for (int j = 0; j < GUIelements.Count; j++) {
 						if (GUIelements[i] != GUIelements[j] && rectangleCollision(GUIelements[i].rectangle, GUIelements[j].rectangle, 10)) {
 							// decide where to push the score element to
-							GUIelements[i].rectangle.x = (GUIelements[i].rectangle.x + GUIelements[i].rectangle.width / 2 > GUIelements[j].rectangle.x + GUIelements[j].rectangle.width / 2) ? GUIelements[j].rectangle.x + GUIelements[j].rectangle.width + 11 : GUIelements[j].rectangle.x - GUIelements[i].rectangle.width - 11;
-							// GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.LINE, new Rect(Camera.main.WorldToScreenPoint(GUIelements[i].relatesTo.transform.position).x, Camera.main.WorldToScreenPoint(GUIelements[i].relatesTo.transform.position).y - 75, GUIelements[i].rectangle.x, GUIelements[i].rectangle.y + GUIelements[i].rectangle.height / 2)));
+							HOTween.To (GUIelements[i], 0.5f, "rectangle", new Rect((GUIelements[i].rectangle.x + GUIelements[i].rectangle.width / 2 > GUIelements[j].rectangle.x + GUIelements[j].rectangle.width / 2) ? GUIelements[j].rectangle.x + GUIelements[j].rectangle.width + 11 : GUIelements[j].rectangle.x - GUIelements[i].rectangle.width - 11, GUIelements[i].rectangle.y, GUIelements[i].rectangle.width, GUIelements[i].rectangle.height));
+							// GUIelements[i].rectangle.x = (GUIelements[i].rectangle.x + GUIelements[i].rectangle.width / 2 > GUIelements[j].rectangle.x + GUIelements[j].rectangle.width / 2) ? GUIelements[j].rectangle.x + GUIelements[j].rectangle.width + 11 : GUIelements[j].rectangle.x - GUIelements[i].rectangle.width - 11;
 						}
 					}
 				break;
