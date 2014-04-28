@@ -66,7 +66,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
 
     private void OnTrackingFound()
     {
-		if (mTrackableBehaviour.TrackableName == "PlatformRight" && Time.timeScale == 0) {
+		if (mTrackableBehaviour.TrackableName == "PlatformRight" && Time.timeScale == 0 && !GameObject.Find("GUI").GetComponent<GameGUI>().paused) {
 			Time.timeScale = 1;
 		}
 

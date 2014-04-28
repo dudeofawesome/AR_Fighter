@@ -1,28 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MainMenuGUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Qualcomm Augmented Reality/Scripts/DefaultTrackableEventHandler.cs">
     <Files>
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="293" Column="1" />
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="109" Column="56" />
-      <File FileName="Assets/Scripts/GameGUI.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GUIelement.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/RotateAroundByAccel.cs" Line="1" Column="1" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameGUI.cs">
-    <Files>
-      <File FileName="Assets/Scripts/CharacterController.cs" Line="173" Column="20" />
-      <File FileName="Assets/Scripts/GameGUI.cs" Line="42" Column="8" />
-      <File FileName="Assets/Scripts/RotateAroundByAccel.cs" Line="3" Column="25" />
->>>>>>> Alpha-Louis
+      <File FileName="Assets/Scripts/CharacterController.cs" Line="299" Column="37" />
+      <File FileName="Assets/Qualcomm Augmented Reality/Shaders/DepthMask.shader" Line="1" Column="1" />
+      <File FileName="Assets/Qualcomm Augmented Reality/Scripts/DefaultTrackableEventHandler.cs" Line="69" Column="87" />
+      <File FileName="Assets/Scripts/GameGUI.cs" Line="18" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="MainMenuGUI.cs" selected="True" />
+            <Node name="Qualcomm Augmented Reality" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="DefaultTrackableEventHandler.cs" selected="True" />
+              </Node>
             </Node>
+            <Node name="Scripts" expanded="True" />
           </Node>
         </State>
       </Pad>

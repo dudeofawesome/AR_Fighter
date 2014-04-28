@@ -29,6 +29,7 @@ public class CharacterController : MonoBehaviour {
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
 	public bool ledgeHanging = false;
+	public int ledgeGrabCountdown = 0;
 
 	private GameObject touchingEnemy = null;
 	private Player.Attack currentAttack = null;
@@ -88,11 +89,11 @@ public class CharacterController : MonoBehaviour {
 
 			if (!touchingGround) {
 				GameObject _ledge = ledgeGrabHitbox.GetComponent<CollisionHandeler>().collidingWith;
-				if (_ledge != null && rigidbody.velocity.y <= 0 && _ledge.tag == "LedgeGrab") {
+				if (_ledge != null && rigidbody.velocity.y <= 0 && _ledge.tag == "LedgeGrab" && ledgeGrabCountdown == 0) {
 					rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 					rigidbody.velocity = new Vector3(0, 0, 0);
 					ledgeHanging = true;
-					transform.position = new Vector3(_ledge.transform.position.x + (_ledge.transform.forward.x * 3000000), _ledge.transform.position.y, 0);
+					transform.position = new Vector3(_ledge.transform.position.x + (_ledge.transform.rotation.eulerAngles.y == 0 ? 1 : -1), _ledge.transform.position.y - 4.5f, 0);
 				}
 			}
 
@@ -184,15 +185,15 @@ public class CharacterController : MonoBehaviour {
 								move (true, 0.7f);
 							}
 						}
-						//Consider attacking
+						// Consider attacking
 						if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
 							attack();
 						}
-						//Decide whether or not to take a chance and jump (this is not pathing jumping)
+						// Decide whether or not to take a chance and jump (this is not pathing jumping)
 						//if (Random.Range(0,500) == 0){
 						//	jump();
 						//}
-						
+						// This is pathing jumping
 						if (player.transform.position.y >= transform.position.y + 0.5) {
 							timeSinceFirstJump++;
 							for(int i = 0; i < jumpZones.Count; i++) {
@@ -208,10 +209,7 @@ public class CharacterController : MonoBehaviour {
 							}
 						}
 						
-						//	print (GameObject.Find ("Step").transform.position.y + " " + GameObject.Find ("Step2").transform.position.y + " " + transform.position.y + " " + player.transform.position.y);
-						
-						
-						//Decide whether or not to drop off ledge
+						// Decide whether or not to drop off ledge
 						if (ledgeHanging && player.transform.position.y < transform.position.y && Random.Range(0,30) == 0) {
 							crouch(true);
 						}
@@ -243,6 +241,9 @@ public class CharacterController : MonoBehaviour {
 			stunnedCountDown--;
 			if (stunnedCountDown <= 0)
 				stunned = false;
+		}
+		if (ledgeGrabCountdown > 0) {
+			ledgeGrabCountdown--;
 		}
 	}
 
@@ -282,21 +283,25 @@ public class CharacterController : MonoBehaviour {
 		else if (ledgeHanging) {
 			rigidbody.AddForce(0, jumpForce, 0);
 			rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+			transform.position = new Vector3(transform.position.x , transform.position.y + 5, 0);
 			ledgeHanging = false;
+			ledgeGrabCountdown = 10;
 		}
 	}
 
 	private void crouch (bool down) {
 		if (!ledgeHanging){
 			if (down)
-				transform.localScale = new Vector3(0.2f, 0.1f, 0.2f);
+				transform.localScale = new Vector3(0.1f, 0.03f, 0.1f);
 			else
-				transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+				transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		}
 		else {
 			stunned = true;
 			stunnedCountDown = 15;
 			rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+			transform.position = new Vector3(transform.position.x , transform.position.y - 2, 0);
+			ledgeGrabCountdown = 10;
 			ledgeHanging = false;
 		}
 	}
