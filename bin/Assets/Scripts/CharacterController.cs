@@ -35,7 +35,9 @@ public class CharacterController : MonoBehaviour {
 	private Player.Attack currentAttack = null;
 	private bool movementKeyDown = false;
 	private int timeSinceFirstJump = 0;
-	private List<Rect> jumpZones = new List<Rect> ();
+	private List<custTypes.JumpZone> jumpZones = new List<custTypes.JumpZone> ();
+	private float jumpZoneWidth = 9.0f;
+	private float jumpZoneHeight = 7.5f;
 
 
 
@@ -45,14 +47,14 @@ public class CharacterController : MonoBehaviour {
 
 		for (int i = 0; i < ledgeGrabs.Length; i++) {
 			if (ledgeGrabs[i].name == "LedgeGrabLeft") {
-				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x - 9.0f, ledgeGrabs[i].transform.position.y, 9.0f, 7.5f));
+				jumpZones.Add (new custTypes.JumpZone(ledgeGrabs[i].transform.position.x - jumpZoneWidth, ledgeGrabs[i].transform.position.y, jumpZoneWidth, jumpZoneHeight, true));
 				if (ledgeGrabs[i].transform.position.y >= 1)
-					jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y + 7.5f, 9.0f, 7.5f));
+					jumpZones.Add (new custTypes.JumpZone(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y + jumpZoneHeight, jumpZoneWidth, jumpZoneHeight, false));
 			}
 			else {
-				jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y, 9.0f, 7.5f));
+				jumpZones.Add (new custTypes.JumpZone(ledgeGrabs[i].transform.position.x, ledgeGrabs[i].transform.position.y, jumpZoneWidth, jumpZoneHeight, false));
 				if (ledgeGrabs[i].transform.position.y >= 1)
-					jumpZones.Add (new Rect(ledgeGrabs[i].transform.position.x - 9.0f, ledgeGrabs[i].transform.position.y + 7.5f, 9.0f, 7.5f));
+					jumpZones.Add (new custTypes.JumpZone(ledgeGrabs[i].transform.position.x - jumpZoneWidth, ledgeGrabs[i].transform.position.y + jumpZoneHeight, jumpZoneWidth, jumpZoneHeight, true));
 			}
 		} 
 	}
@@ -119,7 +121,6 @@ public class CharacterController : MonoBehaviour {
 
 
 	void FixedUpdate () {
-
 		if (!stunned) {
 			movementKeyDown = false;
 			if (controlMe) {
@@ -154,70 +155,72 @@ public class CharacterController : MonoBehaviour {
 				GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 				foreach (GameObject player in players) {
 					if (player.name != gameObject.name) {
-						//Track to the player if it's not near the edge of the platform
-						if (player.transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x && player.transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x){
-							//prevent AI from getting stuck above player
-							if (Mathf.Abs(player.transform.position.y - transform.position.y) < 1) {
-								// print("going to the player (on the same lvl)");
-								if (!((transform.position.x > GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 5 && transform.rotation.y == 0) || (transform.position.x < 5 && transform.rotation.y == 0))) {
-									move(player.transform.position.x > transform.position.x ? false : true, 1);
+						// AI isn't ledge grabbing
+						if (!ledgeHanging) {
+							// AI isn't off the edge
+							if (transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x && transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x) {
+								// AI is above player
+								if (transform.position.y > player.transform.position.y + 5) {
+									// print("going off of platform edge");
+									move(Random.Range(0, 1) == 0 ? false : true, 0.7f);
 								}
-								else{
-									move(player.transform.position.x > transform.position.x ? false : true, (transform.rotation.y == 0) ? (GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - transform.position.x) / (carefulness * 1) : (transform.position.x - GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x) / (carefulness * 1));
-								}
-								//}
-							}
-							//Make AI go to nearest jump zone
-							else if (player.transform.position.y > transform.position.y + 5) {
-								// print("going towards jump zone");
-								float closestJumpZoneX = -1f;
-								float closenessOfJumpZoneX = -1f;
-								for(int i = 0; i < jumpZones.Count; i++) {
-									if (Mathf.Abs((jumpZones[i].y - jumpZones[i].height) - transform.position.y) < 2f && Mathf.Abs(player.transform.position.x - (jumpZones[i].x + jumpZones[i].width)) < closenessOfJumpZoneX || closenessOfJumpZoneX == -1f) {
-										closestJumpZoneX = (jumpZones[i].x + jumpZones[i].width);
-										closenessOfJumpZoneX = Mathf.Abs(transform.position.x - closestJumpZoneX);
+
+								// AI is below player
+								if (transform.position.y + 5 < player.transform.position.y) {
+									// print("going towards jump zone");
+									float closestJumpZoneX = -1f;
+									float closenessOfJumpZoneX = -1f;
+									for(int i = 0; i < jumpZones.Count; i++) {
+										if (Mathf.Abs((jumpZones[i].y - jumpZones[i].height) - transform.position.y) < 2f && Mathf.Abs(player.transform.position.x - (jumpZones[i].x + jumpZones[i].width)) < closenessOfJumpZoneX || closenessOfJumpZoneX == -1f) {
+											closestJumpZoneX = (jumpZones[i].x + jumpZones[i].width);
+											closenessOfJumpZoneX = Mathf.Abs(transform.position.x - closestJumpZoneX);
+										}
+									}
+									move((transform.position.x > closestJumpZoneX) ? true : false, 1);
+									if (transform.position.x > closestJumpZoneX && transform.position.x < closestJumpZoneX + jumpZoneWidth) {
+										// print("jumping in jump zone");
+										jump();
+										timeSinceFirstJump = 0;
 									}
 								}
-								move ((transform.position.x > closestJumpZoneX) ? true : false, 1);
-							}
-							else /*if (touchingGround) */{
-								// print("jumping to get on my level");
-								move (true, 0.7f);
-							}
-						}
-						// Consider attacking
-						if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
-							attack();
-						}
-						// Decide whether or not to take a chance and jump (this is not pathing jumping)
-						//if (Random.Range(0,500) == 0){
-						//	jump();
-						//}
-						// This is pathing jumping
-						if (player.transform.position.y >= transform.position.y + 0.5) {
-							timeSinceFirstJump++;
-							for(int i = 0; i < jumpZones.Count; i++) {
-								if (transform.position.x > jumpZones[i].x && transform.position.x < jumpZones[i].x + jumpZones[i].width && transform.position.y > jumpZones[i].y - jumpZones[i].height && transform.position.y < jumpZones[i].y && touchingGround) {
-									jump();
-									timeSinceFirstJump = 0;
-									break;
+
+								// AI on same level
+								if (Mathf.Abs(transform.position.y - player.transform.position.y) < 5) {
+									print("running to player");
+									if (transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x + 2 && transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 2) {
+										move(player.transform.position.x > transform.position.x ? false : true, 1);
+									}
+									else {
+										move(player.transform.position.x > transform.position.x ? false : true, (transform.rotation.y == 0) ? (GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - transform.position.x) / (carefulness * 1) : (transform.position.x - GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x) / (carefulness * 1));
+									}
 								}
-								else if (transform.position.x > jumpZones[i].x && transform.position.x < jumpZones[i].x + jumpZones[i].width && transform.position.y > jumpZones[i].y - jumpZones[i].height && transform.position.y < jumpZones[i].y && timeSinceFirstJump > 5) {
+
+								timeSinceFirstJump++;
+								// Double jump if need be
+								if (timeSinceFirstJump > 5 && transform.position.y < player.transform.position.y && !touchingGround) {
+									// print("trying to double jump");
 									jump();
-									break;
 								}
 							}
+							// Run back to ledge
+							else {
+								jump();
+								move(transform.position.x < GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x + 2 ? false : true, 1);
+							}
+							// Consider attacking
+							if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
+								attack();
+							}
 						}
-						
-						// Decide whether or not to drop off ledge
-						if (ledgeHanging && player.transform.position.y < transform.position.y && Random.Range(0,30) == 0) {
-							crouch(true);
+						else {
+							// Decide whether or not to drop off ledge
+							if (player.transform.position.y < transform.position.y && Random.Range(0,30) == 0) {
+								crouch(true);
+							}
+							else if (player.transform.position.y > transform.position.y && !touchingGround && Random.Range(0,30) == 0) {
+								jump();
+							}
 						}
-						else if (ledgeHanging && player.transform.position.y > transform.position.y && Random.Range(0,30) == 0) {
-							jump();
-						}
-						
-						break;
 					}
 				}
 			}
