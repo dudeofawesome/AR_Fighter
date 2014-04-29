@@ -1,7 +1,7 @@
 ﻿namespace custTypes {
 	public class JumpZone {
-		float x, y, width, height;
-		bool onLeft;
+		public float x, y, width, height;
+		public bool onLeft;
 
 		public JumpZone(float x, float y, float width, float height, bool onLeft) {
 			this.x = x;

@@ -286,7 +286,7 @@ public class CharacterController : MonoBehaviour {
 		else if (ledgeHanging) {
 			rigidbody.AddForce(0, jumpForce, 0);
 			rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-			transform.position = new Vector3(transform.position.x , transform.position.y + 5, 0);
+			transform.position = new Vector3(transform.position.x , transform.position.y + 1, 0);
 			ledgeHanging = false;
 			ledgeGrabCountdown = 10;
 		}
