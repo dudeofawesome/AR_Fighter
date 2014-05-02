@@ -649,6 +649,9 @@ MonoBehaviour:
   howtoplaySkin: {fileID: 11400000, guid: 3723d6988dc7542489ae0861c9c476d4, type: 2}
   mainLevel: Main
   menuPosition: 0
+  loadingTexture: {fileID: 2800000, guid: 66614e8f6bc0a47aaaaf83c0e8e09858, type: 3}
+  angle: 0
+  size: {x: 128, y: 128}
 --- !u!4 &1226354555
 Transform:
   m_ObjectHideFlags: 0
@@ -742,7 +745,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1559064917}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f09033b0a7cec4f1bb52637e3a726037, type: 3}
   m_Name: 
