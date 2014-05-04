@@ -106,7 +106,15 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
+<<<<<<< HEAD
   AndroidKeystoreName: /Users/DudeOfAwesome/Google Drive/AR_Fighter/private/user.keystore
+=======
+<<<<<<< HEAD
+  AndroidKeystoreName: /Users/dudeofawesome/Drive/AR_Fighter/private/user.keystore
+=======
+  AndroidKeystoreName: /Users/Kevin/Documents/ARFIGHTER/user.keystore
+>>>>>>> Alpha-Kevin
+>>>>>>> FETCH_HEAD
   AndroidKeyaliasName: release
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
