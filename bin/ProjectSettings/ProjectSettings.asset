@@ -5,13 +5,13 @@ PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   AndroidProfiler: 0
-  defaultScreenOrientation: 3
+  defaultScreenOrientation: 0
   targetDevice: 2
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: dudeofawesome
-  productName: Sole Champion
+  companyName: DefaultCompany
+  productName: bin
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   defaultScreenWidth: 1024
@@ -36,7 +36,7 @@ PlayerSettings:
   use24BitDepthBuffer: 1
   defaultIsFullScreen: 1
   defaultIsNativeResolution: 1
-  runInBackground: 1
+  runInBackground: 0
   captureSingleScreen: 0
   Override IPod Music: 0
   Prepare IOS For Recording: 0
@@ -44,7 +44,7 @@ PlayerSettings:
   usePlayerLog: 1
   stripPhysics: 0
   forceSingleInstance: 0
-  resizableWindow: 1
+  resizableWindow: 0
   useMacAppStoreValidation: 0
   gpuSkinning: 0
   xboxPIXTextureCapture: 0
@@ -73,13 +73,13 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.dudeofawesome.solechamp
+  iPhoneBundleIdentifier: com.Company.ProductName
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
-  productGUID: fe946b00c4d7e478ca5336b71a205385
+  productGUID: e10fb2f1881bf447f99313a47f407c8d
   iPhoneBundleVersion: 1.0
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 14
+  AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   apiCompatibilityLevel: 2
@@ -97,7 +97,7 @@ PlayerSettings:
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
-  iPhoneSplashScreen: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
+  iPhoneSplashScreen: {fileID: 0}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
   iPadPortraitSplashScreen: {fileID: 0}
@@ -106,29 +106,11 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-<<<<<<< HEAD
-  AndroidKeystoreName: /Users/DudeOfAwesome/Google Drive/AR_Fighter/private/user.keystore
-=======
-<<<<<<< HEAD
-  AndroidKeystoreName: /Users/dudeofawesome/Drive/AR_Fighter/private/user.keystore
-=======
-  AndroidKeystoreName: /Users/Kevin/Documents/ARFIGHTER/user.keystore
->>>>>>> Alpha-Kevin
->>>>>>> FETCH_HEAD
-  AndroidKeyaliasName: release
+  AndroidKeystoreName: 
+  AndroidKeyaliasName: 
   resolutionDialogBanner: {fileID: 0}
-  m_BuildTargetIcons:
-  - m_BuildTarget: 
-    m_Icons:
-    - m_Icon: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
-      m_Size: 128
-  m_BuildTargetBatching:
-  - m_BuildTarget: iPhone
-    m_StaticBatching: 1
-    m_DynamicBatching: 1
-  - m_BuildTarget: Android
-    m_StaticBatching: 1
-    m_DynamicBatching: 1
+  m_BuildTargetIcons: []
+  m_BuildTargetBatching: []
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
   wiiRegion: 1
@@ -166,10 +148,8 @@ PlayerSettings:
   ps3TrialMode: 0
   flashStrippingLevel: 2
   spritePackerPolicy: 
-  scriptingDefineSymbols:
-    2: 
-    16: 
-  metroPackageName: AR_Fighter
+  scriptingDefineSymbols: {}
+  metroPackageName: bin
   metroPackageLogo: 
   metroPackageVersion: 
   metroCertificatePath: 
@@ -177,7 +157,7 @@ PlayerSettings:
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: AR_Fighter
+  metroApplicationDescription: bin
   metroTileLogo: 
   metroTileWideLogo: 
   metroTileSmallLogo: 

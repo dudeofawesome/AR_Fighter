@@ -1,28 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../starfoxPC-game/game_files/Assets/MPBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ChangeMainPlatformPosition.cs">
     <Files>
-<<<<<<< HEAD
       <File FileName="Assets/Scripts/CharacterController.cs" Line="5" Column="38" />
       <File FileName="Assets/Scripts/MultiplayerSyncer.cs" Line="4" Column="53" />
       <File FileName="Assets/Scripts/SessionStarter.cs" Line="11" Column="33" />
       <File FileName="../../starfoxPC-game/game_files/Assets/MPBase.cs" Line="1" Column="1" />
-=======
-<<<<<<< HEAD
-      <File FileName="Assets/Scripts/CharacterController.cs" Line="342" Column="1" />
-      <File FileName="Assets/Qualcomm Augmented Reality/Shaders/DepthMask.shader" Line="1" Column="1" />
-      <File FileName="Assets/Qualcomm Augmented Reality/Scripts/DefaultTrackableEventHandler.cs" Line="1" Column="1" />
-=======
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="346" Column="1" />
->>>>>>> Alpha-Kevin
-      <File FileName="Assets/Scripts/GameGUI.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/JumpZone.cs" Line="14" Column="2" />
-      <File FileName="Assets/Scripts/Attack.cs" Line="1" Column="1" />
->>>>>>> FETCH_HEAD
+      <File FileName="Assets/Scripts/ChangeMainPlatformPosition.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="ChangeMainPlatformPosition.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
