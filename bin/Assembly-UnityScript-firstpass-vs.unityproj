@@ -62,6 +62,7 @@
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\StreamingAssets\QCAR\unity.txt" />
      <None Include="Assets\Photon Unity Networking\readme.txt" />
+     <None Include="Assets\Mats\dojo_in_tree\Roof Tesselator.shader" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\BrightTexture.shader" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\Text3D.shader" />

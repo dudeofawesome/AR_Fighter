@@ -12,7 +12,8 @@ public class MainMenuGUI : MonoBehaviour
 		public enum MenuState
 		{
 				MAIN,
-				LEVELLOADER,
+				LEVELPICKER,
+				SERVERPICKER,
 				SETTINGS,
 				SETTINGSVI,
 				SETTINGSCONTROLS, 
@@ -119,7 +120,7 @@ public class MainMenuGUI : MonoBehaviour
 
 						if (GUI.Button (new Rect (490, 50, 340, 70), "Start")) {
 
-								menuPosition = MenuState.LEVELLOADER;
+								menuPosition = MenuState.LEVELPICKER;
 
 				
 						} else if (GUI.Button (new Rect (490, 150, 340, 70), "Settings")) {
@@ -191,7 +192,7 @@ public class MainMenuGUI : MonoBehaviour
 
 						break;
 
-				case MenuState.LEVELLOADER:
+				case MenuState.LEVELPICKER:
 						GUI.skin = scrollSkin;
 
 						GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
@@ -205,10 +206,15 @@ public class MainMenuGUI : MonoBehaviour
 			// Make four buttons - one in each corner. The coordinate system is defined
 			// by the last parameter to BeginScrollView.
 						if (GUI.Button (new Rect (0, 0, 340, 70), "Dojo in the Trees")) {
+								ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
+								ht.Add("gameLevel", "treeTower");
+								PhotonNetwork.room.SetCustomProperties(ht);
 								Application.LoadLevel (mainLevel);
 						}
 						GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
-						GUI.Button (new Rect (0, 140, 340, 70), "Setting3");
+						if (GUI.Button (new Rect (0, 140, 340, 70), "Go to server picker")) {
+								menuPosition = MenuState.SERVERPICKER;
+						}
 						if (GUI.Button (new Rect (0, 210, 340, 70), "Setting4")) {
 								menuPosition = MenuState.MAIN;
 						}
@@ -225,6 +231,27 @@ public class MainMenuGUI : MonoBehaviour
 						}
 
 
+						break;
+				case MenuState.SERVERPICKER:
+						GUI.skin = null;
+						
+						print (PhotonNetwork.GetRoomList().Length);
+						if(PhotonNetwork.connected && PhotonNetwork.room == null){
+							RoomInfo[] _rooms = PhotonNetwork.GetRoomList();
+							int i = 0;
+							for (i = 0; i < _rooms.Length; i++) {
+								print (_rooms[i].name);
+								if (GUI.Button(new Rect(Screen.width / 2 - 100, 10 + i * 30, 200, 25), _rooms[i].name + " " + _rooms[i].playerCount + "/" + _rooms[i].maxPlayers)) {
+									PhotonNetwork.JoinRoom(_rooms[i].name);
+								}
+							}
+							if (GUI.Button(new Rect(Screen.width / 2 - 100, 10 + i * 30, 200, 25), "Create new room")) {
+								print ("created room with name " + System.Environment.UserName);
+								PhotonNetwork.CreateRoom(System.Environment.UserName + "'s Room", new RoomOptions() { maxPlayers = 2 }, null);
+								menuPosition = MenuState.LEVELPICKER;
+							}
+						}
+						GUI.skin = guiSkin;
 						break;
 				case MenuState.HOWTOPLAY:
 						GUI.skin = howtoplaySkin;
@@ -311,11 +338,13 @@ public class MainMenuGUI : MonoBehaviour
 				}
 
 
+				GUI.skin = null;
+				GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
+				GUI.skin = guiSkin;
 
 				//...
 				// restore matrix before returning
 				GUI.matrix = svMat; // restore matrix
-
 
 
 

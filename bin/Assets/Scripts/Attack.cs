@@ -4,7 +4,7 @@ using System.Collections;
 namespace MyPlayer {
 	public class Attack {
 		private int warmup = 0;
-		private int cooldown = 60;
+		private int cooldown = 10;
 
 		private int damage = 10;
 

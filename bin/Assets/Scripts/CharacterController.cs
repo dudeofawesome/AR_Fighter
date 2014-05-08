@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour {
 	public GameObject feet = null;
 	public GameObject attackHitbox = null;
 	public GameObject ledgeGrabHitbox = null;
+	public GameObject sceneCamera = null;
 
 	public float damage = 0;
 	public bool stunned = false;
@@ -27,6 +28,7 @@ public class CharacterController : MonoBehaviour {
 	public string keyAttack = "space";
 
 
+
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
 	public bool ledgeHanging = false;
@@ -35,10 +37,11 @@ public class CharacterController : MonoBehaviour {
 	private GameObject touchingEnemy = null;
 	private MyPlayer.Attack currentAttack = null;
 	private bool movementKeyDown = false;
-	private int timeSinceFirstJump = 0;
+	private float heightOfFirstJump = 0;
 	private List<custTypes.JumpZone> jumpZones = new List<custTypes.JumpZone> ();
 	private float jumpZoneWidth = 9.0f;
 	private float jumpZoneHeight = 7.5f;
+	public float maxJumpHeight;
 
 
 
@@ -58,6 +61,8 @@ public class CharacterController : MonoBehaviour {
 					jumpZones.Add (new custTypes.JumpZone(ledgeGrabs[i].transform.position.x - jumpZoneWidth, ledgeGrabs[i].transform.position.y + jumpZoneHeight, jumpZoneWidth, jumpZoneHeight, true));
 			}
 		} 
+
+		maxJumpHeight = calculateJumpHeight ();
 	}
 
 	// Update is called once per frame
@@ -139,7 +144,8 @@ public class CharacterController : MonoBehaviour {
 
 
 						// Phone controls
-						float _tilt = Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
+//						float _tilt = Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
+						float _tilt = (sceneCamera.transform.position.z > 1 ? -1 : 1) * Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
 						if (_tilt > -0.1 && _tilt < 0.1)
 							_tilt = 0;
 						rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
@@ -184,13 +190,13 @@ public class CharacterController : MonoBehaviour {
 										if (transform.position.x > closestJumpZoneX && transform.position.x < closestJumpZoneX + jumpZoneWidth) {
 											// print("jumping in jump zone");
 											jump();
-											timeSinceFirstJump = 0;
+											heightOfFirstJump = transform.position.y;
 										}
 									}
 
 									// AI on same level
 									if (Mathf.Abs(transform.position.y - player.transform.position.y) < 5) {
-										print("running to player");
+										// print("running to player");
 										if (transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x + 2 && transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 2) {
 											move(player.transform.position.x > transform.position.x ? false : true, 1);
 										}
@@ -199,9 +205,8 @@ public class CharacterController : MonoBehaviour {
 										}
 									}
 
-									timeSinceFirstJump++;
-									// Double jump if need be
-									if (timeSinceFirstJump > 5 && transform.position.y < player.transform.position.y && !touchingGround) {
+									// Double jump if needed
+									if (transform.position.y < heightOfFirstJump + maxJumpHeight - Random.value && transform.position.y < player.transform.position.y && !touchingGround) {
 										// print("trying to double jump");
 										jump();
 									}
@@ -231,7 +236,10 @@ public class CharacterController : MonoBehaviour {
 			}
 
 			// Drag
-			if (!movementKeyDown && touchingGround) {
+			if (currentAttack != null) {
+				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (0.5f), rigidbody.velocity.y, 0);
+			}
+			else if (!movementKeyDown && touchingGround) {
 				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (1 - drag), rigidbody.velocity.y, 0);
 			}
 			else if (!touchingGround) {
@@ -253,6 +261,18 @@ public class CharacterController : MonoBehaviour {
 		if (ledgeGrabCountdown > 0) {
 			ledgeGrabCountdown--;
 		}
+	}
+
+	float calculateJumpHeight(){
+		//Using derivitives to calculate Jump Height of the Artifical Intelligence
+		//Here we are given the Force of the Object that the RigidBody jumps with
+		//We can use this and the formula F=MA to calculate accelration 
+		//dy/dt((g*t^2)/2)+((f*t)/m) = (F/M)*(g*t)
+		
+		//Calculate when slope = 0
+		float t = -(jumpForce / rigidbody.mass) / Physics.gravity.y;
+		//Find the y value at t
+		return (Physics.gravity.y * Mathf.Pow(t / 6000, 2) / 2) + ((jumpForce * t / 6000)/ rigidbody.mass);
 	}
 
 	bool rectangleCollision(Rect r1, Rect r2, int padding) {

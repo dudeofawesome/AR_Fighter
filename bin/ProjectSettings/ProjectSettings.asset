@@ -5,13 +5,13 @@ PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   AndroidProfiler: 0
-  defaultScreenOrientation: 0
+  defaultScreenOrientation: 3
   targetDevice: 2
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: bin
+  companyName: DudeOfAwesome
+  productName: Sole Champion
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   defaultScreenWidth: 1024
@@ -73,7 +73,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.Company.ProductName
+  iPhoneBundleIdentifier: com.0rleans.
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: e10fb2f1881bf447f99313a47f407c8d
@@ -97,7 +97,7 @@ PlayerSettings:
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
-  iPhoneSplashScreen: {fileID: 0}
+  iPhoneSplashScreen: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
   iPadPortraitSplashScreen: {fileID: 0}
@@ -106,11 +106,18 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  AndroidKeystoreName: 
+  AndroidKeystoreName: /Users/DudeOfAwesome/Google Drive/AR_Fighter/private/user.keystore
   AndroidKeyaliasName: 
   resolutionDialogBanner: {fileID: 0}
-  m_BuildTargetIcons: []
-  m_BuildTargetBatching: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - m_Icon: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
+      m_Size: 128
+  m_BuildTargetBatching:
+  - m_BuildTarget: Android
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
   wiiRegion: 1

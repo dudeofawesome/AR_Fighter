@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: roof
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10706, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,15 +17,15 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 1b9774394b5744ea3a972496898873b9, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: a069effe31719324fa0736f019aa6716, type: 3}
-          m_Scale: {x: 10, y: 10}
+          m_Texture: {fileID: 2800000, guid: b58e5fcf4fa6543ff9fa101aed8f5bb0, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -38,7 +38,7 @@ Material:
       data:
         first:
           name: _Shininess
-        second: .078125
+        second: .0865215063
       data:
         first:
           name: _Parallax
@@ -51,4 +51,4 @@ Material:
       data:
         first:
           name: _SpecColor
-        second: {r: .5, g: .5, b: .5, a: 1}
+        second: {r: .382352948, g: .382352948, b: .382352948, a: 1}
