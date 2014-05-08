@@ -206,9 +206,11 @@ public class MainMenuGUI : MonoBehaviour
 			// Make four buttons - one in each corner. The coordinate system is defined
 			// by the last parameter to BeginScrollView.
 						if (GUI.Button (new Rect (0, 0, 340, 70), "Dojo in the Trees")) {
-								ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
-								ht.Add("gameLevel", "treeTower");
-								PhotonNetwork.room.SetCustomProperties(ht);
+								if (PhotonNetwork.room != null) {
+									ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
+									ht.Add("gameLevel", "treeTower");
+									PhotonNetwork.room.SetCustomProperties(ht);
+								}
 								Application.LoadLevel (mainLevel);
 						}
 						GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
