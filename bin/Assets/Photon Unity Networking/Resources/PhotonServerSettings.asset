@@ -21,4 +21,11 @@ MonoBehaviour:
   - InstantiateRpc
   - OnAwakeRPC
   - DestroyRpc
+  - attack
+  - respawn
+  - move
+  - jump
+  - crouch
+  - hurt
+  - attackLanded
   DisableAutoOpenWizard: 0

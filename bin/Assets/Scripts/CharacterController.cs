@@ -48,6 +48,8 @@ public class CharacterController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		DontDestroyOnLoad(transform.gameObject);
+
 		GameObject[] ledgeGrabs = GameObject.FindGameObjectsWithTag ("LedgeGrab");
 
 		for (int i = 0; i < ledgeGrabs.Length; i++) {
@@ -166,7 +168,7 @@ public class CharacterController : MonoBehaviour {
 						// Find a player
 						GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 						foreach (GameObject player in players) {
-							if (player.name != gameObject.name) {
+							if (player != gameObject) {
 								// AI isn't ledge grabbing
 								if (!ledgeHanging) {
 									// AI isn't off the edge
@@ -285,7 +287,7 @@ public class CharacterController : MonoBehaviour {
 		// return (widthOverlap && heightOverlap);
 	}
 
-	private void respawn () {
+	[RPC] public void respawn () {
 		GameObject.Find("GUI").GetComponent<GameGUI>().onPlayerDeath(gameObject);
 		transform.position = new Vector3 (0, 5, 0);
 		rigidbody.velocity = new Vector3(0, 0, 0);
@@ -298,13 +300,13 @@ public class CharacterController : MonoBehaviour {
 		currentAttack = null;
 	}
 
-	public void move (bool left, float speed) {
+	[RPC] public void move (bool left, float speed) {
 		rigidbody.AddForce(new Vector3(movementForce * (left ? -1 : 1) * speed,0,0));
 		transform.rotation = Quaternion.Euler( 0, (left ? 180 : 0), 0);
 		movementKeyDown = true;
 	}
 
-	public void jump () {
+	[RPC] public void jump () {
 		if (!ledgeHanging && !doubleJumpUsed) {
 			rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
 			rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
@@ -320,7 +322,7 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
-	public void crouch (bool down) {
+	[RPC] public void crouch (bool down) {
 		if (!ledgeHanging){
 			if (down)
 				transform.localScale = new Vector3(0.1f, 0.03f, 0.1f);
@@ -337,12 +339,12 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
-	private void attack () {
+	[RPC] public void attack () {
 		if (currentAttack == null)
 			currentAttack = new MyPlayer.Attack(this.gameObject);
 	}
 
-	public void hurt (float damage, Vector3 source) {
+	[RPC] public void hurt (float damage, Vector3 source) {
 		this.damage += damage;
 		if (damage > 20) {
 			stunned = true;
@@ -363,7 +365,7 @@ public class CharacterController : MonoBehaviour {
 //		}
 //	}
 
-	public GameObject attackLanded () {
+	[RPC] public GameObject attackLanded () {
 		return attackHitbox.GetComponent<CollisionHandeler> ().collidingWith;
 	}
 }

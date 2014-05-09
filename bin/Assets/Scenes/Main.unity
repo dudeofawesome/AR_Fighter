@@ -137,12 +137,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 35101804}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 320c051da12944689815e11ba47633ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 09cb243b301b14a38bfb0da0fb355fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomHost: 1
+  playerPrefab: {fileID: 100010, guid: 533d099ea77d84fc8994603eb614141d, type: 2}
 --- !u!4 &35101806
 Transform:
   m_ObjectHideFlags: 0
@@ -5454,6 +5454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05981207d1a04f49b64bd5f42169245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPlayer: {fileID: 0}
   guiSkin: {fileID: 11400000, guid: 192434db35abe4affae30d72e15798fc, type: 2}
   deathIndicator: {fileID: 100000, guid: a55ef3ea395894417beadd1ea2f549f9, type: 2}
   paused: 0

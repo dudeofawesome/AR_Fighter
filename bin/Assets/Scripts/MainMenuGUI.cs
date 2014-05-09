@@ -71,7 +71,7 @@ public class MainMenuGUI : MonoBehaviour
 				
 		if (tweenSwitch == 0) {
 			//HOTween.To (GameObject.Find ("Map").transform, 10, "rotation", Quaternion.Euler (new Vector3 (0, 0, 0)));
-			HOTween.To (GameObject.Find ("Map").transform, 10, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 0, 0))).Ease(EaseType.Linear).OnComplete (tweenFunction));
+			HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 0, 0))).Ease(EaseType.EaseInQuad).OnComplete (tweenFunction));
 		}
 		
 		//HOTween.To (GameObject.Find ("Map").transform, 5, "rotation", Quaternion.Euler (new Vector3 (0, 180, 0)));
@@ -84,12 +84,12 @@ public class MainMenuGUI : MonoBehaviour
 	
 		}
 
-	void tweenFunction(){
-		Debug.Log ("Work");
-		tweenSwitch = 1;
-	//	HOTween.To (GameObject.Find ("Map").transform, 1, "rotation", Quaternion.Euler (new Vector3 (0, 360, 0)));
-	}
-	
+		void tweenFunction(){
+//			Debug.Log ("Work");
+			tweenSwitch = 1;
+			HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 180, 0))).Ease(EaseType.EaseOutQuad).OnComplete (tweenFunction));
+		}
+		
 		void OnGUI ()
 		{
 				GUI.skin = guiSkin;
@@ -219,7 +219,7 @@ public class MainMenuGUI : MonoBehaviour
 									ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
 									ht.Add("gameLevel", "treeTower");
 									PhotonNetwork.room.SetCustomProperties(ht);
-									
+									GameObject.Find("SessionStarter").GetComponent<SessionStarter>().singlePlayer = false;
 								}
 								Application.LoadLevel (mainLevel);
 						}

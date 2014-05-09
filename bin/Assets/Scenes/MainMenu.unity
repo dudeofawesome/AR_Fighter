@@ -874,6 +874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomHost: 1
+  singlePlayer: 1
 --- !u!4 &1845864018
 Transform:
   m_ObjectHideFlags: 0

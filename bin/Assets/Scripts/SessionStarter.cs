@@ -5,6 +5,7 @@ using System;
 [AddComponentMenu("Multiplayer/Session Starter")]
 public class SessionStarter : MonoBehaviour {
 	public bool roomHost = true;
+	public bool singlePlayer = true;
 
 	public virtual void Start() {
 		DontDestroyOnLoad(transform.gameObject);
