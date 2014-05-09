@@ -41,7 +41,6 @@ public class RotateAroundByAccel : MonoBehaviour {
 		// r.x = r.y;
 		// r.y = Input.acceleration.x * 8;
 		// r.z = 0;
-		print(r.y);
 		r.x = Mathf.Clamp((r.y) + 1, 0, 1);
 		r.y = 90 + Input.acceleration.x * 5;
 		r.z = 0;
@@ -52,6 +51,9 @@ public class RotateAroundByAccel : MonoBehaviour {
 	
 	void Start ()
 	{
+		HOTween.Init(false, false, true);
+		HOTween.EnableOverwriteManager();
+
 		// Make the rigid body not change rotation
 		if (rigidbody)
 			rigidbody.freezeRotation = true;

@@ -12,7 +12,8 @@ public class MainMenuGUI : MonoBehaviour
 		public enum MenuState
 		{
 				MAIN,
-				LEVELLOADER,
+				LEVELPICKER,
+				SERVERPICKER,
 				SETTINGS,
 				SETTINGSVI,
 				SETTINGSCONTROLS, 
@@ -70,7 +71,7 @@ public class MainMenuGUI : MonoBehaviour
 				
 		if (tweenSwitch == 0) {
 			//HOTween.To (GameObject.Find ("Map").transform, 10, "rotation", Quaternion.Euler (new Vector3 (0, 0, 0)));
-			HOTween.To (GameObject.Find ("Map").transform, 10, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 0, 0))).Ease(EaseType.Linear).OnComplete (tweenFunction));
+			HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 0, 0))).Ease(EaseType.EaseInQuad).OnComplete (tweenFunction));
 		}
 		
 		//HOTween.To (GameObject.Find ("Map").transform, 5, "rotation", Quaternion.Euler (new Vector3 (0, 180, 0)));
@@ -83,12 +84,12 @@ public class MainMenuGUI : MonoBehaviour
 	
 		}
 
-	void tweenFunction(){
-		Debug.Log ("Work");
-		tweenSwitch = 1;
-	//	HOTween.To (GameObject.Find ("Map").transform, 1, "rotation", Quaternion.Euler (new Vector3 (0, 360, 0)));
-	}
-	
+		void tweenFunction(){
+//			Debug.Log ("Work");
+			tweenSwitch = 1;
+			HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 180, 0))).Ease(EaseType.EaseOutQuad).OnComplete (tweenFunction));
+		}
+		
 		void OnGUI ()
 		{
 				GUI.skin = guiSkin;
@@ -119,7 +120,7 @@ public class MainMenuGUI : MonoBehaviour
 
 						if (GUI.Button (new Rect (490, 50, 340, 70), "Start")) {
 
-								menuPosition = MenuState.LEVELLOADER;
+								menuPosition = MenuState.LEVELPICKER;
 
 				
 						} else if (GUI.Button (new Rect (490, 150, 340, 70), "Settings")) {
@@ -184,6 +185,15 @@ public class MainMenuGUI : MonoBehaviour
 
 				case MenuState.SETTINGSCONTROLS:
 
+						GUILayout.BeginArea(new Rect (120, 100, 680, 600));
+						if (GUILayout.Button ("Full Tilt"))
+			    			PlayerPrefs.SetInt("controlScheme", 0);
+						if (GUILayout.Button ("Tilt with buttons"))
+			    			PlayerPrefs.SetInt("controlScheme", 1);
+						if (GUILayout.Button ("On screen buttons"))
+			    			PlayerPrefs.SetInt("controlScheme", 2);
+						GUILayout.EndArea();
+
 						if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 								menuPosition = MenuState.SETTINGS;
 						}
@@ -191,7 +201,7 @@ public class MainMenuGUI : MonoBehaviour
 
 						break;
 
-				case MenuState.LEVELLOADER:
+				case MenuState.LEVELPICKER:
 						GUI.skin = scrollSkin;
 
 						GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
@@ -205,10 +215,18 @@ public class MainMenuGUI : MonoBehaviour
 			// Make four buttons - one in each corner. The coordinate system is defined
 			// by the last parameter to BeginScrollView.
 						if (GUI.Button (new Rect (0, 0, 340, 70), "Dojo in the Trees")) {
+								if (PhotonNetwork.room != null) {
+									ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
+									ht.Add("gameLevel", "treeTower");
+									PhotonNetwork.room.SetCustomProperties(ht);
+									GameObject.Find("SessionStarter").GetComponent<SessionStarter>().singlePlayer = false;
+								}
 								Application.LoadLevel (mainLevel);
 						}
 						GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
-						GUI.Button (new Rect (0, 140, 340, 70), "Setting3");
+						if (GUI.Button (new Rect (0, 140, 340, 70), "Go to server picker")) {
+								menuPosition = MenuState.SERVERPICKER;
+						}
 						if (GUI.Button (new Rect (0, 210, 340, 70), "Setting4")) {
 								menuPosition = MenuState.MAIN;
 						}
@@ -225,6 +243,26 @@ public class MainMenuGUI : MonoBehaviour
 						}
 
 
+						break;
+				case MenuState.SERVERPICKER:
+						GUI.skin = null;
+						
+						if(PhotonNetwork.connected && PhotonNetwork.room == null){
+							RoomInfo[] _rooms = PhotonNetwork.GetRoomList();
+							int i = 0;
+							for (i = 0; i < _rooms.Length; i++) {
+								if (GUI.Button(new Rect(Screen.width / 2 - 100, 10 + i * 30, 200, 25), _rooms[i].name + " " + _rooms[i].playerCount + "/" + _rooms[i].maxPlayers)) {
+									GameObject.Find("SessionStarter").GetComponent<SessionStarter>().roomHost = false;
+									PhotonNetwork.JoinRoom(_rooms[i].name);
+								}
+							}
+							if (GUI.Button(new Rect(Screen.width / 2 - 100, 10 + i * 30, 200, 25), "Create new room")) {
+								print ("created room with name " + System.Environment.UserName);
+								PhotonNetwork.CreateRoom(System.Environment.UserName + "'s Room", new RoomOptions() { maxPlayers = 2 }, null);
+								menuPosition = MenuState.LEVELPICKER;
+							}
+						}
+						GUI.skin = guiSkin;
 						break;
 				case MenuState.HOWTOPLAY:
 						GUI.skin = howtoplaySkin;
@@ -311,11 +349,13 @@ public class MainMenuGUI : MonoBehaviour
 				}
 
 
+				GUI.skin = null;
+				GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
+				GUI.skin = guiSkin;
 
 				//...
 				// restore matrix before returning
 				GUI.matrix = svMat; // restore matrix
-
 
 
 
@@ -339,6 +379,8 @@ public class MainMenuGUI : MonoBehaviour
 		
 				return rAdjustedBounds.Contains (screenPos);
 		}
+
+		
 
 }
 
