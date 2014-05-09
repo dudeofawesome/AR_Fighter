@@ -185,6 +185,15 @@ public class MainMenuGUI : MonoBehaviour
 
 				case MenuState.SETTINGSCONTROLS:
 
+						GUILayout.BeginArea(new Rect (120, 100, 680, 600));
+						if (GUILayout.Button ("Full Tilt"))
+			    			PlayerPrefs.SetInt("controlScheme", 0);
+						if (GUILayout.Button ("Tilt with buttons"))
+			    			PlayerPrefs.SetInt("controlScheme", 1);
+						if (GUILayout.Button ("On screen buttons"))
+			    			PlayerPrefs.SetInt("controlScheme", 2);
+						GUILayout.EndArea();
+
 						if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 								menuPosition = MenuState.SETTINGS;
 						}
@@ -210,6 +219,7 @@ public class MainMenuGUI : MonoBehaviour
 									ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
 									ht.Add("gameLevel", "treeTower");
 									PhotonNetwork.room.SetCustomProperties(ht);
+									
 								}
 								Application.LoadLevel (mainLevel);
 						}
@@ -237,13 +247,12 @@ public class MainMenuGUI : MonoBehaviour
 				case MenuState.SERVERPICKER:
 						GUI.skin = null;
 						
-						print (PhotonNetwork.GetRoomList().Length);
 						if(PhotonNetwork.connected && PhotonNetwork.room == null){
 							RoomInfo[] _rooms = PhotonNetwork.GetRoomList();
 							int i = 0;
 							for (i = 0; i < _rooms.Length; i++) {
-								print (_rooms[i].name);
 								if (GUI.Button(new Rect(Screen.width / 2 - 100, 10 + i * 30, 200, 25), _rooms[i].name + " " + _rooms[i].playerCount + "/" + _rooms[i].maxPlayers)) {
+									GameObject.Find("SessionStarter").GetComponent<SessionStarter>().roomHost = false;
 									PhotonNetwork.JoinRoom(_rooms[i].name);
 								}
 							}
@@ -370,6 +379,8 @@ public class MainMenuGUI : MonoBehaviour
 		
 				return rAdjustedBounds.Contains (screenPos);
 		}
+
+		
 
 }
 

@@ -4,13 +4,10 @@ using System;
 
 [AddComponentMenu("Multiplayer/Session Starter")]
 public class SessionStarter : MonoBehaviour {
-	/// <summary>Connect automatically? If false you can set this to true later on or call ConnectUsingSettings in your own scripts.</summary>
-	public bool AutoConnect = false;
-	
-	/// <summary>if we don't want to connect in Start(), we have to "remember" if we called ConnectUsingSettings()</summary>
-	private bool ConnectInUpdate = true;
-	
+	public bool roomHost = true;
+
 	public virtual void Start() {
+		DontDestroyOnLoad(transform.gameObject);
 //		PhotonNetwork.autoJoinLobby = false;    // we join randomly. always. no need to join a lobby to get the list of rooms.
 		PhotonNetwork.ConnectUsingSettings("Alpha 0.1");
 	}
@@ -44,6 +41,15 @@ public class SessionStarter : MonoBehaviour {
 	public void OnJoinedRoom() {
 		Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room. From here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
 		print ("room name" + PhotonNetwork.room.name);
+		if (!roomHost) {
+			if (PhotonNetwork.room.customProperties.ContainsKey("gameLevel")) {
+				switch (PhotonNetwork.room.customProperties["gameLevel"].ToString()) {
+					case "treeTower" :
+						Application.LoadLevel("Main");
+					break;
+				}
+			}
+		}
 	}
 	
 	public virtual void OnJoinedLobby() {
@@ -54,26 +60,6 @@ public class SessionStarter : MonoBehaviour {
 //		}
 //		else {
 //			print (PhotonNetwork.GetRoomList().Length);
-//		}
-	}
-
-	void OnGUI () {
-//		GUI.Label (new Rect (5, Screen.height - 18, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name : ""));
-//
-//		print (PhotonNetwork.GetRoomList().Length);
-//		if(PhotonNetwork.connected && PhotonNetwork.room == null){
-//			RoomInfo[] _rooms = PhotonNetwork.GetRoomList();
-//			int i = 0;
-//			for (i = 0; i < _rooms.Length; i++) {
-//				print (_rooms[i].name);
-//				if (GUI.Button(new Rect(Screen.width / 2 - 100, 10 + i * 30, 200, 25), _rooms[i].name + " " + _rooms[i].playerCount + "/" + _rooms[i].maxPlayers)) {
-//					PhotonNetwork.JoinRoom(_rooms[i].name);
-//				}
-//			}
-//			if (GUI.Button(new Rect(Screen.width / 2 - 100, 10 + i * 30, 200, 25), "Create new room")) {
-//				print ("created room with name " + System.Environment.UserName);
-//				PhotonNetwork.CreateRoom(System.Environment.UserName + "'s Room", new RoomOptions() { maxPlayers = 2 }, null);
-//			}
 //		}
 	}
 }

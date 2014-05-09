@@ -7,7 +7,11 @@ public class MultiplayerSyncer : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-
+		if (PhotonNetwork.room != null) {
+			GameObject _myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(10, 30, 0), Quaternion.identity, 0);
+			_myPlayer.GetComponent<CharacterController>().controlMe = true;
+			_myPlayer.GetComponent<CharacterController>().networkControl = false;
+		}
 	}
 	
 	// Update is called once per frame
@@ -20,20 +24,10 @@ public class MultiplayerSyncer : MonoBehaviour {
 		// this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
 		PhotonNetwork.automaticallySyncScene = true;
 		
-		// the following line checks if this client was just created (and not yet online). if so, we connect
-		if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
-		{
-			// Connect to the photon master-server. We use the settings saved in PhotonServerSettings (a .asset file in this project)
-			PhotonNetwork.ConnectUsingSettings("1.1");
-		}
-		
 		// generate a name for this player, if none is assigned yet
 		if (String.IsNullOrEmpty(PhotonNetwork.playerName))
 		{
 			PhotonNetwork.playerName = "Guest" + UnityEngine.Random.Range(1, 9999);
 		}
-		
-		// if you wanted more debug out, turn this on:
-		// PhotonNetwork.logLevel = NetworkLogLevel.Full;
 	}
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class CharacterController : MonoBehaviour {
 
 	public bool controlMe = false;
+	public bool networkControl = true;
 
 	public int jumpForce = 500000;
 	public int movementForce = 10000;
@@ -63,13 +64,15 @@ public class CharacterController : MonoBehaviour {
 		} 
 
 		maxJumpHeight = calculateJumpHeight ();
+
+		GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), gameObject));
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (!stunned){
 			if (currentAttack == null) {
-				if (controlMe) {
+				if (controlMe && !networkControl) {
 					if (Input.GetKeyDown (keyUp)) {
 						jump();
 					}
@@ -93,7 +96,6 @@ public class CharacterController : MonoBehaviour {
 							attack();
 						}
 					}
-
 				}
 			}
 
@@ -132,102 +134,103 @@ public class CharacterController : MonoBehaviour {
 		if (!stunned) {
 			if (currentAttack == null) {
 				movementKeyDown = false;
-				if (controlMe) {
-					if (!ledgeHanging){
-						if (Input.GetKey (keyLeft)) {
-							move(true, 1);
-						}
-						if (Input.GetKey (keyRight)) {
-							move(false, 1);
-						}
+				if (!networkControl) {
+					if (controlMe) {
+						if (!ledgeHanging){
+							if (Input.GetKey (keyLeft)) {
+								move(true, 1);
+							}
+							if (Input.GetKey (keyRight)) {
+								move(false, 1);
+							}
 
 
 
-						// Phone controls
-//						float _tilt = Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
-						float _tilt = (sceneCamera.transform.position.z > 1 ? -1 : 1) * Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
-						if (_tilt > -0.1 && _tilt < 0.1)
-							_tilt = 0;
-						rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
-						if (_tilt > 0) {
-							transform.rotation = Quaternion.Euler( 0, 0, 0);
-							movementKeyDown = true;
-						}
-						else if (_tilt < 0) {
-							transform.rotation = Quaternion.Euler( 0, 180, 0);
-							movementKeyDown = true;
+							// Phone controls
+							float _tilt = (sceneCamera.transform.position.z > 1 ? -1 : 1) * Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
+							if (_tilt > -0.1 && _tilt < 0.1)
+								_tilt = 0;
+							rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
+							if (_tilt > 0) {
+								transform.rotation = Quaternion.Euler( 0, 0, 0);
+								movementKeyDown = true;
+							}
+							else if (_tilt < 0) {
+								transform.rotation = Quaternion.Euler( 0, 180, 0);
+								movementKeyDown = true;
+							}
 						}
 					}
-				}
-				// AI !!!
-				else {
-					// Find a player
-					GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-					foreach (GameObject player in players) {
-						if (player.name != gameObject.name) {
-							// AI isn't ledge grabbing
-							if (!ledgeHanging) {
-								// AI isn't off the edge
-								if (transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x && transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x) {
-									// AI is above player
-									if (transform.position.y > player.transform.position.y + 5) {
-										// print("going off of platform edge");
-										move(Random.Range(0, 1) == 0 ? false : true, 0.7f);
-									}
+					// AI !!!
+					else {
+						// Find a player
+						GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+						foreach (GameObject player in players) {
+							if (player.name != gameObject.name) {
+								// AI isn't ledge grabbing
+								if (!ledgeHanging) {
+									// AI isn't off the edge
+									if (transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x && transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x) {
+										// AI is above player
+										if (transform.position.y > player.transform.position.y + 5) {
+											// print("going off of platform edge");
+											move(Random.Range(0, 1) == 0 ? false : true, 0.7f);
+										}
 
-									// AI is below player
-									if (transform.position.y + 5 < player.transform.position.y) {
-										// print("going towards jump zone");
-										float closestJumpZoneX = -1f;
-										float closenessOfJumpZoneX = -1f;
-										for(int i = 0; i < jumpZones.Count; i++) {
-											if (Mathf.Abs((jumpZones[i].y - jumpZones[i].height) - transform.position.y) < 2f && Mathf.Abs(player.transform.position.x - (jumpZones[i].x + jumpZones[i].width)) < closenessOfJumpZoneX || closenessOfJumpZoneX == -1f) {
-												closestJumpZoneX = (jumpZones[i].x + jumpZones[i].width);
-												closenessOfJumpZoneX = Mathf.Abs(transform.position.x - closestJumpZoneX);
+										// AI is below player
+										if (transform.position.y + 5 < player.transform.position.y) {
+											// print("going towards jump zone");
+											float closestJumpZoneX = -1f;
+											float closenessOfJumpZoneX = -1f;
+											for(int i = 0; i < jumpZones.Count; i++) {
+												if (Mathf.Abs((jumpZones[i].y - jumpZones[i].height) - transform.position.y) < 2f && Mathf.Abs(player.transform.position.x - (jumpZones[i].x + jumpZones[i].width)) < closenessOfJumpZoneX || closenessOfJumpZoneX == -1f) {
+													closestJumpZoneX = (jumpZones[i].x + jumpZones[i].width);
+													closenessOfJumpZoneX = Mathf.Abs(transform.position.x - closestJumpZoneX);
+												}
+											}
+											move((transform.position.x > closestJumpZoneX) ? true : false, 1);
+											if (transform.position.x > closestJumpZoneX && transform.position.x < closestJumpZoneX + jumpZoneWidth) {
+												// print("jumping in jump zone");
+												jump();
+												heightOfFirstJump = transform.position.y;
 											}
 										}
-										move((transform.position.x > closestJumpZoneX) ? true : false, 1);
-										if (transform.position.x > closestJumpZoneX && transform.position.x < closestJumpZoneX + jumpZoneWidth) {
-											// print("jumping in jump zone");
+
+										// AI on same level
+										if (Mathf.Abs(transform.position.y - player.transform.position.y) < 5) {
+											// print("running to player");
+											if (transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x + 2 && transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 2) {
+												move(player.transform.position.x > transform.position.x ? false : true, 1);
+											}
+											else {
+												move(player.transform.position.x > transform.position.x ? false : true, (transform.rotation.y == 0) ? (GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - transform.position.x) / (carefulness * 1) : (transform.position.x - GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x) / (carefulness * 1));
+											}
+										}
+
+										// Double jump if needed
+										if (transform.position.y < heightOfFirstJump + maxJumpHeight - Random.value && transform.position.y < player.transform.position.y && !touchingGround) {
+											// print("trying to double jump");
 											jump();
-											heightOfFirstJump = transform.position.y;
 										}
 									}
-
-									// AI on same level
-									if (Mathf.Abs(transform.position.y - player.transform.position.y) < 5) {
-										// print("running to player");
-										if (transform.position.x > GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x + 2 && transform.position.x < GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - 2) {
-											move(player.transform.position.x > transform.position.x ? false : true, 1);
-										}
-										else {
-											move(player.transform.position.x > transform.position.x ? false : true, (transform.rotation.y == 0) ? (GameObject.Find ("Ground/LedgeGrabRight").transform.position.x - transform.position.x) / (carefulness * 1) : (transform.position.x - GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x) / (carefulness * 1));
-										}
+									// Run back to ledge
+									else {
+										jump();
+										move(transform.position.x < GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x + 2 ? false : true, 1);
 									}
-
-									// Double jump if needed
-									if (transform.position.y < heightOfFirstJump + maxJumpHeight - Random.value && transform.position.y < player.transform.position.y && !touchingGround) {
-										// print("trying to double jump");
+									// Consider attacking
+									if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
+										attack();
+									}
+								}
+								else {
+									// Decide whether or not to drop off ledge
+									if (player.transform.position.y < transform.position.y && Random.Range(0,30) == 0) {
+										crouch(true);
+									}
+									else if (player.transform.position.y > transform.position.y && !touchingGround && Random.Range(0,30) == 0) {
 										jump();
 									}
-								}
-								// Run back to ledge
-								else {
-									jump();
-									move(transform.position.x < GameObject.Find ("Ground/LedgeGrabLeft").transform.position.x + 2 ? false : true, 1);
-								}
-								// Consider attacking
-								if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
-									attack();
-								}
-							}
-							else {
-								// Decide whether or not to drop off ledge
-								if (player.transform.position.y < transform.position.y && Random.Range(0,30) == 0) {
-									crouch(true);
-								}
-								else if (player.transform.position.y > transform.position.y && !touchingGround && Random.Range(0,30) == 0) {
-									jump();
 								}
 							}
 						}
@@ -295,13 +298,13 @@ public class CharacterController : MonoBehaviour {
 		currentAttack = null;
 	}
 
-	private void move (bool left, float speed) {
+	public void move (bool left, float speed) {
 		rigidbody.AddForce(new Vector3(movementForce * (left ? -1 : 1) * speed,0,0));
 		transform.rotation = Quaternion.Euler( 0, (left ? 180 : 0), 0);
 		movementKeyDown = true;
 	}
 
-	private void jump () {
+	public void jump () {
 		if (!ledgeHanging && !doubleJumpUsed) {
 			rigidbody.velocity = new Vector3(rigidbody.velocity.x,0,0);
 			rigidbody.AddForce(new Vector3(0,jumpForce,0),ForceMode.Force);
@@ -317,7 +320,7 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
-	private void crouch (bool down) {
+	public void crouch (bool down) {
 		if (!ledgeHanging){
 			if (down)
 				transform.localScale = new Vector3(0.1f, 0.03f, 0.1f);
