@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Holoville.HOTween;
 
 public class GameGUI : MonoBehaviour {
-	private List<HUD.GUIelement> GUIelements = new List<HUD.GUIelement>();
+	public List<HUD.GUIelement> GUIelements = new List<HUD.GUIelement>();
+
+	public GameObject myPlayer = null;
 
 	public GUISkin guiSkin;
 	public GameObject deathIndicator = null;
@@ -16,9 +18,6 @@ public class GameGUI : MonoBehaviour {
 	void Start () {
 		HOTween.Init(false, false, true);
 		HOTween.EnableOverwriteManager();
-
-		GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), GameObject.Find("Player1")));
-		GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(0, 0, 100, 50), GameObject.Find("Player2")));
 	}
 	
 	// Update is called once per frame
@@ -99,6 +98,22 @@ public class GameGUI : MonoBehaviour {
 				case HUD.GUIelement.ElementType.LINE :
 					LineDraw.Drawing.DrawLine (new Vector2 (element.rectangle.x, element.rectangle.y), new Vector2 (element.rectangle.width, element.rectangle.height), Color.blue, 2, false);
 				break;
+			}
+		}
+
+		GUI.skin = null;
+		GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
+		GUI.skin = guiSkin;
+
+		if (PlayerPrefs.GetInt("controlScheme") == 2) {
+			if (GUI.Button (new Rect(5, Screen.height - 55, 50, 50), "<")) {
+				myPlayer.GetComponent<CharacterController>().move(true, 1);
+			}
+			if (GUI.Button (new Rect(Screen.width - 55, Screen.height - 55, 50, 50), ">")) {
+				myPlayer.GetComponent<CharacterController>().move(true, 1);
+			}
+			if (GUI.Button (new Rect(Screen.width - 55, Screen.height - 110, 50, 50), "^")) {
+				myPlayer.GetComponent<CharacterController>().jump();
 			}
 		}
 	}
