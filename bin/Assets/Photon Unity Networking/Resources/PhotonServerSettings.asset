@@ -28,4 +28,5 @@ MonoBehaviour:
   - crouch
   - hurt
   - attackLanded
+  - OnVelocityChange
   DisableAutoOpenWizard: 0
