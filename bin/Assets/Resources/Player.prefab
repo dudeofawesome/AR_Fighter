@@ -388,6 +388,7 @@ MonoBehaviour:
   attackHitbox: {fileID: 100000}
   ledgeGrabHitbox: {fileID: 100012}
   sceneCamera: {fileID: 100000, guid: bf30d577eead1ef40bcf2b404289daf4, type: 2}
+  deathIndicator: {fileID: 100000, guid: a55ef3ea395894417beadd1ea2f549f9, type: 2}
   damage: 0
   stunned: 0
   carefulness: 10

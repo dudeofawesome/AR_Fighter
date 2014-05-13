@@ -9,7 +9,6 @@ public class GameGUI : MonoBehaviour {
 	public GameObject myPlayer = null;
 
 	public GUISkin guiSkin;
-	public GameObject deathIndicator = null;
 
 	public bool paused = false;
 
@@ -18,6 +17,14 @@ public class GameGUI : MonoBehaviour {
 	void Start () {
 		HOTween.Init(false, false, true);
 		HOTween.EnableOverwriteManager();
+
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			if (player.GetComponent<CharacterController>().controlMe && !player.GetComponent<CharacterController>().networkControl)
+				myPlayer = player;
+		}
+		if (myPlayer == null)
+			myPlayer = players[players.Length - 1];
 	}
 	
 	// Update is called once per frame
@@ -105,22 +112,27 @@ public class GameGUI : MonoBehaviour {
 		GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
 		GUI.skin = guiSkin;
 
+		int _btnSize = (int) (Screen.dpi != 0 ? Screen.dpi / 2.5 : 100);
 		if (PlayerPrefs.GetInt("controlScheme") == 2) {
-			if (GUI.Button (new Rect(5, Screen.height - 55, 50, 50), "<")) {
-				myPlayer.GetComponent<CharacterController>().move(true, 1);
+			if (GUI.RepeatButton (new Rect(0, Screen.height - _btnSize, _btnSize, _btnSize), "<")) {
+				myPlayer.GetComponent<CharacterController>().onscreenKeyLeftDown = true;
 			}
-			if (GUI.Button (new Rect(Screen.width - 55, Screen.height - 55, 50, 50), ">")) {
-				myPlayer.GetComponent<CharacterController>().move(true, 1);
+			else {
+				myPlayer.GetComponent<CharacterController>().onscreenKeyLeftDown = false;
 			}
-			if (GUI.Button (new Rect(Screen.width - 55, Screen.height - 110, 50, 50), "^")) {
+			if (GUI.RepeatButton (new Rect(Screen.width - _btnSize, Screen.height - _btnSize, _btnSize, _btnSize), ">")) {
+				myPlayer.GetComponent<CharacterController>().onscreenKeyRightDown = true;
+			}
+			else {
+				myPlayer.GetComponent<CharacterController>().onscreenKeyRightDown = false;
+			}
+			if (GUI.Button (new Rect(0, Screen.height - (_btnSize) * 2, _btnSize, _btnSize), "*")) {
+				myPlayer.GetComponent<CharacterController>().attack();
+			}
+			if (GUI.Button (new Rect(Screen.width - _btnSize, Screen.height - (_btnSize) * 2, _btnSize, _btnSize), "^")) {
 				myPlayer.GetComponent<CharacterController>().jump();
 			}
 		}
-	}
-
-	public void onPlayerDeath (GameObject player) {
-		Instantiate(deathIndicator, player.transform.position, Quaternion.Euler(-90, Mathf.Atan2(10 - player.transform.position.y, GameObject.Find ("Ground/LedgeGrabRight").transform.position.x / 2 - player.transform.position.x), 0));
-		// GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.DEATHINDICATOR, new Rect(Camera.main.WorldToScreenPoint(player.transform.position).x, Camera.main.WorldToScreenPoint(player.transform.position).y, 200, 200), player));
 	}
 
 	bool rectangleCollision(Rect r1, Rect r2, int padding) {

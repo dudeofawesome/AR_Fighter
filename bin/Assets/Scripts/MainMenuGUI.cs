@@ -189,7 +189,10 @@ public class MainMenuGUI : MonoBehaviour
 				menuPosition = MenuState.MAIN;
 			}
 			
-			
+			GUI.skin = null;
+			GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
+			GUI.skin = guiSkin;
+
 			break;
 			
 		case MenuState.SETTINGS:
@@ -280,6 +283,10 @@ public class MainMenuGUI : MonoBehaviour
 					PhotonNetwork.room.SetCustomProperties (ht);
 					GameObject.Find ("SessionStarter").GetComponent<SessionStarter> ().singlePlayer = false;
 				}
+				else {
+					PhotonNetwork.Disconnect();
+					PhotonNetwork.offlineMode = true;
+				}
 				Application.LoadLevel (mainLevel);
 			}
 			GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
@@ -299,7 +306,10 @@ public class MainMenuGUI : MonoBehaviour
 				//Application.LoadLevel (mainLevel);
 			}
 			
-			
+			GUI.skin = null;
+			GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
+			GUI.skin = guiSkin;
+
 			break;
 		case MenuState.HOWTOPLAY:
 			GUI.skin = howtoplaySkin;
