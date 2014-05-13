@@ -98,7 +98,7 @@ public class CharacterController : MonoBehaviour {
 
 
 					//Phone tilt controls
-					if (PlayerPrefs.GetInt("controlScheme") == 0) {
+					if (PlayerPrefs.GetInt("controlScheme") == 1) {
 						foreach (Touch _touch in Input.touches){
 							if (_touch.phase == TouchPhase.Began && (!doubleJumpUsed || ledgeHanging) && _touch.position.x > Screen.width / 2) {
 								jump();
@@ -165,7 +165,7 @@ public class CharacterController : MonoBehaviour {
 
 
 							// Phone tilt controls
-							if (PlayerPrefs.GetInt("controlScheme") == 2) {
+							if (PlayerPrefs.GetInt("controlScheme") == 0 || PlayerPrefs.GetInt("controlScheme") == 1) {
 								float _tilt = (sceneCamera.transform.position.z > 1 ? -1 : 1) * Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
 								if (_tilt > -0.1 && _tilt < 0.1)
 									_tilt = 0;
@@ -386,5 +386,9 @@ public class CharacterController : MonoBehaviour {
 	[RPC] public void OnVelocityChange (Vector3 velocity) {
 		if (!photonView.isMine)
 			rigidbody.velocity = velocity;
+	}
+
+	void OnDestroy () {
+		GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Remove(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), gameObject));
 	}
 }
