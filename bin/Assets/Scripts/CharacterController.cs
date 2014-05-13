@@ -16,6 +16,7 @@ public class CharacterController : MonoBehaviour {
 	public GameObject attackHitbox = null;
 	public GameObject ledgeGrabHitbox = null;
 	public GameObject sceneCamera = null;
+	public GameObject deathIndicator = null;
 
 	public float damage = 0;
 	public bool stunned = false;
@@ -27,8 +28,10 @@ public class CharacterController : MonoBehaviour {
 	public string keyDown = "s";
 	public string keyRight = "d";
 	public string keyAttack = "space";
+	public bool onscreenKeyLeftDown = false;
+	public bool onscreenKeyRightDown = false;
 
-
+	private PhotonView photonView = null;
 
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
@@ -49,6 +52,8 @@ public class CharacterController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad(transform.gameObject);
+
+		photonView = this.GetComponent<PhotonView>();
 
 		GameObject[] ledgeGrabs = GameObject.FindGameObjectsWithTag ("LedgeGrab");
 
@@ -85,7 +90,7 @@ public class CharacterController : MonoBehaviour {
 						crouch(false);
 					}
 					if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
-						attack();
+						photonView.RPC ("attack", PhotonTargets.All); //attack();
 					}
 
 
@@ -95,7 +100,7 @@ public class CharacterController : MonoBehaviour {
 							jump();
 						}
 						if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
-							attack();
+							photonView.RPC ("attack", PhotonTargets.All); //attack();
 						}
 					}
 				}
@@ -126,7 +131,10 @@ public class CharacterController : MonoBehaviour {
 
 		// Boundaries
 		if (transform.position.x < -40 || transform.position.x > ((GameObject.Find ("Ground/LedgeGrabRight").transform.position.x)) + 40 || transform.position.y < - 40 || transform.position.y > 80){
-			respawn();
+			if (!PhotonNetwork.offlineMode)
+				photonView.RPC("respawn", PhotonTargets.All);
+			else 
+				respawn();
 		}
 	}
 
@@ -139,10 +147,10 @@ public class CharacterController : MonoBehaviour {
 				if (!networkControl) {
 					if (controlMe) {
 						if (!ledgeHanging){
-							if (Input.GetKey (keyLeft)) {
+							if (Input.GetKey (keyLeft) || onscreenKeyLeftDown) {
 								move(true, 1);
 							}
-							if (Input.GetKey (keyRight)) {
+							if (Input.GetKey (keyRight) || onscreenKeyRightDown) {
 								move(false, 1);
 							}
 
@@ -222,7 +230,7 @@ public class CharacterController : MonoBehaviour {
 									}
 									// Consider attacking
 									if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
-										attack();
+										photonView.RPC ("attack", PhotonTargets.All); //attack();
 									}
 								}
 								else {
@@ -288,7 +296,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	[RPC] public void respawn () {
-		GameObject.Find("GUI").GetComponent<GameGUI>().onPlayerDeath(gameObject);
+		Instantiate(deathIndicator, transform.position, Quaternion.Euler(-90, Mathf.Atan2(10 - transform.position.y, GameObject.Find ("Ground/LedgeGrabRight").transform.position.x / 2 - transform.position.x), 0));
 		transform.position = new Vector3 (0, 5, 0);
 		rigidbody.velocity = new Vector3(0, 0, 0);
 		damage = 0;
