@@ -31,7 +31,7 @@ public class CharacterController : MonoBehaviour {
 	public bool onscreenKeyLeftDown = false;
 	public bool onscreenKeyRightDown = false;
 
-	private PhotonView photonView = null;
+	public PhotonView photonView = null;
 
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
@@ -39,7 +39,7 @@ public class CharacterController : MonoBehaviour {
 	public int ledgeGrabCountdown = 0;
 
 	private GameObject touchingEnemy = null;
-	private MyPlayer.Attack currentAttack = null;
+	public MyPlayer.Attack currentAttack = null;
 	private bool movementKeyDown = false;
 	private float heightOfFirstJump = 0;
 	private List<custTypes.JumpZone> jumpZones = new List<custTypes.JumpZone> ();
@@ -90,7 +90,10 @@ public class CharacterController : MonoBehaviour {
 						crouch(false);
 					}
 					if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
-						photonView.RPC ("attack", PhotonTargets.All); //attack();
+						if(!PhotonNetwork.offlineMode)
+							photonView.RPC ("attack", PhotonTargets.All);
+						else
+							attack();
 					}
 
 
@@ -100,7 +103,10 @@ public class CharacterController : MonoBehaviour {
 							jump();
 						}
 						if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
-							photonView.RPC ("attack", PhotonTargets.All); //attack();
+							if(!PhotonNetwork.offlineMode)
+								photonView.RPC ("attack", PhotonTargets.All);
+							else
+								attack();
 						}
 					}
 				}
@@ -230,7 +236,10 @@ public class CharacterController : MonoBehaviour {
 									}
 									// Consider attacking
 									if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
-										photonView.RPC ("attack", PhotonTargets.All); //attack();
+										if(!PhotonNetwork.offlineMode)
+											photonView.RPC ("attack", PhotonTargets.All);
+										else
+											attack();
 									}
 								}
 								else {
@@ -348,6 +357,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	[RPC] public void attack () {
+		print ("attacking");
 		if (currentAttack == null)
 			currentAttack = new MyPlayer.Attack(this.gameObject);
 	}

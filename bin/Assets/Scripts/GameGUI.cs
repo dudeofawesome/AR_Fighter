@@ -126,8 +126,11 @@ public class GameGUI : MonoBehaviour {
 			else {
 				myPlayer.GetComponent<CharacterController>().onscreenKeyRightDown = false;
 			}
-			if (GUI.Button (new Rect(0, Screen.height - (_btnSize) * 2, _btnSize, _btnSize), "*")) {
-				myPlayer.GetComponent<CharacterController>().attack();
+			if (GUI.Button (new Rect(0, Screen.height - (_btnSize) * 2, _btnSize, _btnSize), "*") && myPlayer.GetComponent<CharacterController>().currentAttack == null) {
+				if(!PhotonNetwork.offlineMode)
+					myPlayer.GetComponent<CharacterController>().photonView.RPC ("attack", PhotonTargets.All);
+				else
+					myPlayer.GetComponent<CharacterController>().attack();
 			}
 			if (GUI.Button (new Rect(Screen.width - _btnSize, Screen.height - (_btnSize) * 2, _btnSize, _btnSize), "^")) {
 				myPlayer.GetComponent<CharacterController>().jump();
