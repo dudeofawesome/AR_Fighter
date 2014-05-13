@@ -31,7 +31,7 @@ public class CharacterController : MonoBehaviour {
 	public bool onscreenKeyLeftDown = false;
 	public bool onscreenKeyRightDown = false;
 
-	private PhotonView photonView = null;
+	public PhotonView photonView = null;
 
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
@@ -39,14 +39,14 @@ public class CharacterController : MonoBehaviour {
 	public int ledgeGrabCountdown = 0;
 
 	private GameObject touchingEnemy = null;
-	private MyPlayer.Attack currentAttack = null;
+	public MyPlayer.Attack currentAttack = null;
 	private bool movementKeyDown = false;
 	private float heightOfFirstJump = 0;
 	private List<custTypes.JumpZone> jumpZones = new List<custTypes.JumpZone> ();
 	private float jumpZoneWidth = 9.0f;
 	private float jumpZoneHeight = 7.5f;
 	public float maxJumpHeight;
-
+	private Vector3 lastVelocity = Vector3.zero;
 
 
 	// Use this for initialization
@@ -90,17 +90,25 @@ public class CharacterController : MonoBehaviour {
 						crouch(false);
 					}
 					if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
-						photonView.RPC ("attack", PhotonTargets.All); //attack();
+						if(!PhotonNetwork.offlineMode)
+							photonView.RPC ("attack", PhotonTargets.All);
+						else
+							attack();
 					}
 
 
-					//Phone Controls
-					foreach (Touch _touch in Input.touches){
-						if (_touch.phase == TouchPhase.Began && (!doubleJumpUsed || ledgeHanging) && _touch.position.x > Screen.width / 2) {
-							jump();
-						}
-						if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
-							photonView.RPC ("attack", PhotonTargets.All); //attack();
+					//Phone tilt controls
+					if (PlayerPrefs.GetInt("controlScheme") == 1) {
+						foreach (Touch _touch in Input.touches){
+							if (_touch.phase == TouchPhase.Began && (!doubleJumpUsed || ledgeHanging) && _touch.position.x > Screen.width / 2) {
+								jump();
+							}
+							if (_touch.phase == TouchPhase.Began && currentAttack == null && _touch.position.x < Screen.width / 2) {
+								if(!PhotonNetwork.offlineMode)
+									photonView.RPC ("attack", PhotonTargets.All);
+								else
+									attack();
+							}
 						}
 					}
 				}
@@ -156,18 +164,20 @@ public class CharacterController : MonoBehaviour {
 
 
 
-							// Phone controls
-							float _tilt = (sceneCamera.transform.position.z > 1 ? -1 : 1) * Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
-							if (_tilt > -0.1 && _tilt < 0.1)
-								_tilt = 0;
-							rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
-							if (_tilt > 0) {
-								transform.rotation = Quaternion.Euler( 0, 0, 0);
-								movementKeyDown = true;
-							}
-							else if (_tilt < 0) {
-								transform.rotation = Quaternion.Euler( 0, 180, 0);
-								movementKeyDown = true;
+							// Phone tilt controls
+							if (PlayerPrefs.GetInt("controlScheme") == 0 || PlayerPrefs.GetInt("controlScheme") == 1) {
+								float _tilt = (sceneCamera.transform.position.z > 1 ? -1 : 1) * Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
+								if (_tilt > -0.1 && _tilt < 0.1)
+									_tilt = 0;
+								rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
+								if (_tilt > 0) {
+									transform.rotation = Quaternion.Euler( 0, 0, 0);
+									movementKeyDown = true;
+								}
+								else if (_tilt < 0) {
+									transform.rotation = Quaternion.Euler( 0, 180, 0);
+									movementKeyDown = true;
+								}
 							}
 						}
 					}
@@ -230,7 +240,10 @@ public class CharacterController : MonoBehaviour {
 									}
 									// Consider attacking
 									if (Mathf.Abs(player.transform.position.x - transform.position.x) < Random.Range(1f, 4f) && Mathf.Floor(Random.value * 10) == 0) {
-										photonView.RPC ("attack", PhotonTargets.All); //attack();
+										if(!PhotonNetwork.offlineMode)
+											photonView.RPC ("attack", PhotonTargets.All);
+										else
+											attack();
 									}
 								}
 								else {
@@ -274,6 +287,10 @@ public class CharacterController : MonoBehaviour {
 		if (ledgeGrabCountdown > 0) {
 			ledgeGrabCountdown--;
 		}
+
+		if (!PhotonNetwork.offlineMode && rigidbody.velocity != lastVelocity)
+			photonView.RPC ("OnVelocityChange", PhotonTargets.Others, rigidbody.velocity);
+		lastVelocity = rigidbody.velocity;
 	}
 
 	float calculateJumpHeight(){
@@ -348,6 +365,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	[RPC] public void attack () {
+		print ("attacking");
 		if (currentAttack == null)
 			currentAttack = new MyPlayer.Attack(this.gameObject);
 	}
@@ -361,19 +379,16 @@ public class CharacterController : MonoBehaviour {
 		rigidbody.AddForce (movementForce * this.damage * (damage / 10) * ((source.x > 0) ? -1 : 1), jumpForce / 40 * this.damage, 0);
 	}
 
-//	void OnCollisionEnter (Collision collision) {
-//		if (collision.gameObject.tag == "Player") {
-//			touchingEnemy = collision.gameObject;
-//		}
-//	}
-//
-//	void OnCollisionExit (Collision collision) {
-//		if (collision.gameObject.tag == "Player") {
-//			touchingEnemy = null;
-//		}
-//	}
-
 	[RPC] public GameObject attackLanded () {
 		return attackHitbox.GetComponent<CollisionHandeler> ().collidingWith;
+	}
+
+	[RPC] public void OnVelocityChange (Vector3 velocity) {
+		if (!photonView.isMine)
+			rigidbody.velocity = velocity;
+	}
+
+	void OnDestroy () {
+		GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Remove(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), gameObject));
 	}
 }

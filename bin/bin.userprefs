@@ -1,17 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameGUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CharacterController.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameGUI.cs" Line="117" Column="24" />
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="287" Column="33" />
-      <File FileName="Assets/Scripts/CharacterController.cs" Line="153" Column="59" />
+      <File FileName="Assets/Scripts/GameGUI.cs" Line="116" Column="50" />
+      <File FileName="Assets/Scripts/CharacterController.cs" Line="181" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="GameGUI.cs" selected="True" />
+              <Node name="CharacterController.cs" selected="True" />
             </Node>
           </Node>
         </State>
