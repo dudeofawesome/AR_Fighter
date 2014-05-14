@@ -350,9 +350,9 @@ public class CharacterController : MonoBehaviour {
 	[RPC] public void crouch (bool down) {
 		if (!ledgeHanging){
 			if (down)
-				transform.localScale = new Vector3(0.1f, 0.03f, 0.1f);
+				transform.localScale = new Vector3(1f, 0.5f, 1f);
 			else
-				transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+				transform.localScale = new Vector3(1f, 1f, 1f);
 		}
 		else {
 			stunned = true;
