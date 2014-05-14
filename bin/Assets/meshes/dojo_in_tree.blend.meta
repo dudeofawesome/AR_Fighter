@@ -10,6 +10,8 @@ ModelImporter:
     100008: Cube_003
     100010: Cube_004
     100012: Cube_005
+    100014: Icosphere
+    100016: Icosphere_001
     400000: //RootNode
     400002: Cube
     400004: Cube_001
@@ -17,6 +19,8 @@ ModelImporter:
     400008: Cube_003
     400010: Cube_004
     400012: Cube_005
+    400014: Icosphere
+    400016: Icosphere_001
     2300000: //RootNode
     2300002: Cube
     2300004: Cube_001
@@ -24,6 +28,8 @@ ModelImporter:
     2300008: Cube_003
     2300010: Cube_004
     2300012: Cube_005
+    2300014: Icosphere
+    2300016: Icosphere_001
     3300000: //RootNode
     3300002: Cube
     3300004: Cube_001
@@ -31,12 +37,16 @@ ModelImporter:
     3300008: Cube_003
     3300010: Cube_004
     3300012: Cube_005
+    3300014: Icosphere
+    3300016: Icosphere_001
     4300000: Cube
     4300002: Cube_002
     4300004: Cube_001
     4300006: Cube_005
     4300008: Cube_004
     4300010: Cube_003
+    4300012: Icosphere_001
+    4300014: Icosphere
     7400000: Default Take
     9500000: //RootNode
   materials:
