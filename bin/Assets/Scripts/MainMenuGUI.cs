@@ -121,7 +121,7 @@ public class MainMenuGUI : MonoBehaviour
 			}
 			
 			
-			GUI.Label (new Rect (20, 50, 350, 350), "");
+			GUI.Label (new Rect (45, 75, 325, 325), "");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 			
 			
@@ -150,7 +150,7 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.PLAYERS:
-			GUI.Label (new Rect (20, 50, 350, 350), "");
+			GUI.Label (new Rect (45, 75, 325, 325), "");
 			if (GUI.Button (new Rect (340, 150, 460, 70), "Single Player")) {
 				
 				menuPosition = MenuState.LEVELLOADER;
@@ -196,8 +196,8 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.SETTINGS:
-			GUI.Label (new Rect (20, 50, 350, 350), "");
-			
+			GUI.Label (new Rect (45, 75, 325, 325), "");
+
 			if (GUI.Button (new Rect (340, 150, 460, 70), "Visual Settings")) {
 				menuPosition = MenuState.SETTINGSVI;
 				
