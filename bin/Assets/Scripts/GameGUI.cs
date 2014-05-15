@@ -22,6 +22,8 @@ public class GameGUI : MonoBehaviour {
 		foreach (GameObject player in players) {
 			if (player.GetComponent<CharacterController>().controlMe && !player.GetComponent<CharacterController>().networkControl)
 				myPlayer = player;
+			else
+				GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), player.gameObject));
 		}
 		if (myPlayer == null)
 			myPlayer = players[players.Length - 1];

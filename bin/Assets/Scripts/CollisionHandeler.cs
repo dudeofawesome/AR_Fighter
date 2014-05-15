@@ -16,7 +16,11 @@ public class CollisionHandeler : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider collision) {
-		if (collision.gameObject.name != "AttackHitbox") {
+		if (gameObject.name == "LedgeGrabHitbox") {
+			if (collision.gameObject.tag == "LedgeGrab")
+				collidingWith = collision.gameObject;
+		}
+		else if (collision.gameObject.name != "AttackHitbox") {
 			collidingWith = collision.gameObject;
 		}
 	}
@@ -27,8 +31,14 @@ public class CollisionHandeler : MonoBehaviour {
 	}
 
 	void OnCollisionEnter (Collision collision) {
-		collidingWith = collision.gameObject;
-		collisionObj = collision;
+		if (gameObject.name == "LedgeGrabHitbox") {
+			if (collision.gameObject.tag == "LedgeGrab")
+				collidingWith = collision.gameObject;
+		}
+		else {
+			collidingWith = collision.gameObject;
+			collisionObj = collision;
+		}
 	}
 	
 	void OnCollisionExit (Collision collision) {
