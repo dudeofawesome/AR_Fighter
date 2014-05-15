@@ -5,6 +5,7 @@ using System.Collections;
 [AddComponentMenu("Multiplayer/Multiplayer Syncer")]
 public class MultiplayerSyncer : MonoBehaviour {
 	public GameObject playerPrefab = null;
+	public PhotonView photonView = null;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,7 @@ public class MultiplayerSyncer : MonoBehaviour {
 		else {
 			Application.LoadLevel("MainMenu");
 		}
+		photonView = this.GetComponent<PhotonView>();
 	}
 	
 	// Update is called once per frame
@@ -43,6 +45,17 @@ public class MultiplayerSyncer : MonoBehaviour {
 		if (String.IsNullOrEmpty(PhotonNetwork.playerName))
 		{
 			PhotonNetwork.playerName = "Guest" + UnityEngine.Random.Range(1, 9999);
+		}
+	}
+
+	[RPC] public void netPause (bool pausing) {
+		if (pausing) {
+			GameObject.Find("GUI").GetComponent<GameGUI>().paused = true;
+			Time.timeScale = 0;
+		}
+		else {
+			GameObject.Find("GUI").GetComponent<GameGUI>().paused = false;
+			Time.timeScale = 1;
 		}
 	}
 }

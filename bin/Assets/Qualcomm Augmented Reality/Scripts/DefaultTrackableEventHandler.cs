@@ -67,7 +67,10 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
     private void OnTrackingFound()
     {
 		if (mTrackableBehaviour.TrackableName == "PlatformRight" && Time.timeScale == 0 && !GameObject.Find("GUI").GetComponent<GameGUI>().paused) {
-			Time.timeScale = 1;
+			if (!PhotonNetwork.offlineMode) 
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, false);
+			else
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(false);
 		}
 
         Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
@@ -92,7 +95,10 @@ public class DefaultTrackableEventHandler : MonoBehaviour,
     private void OnTrackingLost()
     {
 		if (mTrackableBehaviour.TrackableName == "PlatformRight" && Time.timeScale == 1) {
-			Time.timeScale = 0;
+			if (!PhotonNetwork.offlineMode) 
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, true);
+			else
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(true);
 		}
 
         Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);

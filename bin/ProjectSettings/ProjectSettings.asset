@@ -77,8 +77,8 @@ PlayerSettings:
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: e10fb2f1881bf447f99313a47f407c8d
-  iPhoneBundleVersion: 1.2
-  AndroidBundleVersionCode: 3
+  iPhoneBundleVersion: 1.3
+  AndroidBundleVersionCode: 4
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -97,7 +97,7 @@ PlayerSettings:
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
-  iPhoneSplashScreen: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
+  iPhoneSplashScreen: {fileID: 2800000, guid: a0aeb83d1e5a049d688875e25dd8554f, type: 3}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
   iPadPortraitSplashScreen: {fileID: 0}
@@ -108,11 +108,12 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   AndroidKeystoreName: /Users/DudeOfAwesome/Google Drive/AR_Fighter/private/user.keystore
   AndroidKeyaliasName: 
-  resolutionDialogBanner: {fileID: 0}
+  resolutionDialogBanner: {fileID: 2800000, guid: a0aeb83d1e5a049d688875e25dd8554f,
+    type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
+    - m_Icon: {fileID: 2800000, guid: 837ffb8ade513476c840e042ea0eb20d, type: 3}
       m_Size: 128
   m_BuildTargetBatching:
   - m_BuildTarget: Android
