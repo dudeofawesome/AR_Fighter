@@ -1,16 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CharacterController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameGUI.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameGUI.cs" Line="116" Column="50" />
-      <File FileName="Assets/Scripts/CharacterController.cs" Line="181" Column="1" />
+      <File FileName="Assets/Scripts/CharacterController.cs" Line="292" Column="60" />
+      <File FileName="Assets/Scripts/MultiplayerSyncer.cs" Line="52" Column="14" />
+      <File FileName="Assets/Qualcomm Augmented Reality/Scripts/DefaultTrackableEventHandler.cs" Line="74" Column="1" />
+      <File FileName="Assets/Scripts/GameGUI.cs" Line="34" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Qualcomm Augmented Reality" expanded="True">
+              <Node name="Scripts" expanded="True" />
+            </Node>
             <Node name="Scripts" expanded="True">
-              <Node name="CharacterController.cs" selected="True" />
+              <Node name="GameGUI.cs" selected="True" />
             </Node>
           </Node>
         </State>

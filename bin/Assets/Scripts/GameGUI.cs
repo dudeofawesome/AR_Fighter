@@ -25,6 +25,13 @@ public class GameGUI : MonoBehaviour {
 		}
 		if (myPlayer == null)
 			myPlayer = players[players.Length - 1];
+
+		if (Application.isEditor) {
+			if (!PhotonNetwork.offlineMode) 
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
+			else
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
+		}
 	}
 	
 	// Update is called once per frame
@@ -63,8 +70,10 @@ public class GameGUI : MonoBehaviour {
 
 		// Global keys
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			paused = !paused;
-			Time.timeScale = !paused ? 1 : 0;
+			if (!PhotonNetwork.offlineMode) 
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
+			else
+				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
 		}
 	}
 

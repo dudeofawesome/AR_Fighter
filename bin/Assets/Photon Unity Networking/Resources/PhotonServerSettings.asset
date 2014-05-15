@@ -29,4 +29,6 @@ MonoBehaviour:
   - hurt
   - attackLanded
   - OnVelocityChange
+  - OnLoseCard
+  - netPause
   DisableAutoOpenWizard: 0
