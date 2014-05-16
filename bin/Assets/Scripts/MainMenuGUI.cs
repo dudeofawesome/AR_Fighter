@@ -22,9 +22,7 @@ public class MainMenuGUI : MonoBehaviour
 				HOWTOPRINT,
 				HOWTOSETUP,
 				HOWTOUSE,
-				LOADING,
-				INGAME,
-				INGAMEPAUSE
+				LOADING
 	}
 		;
 
@@ -109,14 +107,12 @@ public class MainMenuGUI : MonoBehaviour
 			
 				case MenuState.MAIN:
 			
-			//GUI.Box (new Rect(0, 0, 800, 480), "");
 						if (!Application.genuine) {
 								GUI.Box (new Rect (0, 410, 430, 70), "PLEASE BUY");
 						}
 
 
 						GUI.Label (new Rect (20, 50, 350, 350), "");
-			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 
 
 			
@@ -249,24 +245,24 @@ public class MainMenuGUI : MonoBehaviour
 
 						break;
 				case MenuState.SERVERPICKER:
-						GUI.skin = null;
+						//GUI.skin = null;
 						
 						if (PhotonNetwork.connected && PhotonNetwork.room == null) {
 								RoomInfo[] _rooms = PhotonNetwork.GetRoomList ();
 								int i = 0;
 								for (i = 0; i < _rooms.Length; i++) {
-										if (GUI.Button (new Rect (Screen.width / 2 - 100, 10 + i * 30, 200, 25), _rooms [i].name + " " + _rooms [i].playerCount + "/" + _rooms [i].maxPlayers)) {
+										if (GUI.Button (new Rect (4000, 10 + i * 30, 400, 50), _rooms [i].name + " " + _rooms [i].playerCount + "/" + _rooms [i].maxPlayers)) {
 												GameObject.Find ("SessionStarter").GetComponent<SessionStarter> ().roomHost = false;
 												PhotonNetwork.JoinRoom (_rooms [i].name);
 										}
 								}
-								if (GUI.Button (new Rect (Screen.width / 2 - 100, 10 + i * 30, 200, 25), "Create new room")) {
+								if (GUI.Button (new Rect (400, 10 + i * 30, 400, 50), "Create new room")) {
 										print ("created room with name " + System.Environment.UserName);
 										PhotonNetwork.CreateRoom (System.Environment.UserName + "'s Room", new RoomOptions () { maxPlayers = 2 }, null);
 										menuPosition = MenuState.LEVELPICKER;
 								}
 						}
-						GUI.skin = guiSkin;
+						//GUI.skin = guiSkin;
 						break;
 				case MenuState.HOWTOPLAY:
 						GUI.skin = howtoplaySkin;
@@ -349,15 +345,6 @@ public class MainMenuGUI : MonoBehaviour
 
 
 
-						break;
-
-				case MenuState.INGAME:
-						if (GUI.Button (new Rect (490, 50, 340, 70), "Pause")) {
-				
-							menuPosition = MenuState.INGAMEPAUSE;
-					
-				
-						}
 						break;
 				}
 				
