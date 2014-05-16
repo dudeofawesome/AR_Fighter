@@ -364,6 +364,15 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
+	//[RPC] public void Attack2(){
+	//	if (currentAttack == null) {
+	//		currentAttack = new MyPlayer.Attack(this.gameObject);
+
+	//		}
+
+
+	//}
+
 	[RPC] public void attack () {
 		print ("attacking");
 		if (currentAttack == null)

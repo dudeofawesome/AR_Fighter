@@ -5645,6 +5645,7 @@ MonoBehaviour:
   myPlayer: {fileID: 0}
   guiSkin: {fileID: 11400000, guid: 192434db35abe4affae30d72e15798fc, type: 2}
   paused: 0
+  menuPosition: 0
 --- !u!4 &1464610724
 Transform:
   m_ObjectHideFlags: 0

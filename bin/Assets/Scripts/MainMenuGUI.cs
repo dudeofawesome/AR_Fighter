@@ -4,6 +4,7 @@ using Holoville.HOTween;
 
 public class MainMenuGUI : MonoBehaviour
 {
+<<<<<<< HEAD
 	
 	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin;
 	public string mainLevel;
@@ -40,6 +41,58 @@ public class MainMenuGUI : MonoBehaviour
 	Rect rect;
 	Vector2 pivot;
 	private int tweenSwitch = 0;
+=======
+
+		public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin, inGameSkin;
+		public string mainLevel;
+
+
+		public enum MenuState
+		{
+				MAIN,
+				LEVELPICKER,
+				SERVERPICKER,
+				SETTINGS,
+				SETTINGSVI,
+				SETTINGSCONTROLS, 
+				HOWTOPLAY,
+				HOWTODOWNLOAD,
+				HOWTOPRINT,
+				HOWTOSETUP,
+				HOWTOUSE,
+				LOADING
+	}
+		;
+
+		public MenuState menuPosition = MenuState.MAIN;
+		private float originalWidth = 800;
+		private float originalHeight = 480;
+		private Vector3 scale;
+		private Vector2 scrollPosition = Vector2.zero;
+		private bool onLoading = false;
+		public Texture loadingTexture = null;
+		public float angle = 0;
+		public Vector2 size = new Vector2 (50, 58);
+		Vector2 pos = new Vector2 (0, 0);
+		Rect rect;
+		Vector2 pivot;
+		private int tweenSwitch = 0;
+
+		// Use this for initialization
+		void Start ()
+		{
+
+
+
+				UpdateSettings ();
+				Screen.orientation = ScreenOrientation.LandscapeLeft;
+				//2 and a half seconds
+				HOTween.Init (false, false, false);
+				HOTween.DisableOverwriteManager ();
+
+				//Application.LoadLevel (mainLevel);
+		}
+>>>>>>> Alpha-Kevin
 	
 	// Use this for initialization
 	void Start ()
@@ -70,6 +123,7 @@ public class MainMenuGUI : MonoBehaviour
 		
 		
 		
+<<<<<<< HEAD
 		if (tweenSwitch == 0) {
 			//HOTween.To (GameObject.Find ("Map").transform, 10, "rotation", Quaternion.Euler (new Vector3 (0, 0, 0)));
 			HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 300, 0))).Ease (EaseType.Linear).OnComplete (tweenFunction));
@@ -96,6 +150,37 @@ public class MainMenuGUI : MonoBehaviour
 	{
 		HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 180, 0))).Ease (EaseType.Linear));
 		HOTween.To (GameObject.Find ("Main Camera").transform, 15, "position", new Vector3 (GameObject.Find ("dojo_in_tree").transform.position.x, GameObject.Find ("dojo_in_tree").transform.position.y + 3f, GameObject.Find ("dojo_in_tree").transform.position.z));
+=======
+						if (touch.phase == TouchPhase.Moved) {
+								// dragging
+								scrollPosition.y += touch.deltaPosition.y;
+						}
+				}
+
+
+				
+				if (tweenSwitch == 0) {
+						//HOTween.To (GameObject.Find ("Map").transform, 10, "rotation", Quaternion.Euler (new Vector3 (0, 0, 0)));
+						HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 0, 0))).Ease (EaseType.EaseInQuad).OnComplete (tweenFunction));
+				}
+		
+				//HOTween.To (GameObject.Find ("Map").transform, 5, "rotation", Quaternion.Euler (new Vector3 (0, 180, 0)));
+				
+				//HOTween.To (GameObject.Find ("Main Camera").transform, 15, "position", new Vector3 (GameObject.Find ("dojo_in_tree").transform.position.x, GameObject.Find ("dojo_in_tree").transform.position.y + 3f, GameObject.Find ("dojo_in_tree").transform.position.z));
+
+
+
+
+	
+		}
+
+		void tweenFunction ()
+		{
+//			Debug.Log ("Work");
+				tweenSwitch = 1;
+				HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 180, 0))).Ease (EaseType.EaseOutQuad).OnComplete (tweenFunction));
+		}
+>>>>>>> Alpha-Kevin
 		
 	}
 	
@@ -115,6 +200,7 @@ public class MainMenuGUI : MonoBehaviour
 			
 		case MenuState.MAIN:
 			
+<<<<<<< HEAD
 			//GUI.Box (new Rect(0, 0, 800, 480), "");
 			if (!Application.genuine) {
 				GUI.Box (new Rect (0, 410, 430, 70), "PLEASE BUY");
@@ -123,6 +209,16 @@ public class MainMenuGUI : MonoBehaviour
 			
 			GUI.Label (new Rect (20, 50, 350, 350), "");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
+=======
+						if (!Application.genuine) {
+								GUI.Box (new Rect (0, 410, 430, 70), "PLEASE BUY");
+						}
+
+
+						GUI.Label (new Rect (20, 50, 350, 350), "");
+
+
+>>>>>>> Alpha-Kevin
 			
 			
 			
@@ -215,6 +311,7 @@ public class MainMenuGUI : MonoBehaviour
 			
 			
 			
+<<<<<<< HEAD
 			break;
 			
 		case MenuState.SETTINGSVI:
@@ -269,6 +366,41 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
 			GUI.Box (new Rect (30, 90, 770, 390), "");
 			
+=======
+						if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
+								menuPosition = MenuState.SETTINGS;
+						}
+
+
+
+						break;
+
+				case MenuState.SETTINGSCONTROLS:
+
+						GUILayout.BeginArea (new Rect (120, 100, 680, 600));
+						if (GUILayout.Button ("Full Tilt"))
+								PlayerPrefs.SetInt ("controlScheme", 0);
+						if (GUILayout.Button ("Tilt with buttons"))
+								PlayerPrefs.SetInt ("controlScheme", 1);
+						if (GUILayout.Button ("On screen buttons"))
+								PlayerPrefs.SetInt ("controlScheme", 2);
+						GUILayout.EndArea ();
+
+						if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
+								menuPosition = MenuState.SETTINGS;
+						}
+
+
+						break;
+
+				case MenuState.LEVELPICKER:
+						GUI.skin = scrollSkin;
+
+						GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
+						GUI.Box (new Rect (30, 90, 770, 390), "");
+
+
+>>>>>>> Alpha-Kevin
 			
 			
 			scrollPosition = GUI.BeginScrollView (new Rect (430, 100, 370, 330),
@@ -276,6 +408,7 @@ public class MainMenuGUI : MonoBehaviour
 			
 			// Make four buttons - one in each corner. The coordinate system is defined
 			// by the last parameter to BeginScrollView.
+<<<<<<< HEAD
 			if (GUI.Button (new Rect (0, 0, 340, 70), "Dojo in the Trees")) {
 				if (PhotonNetwork.room != null) {
 					ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable ();
@@ -394,8 +527,74 @@ public class MainMenuGUI : MonoBehaviour
 			
 			break;
 		}
+=======
+						if (GUI.Button (new Rect (0, 0, 340, 70), "Dojo in the Trees")) {
+								if (PhotonNetwork.room != null) {
+										ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable ();
+										ht.Add ("gameLevel", "treeTower");
+										PhotonNetwork.room.SetCustomProperties (ht);
+										GameObject.Find ("SessionStarter").GetComponent<SessionStarter> ().singlePlayer = false;
+								}
+								
+								Application.LoadLevel (mainLevel);
+						}
+						GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
+						if (GUI.Button (new Rect (0, 140, 340, 70), "Go to server picker")) {
+								menuPosition = MenuState.SERVERPICKER;
+						}
+						if (GUI.Button (new Rect (0, 210, 340, 70), "Setting4")) {
+								menuPosition = MenuState.MAIN;
+						}
+						GUI.Button (new Rect (0, 280, 340, 70), "Setting5");
+						GUI.Button (new Rect (0, 350, 340, 70), "Setting6");
+			// End the scroll view that we began above.
+						GUI.EndScrollView ();
+
+						if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
+								menuPosition = MenuState.MAIN;
+						} else if (GUI.Button (new Rect (200, 400, 150, 70), "Start!")) {
+								menuPosition = MenuState.LOADING;
+								//Application.LoadLevel (mainLevel);
+						}
+
+
+						break;
+				case MenuState.SERVERPICKER:
+						//GUI.skin = null;
+						
+						if (PhotonNetwork.connected && PhotonNetwork.room == null) {
+								RoomInfo[] _rooms = PhotonNetwork.GetRoomList ();
+								int i = 0;
+								for (i = 0; i < _rooms.Length; i++) {
+										if (GUI.Button (new Rect (4000, 10 + i * 30, 400, 50), _rooms [i].name + " " + _rooms [i].playerCount + "/" + _rooms [i].maxPlayers)) {
+												GameObject.Find ("SessionStarter").GetComponent<SessionStarter> ().roomHost = false;
+												PhotonNetwork.JoinRoom (_rooms [i].name);
+										}
+								}
+								if (GUI.Button (new Rect (400, 10 + i * 30, 400, 50), "Create new room")) {
+										print ("created room with name " + System.Environment.UserName);
+										PhotonNetwork.CreateRoom (System.Environment.UserName + "'s Room", new RoomOptions () { maxPlayers = 2 }, null);
+										menuPosition = MenuState.LEVELPICKER;
+								}
+						}
+						//GUI.skin = guiSkin;
+						break;
+				case MenuState.HOWTOPLAY:
+						GUI.skin = howtoplaySkin;
+						GUI.Box (new Rect (0, 0, 800, 50), "Introduction");
+						GUI.Label (new Rect (0, 50, 800, 450), "");
+
+						if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
+								menuPosition = MenuState.MAIN;
+						} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
+								menuPosition = MenuState.HOWTODOWNLOAD;
+						}
+						break;
+
+>>>>>>> Alpha-Kevin
 		
 		
+<<<<<<< HEAD
 		
 		//...
 		// restore matrix before returning
@@ -409,6 +608,40 @@ public class MainMenuGUI : MonoBehaviour
 		
 		
 	}
+=======
+				case MenuState.LOADING:
+						UpdateSettings ();
+
+
+						Matrix4x4 matrixBackup = GUI.matrix;
+						GUIUtility.RotateAroundPivot (angle, pivot);
+						GUI.DrawTexture (rect, loadingTexture);
+						GUI.matrix = matrixBackup;
+						angle += 1;
+
+
+
+
+
+						break;
+				}
+				
+
+
+				GUI.skin = null;
+				GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString () + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
+				GUI.skin = guiSkin;
+
+				//...
+				// restore matrix before returning
+				GUI.matrix = svMat; // restore matrix
+
+
+
+
+
+
+>>>>>>> Alpha-Kevin
 	
 	void UpdateSettings ()
 	{
