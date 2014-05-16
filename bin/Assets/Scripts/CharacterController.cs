@@ -17,6 +17,7 @@ public class CharacterController : MonoBehaviour {
 	public GameObject ledgeGrabHitbox = null;
 	public GameObject sceneCamera = null;
 	public GameObject deathIndicator = null;
+	public GameObject mesh = null;
 
 	public float damage = 0;
 	public bool stunned = false;
@@ -32,6 +33,8 @@ public class CharacterController : MonoBehaviour {
 	public bool onscreenKeyRightDown = false;
 
 	public PhotonView photonView = null;
+	public Animator animator;
+	public Locomotion locomotion = null;
 
 	private bool touchingGround = false;
 	private bool doubleJumpUsed = false;
@@ -54,6 +57,9 @@ public class CharacterController : MonoBehaviour {
 		DontDestroyOnLoad(transform.gameObject);
 
 		photonView = this.GetComponent<PhotonView>();
+
+		animator = mesh.GetComponent<Animator>();
+		locomotion = new Locomotion(animator);
 
 		GameObject[] ledgeGrabs = GameObject.FindGameObjectsWithTag ("LedgeGrab");
 
@@ -88,6 +94,9 @@ public class CharacterController : MonoBehaviour {
 					}
 					if (Input.GetKeyUp (keyDown)) {
 						crouch(false);
+					}
+					if (Input.GetKeyUp (keyLeft) || Input.GetKeyUp (keyRight)) {
+						locomotion.Do(-60, 0);
 					}
 					if (Input.GetKeyDown (keyAttack) && currentAttack == null) {
 						if(!PhotonNetwork.offlineMode)
@@ -326,6 +335,7 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	[RPC] public void move (bool left, float speed) {
+		locomotion.Do(6, 0);
 		rigidbody.AddForce(new Vector3(movementForce * (left ? -1 : 1) * speed,0,0));
 		transform.rotation = Quaternion.Euler( 0, (left ? 180 : 0), 0);
 		movementKeyDown = true;

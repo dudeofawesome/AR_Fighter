@@ -14,8 +14,8 @@ public class LocomotionPlayer : MonoBehaviour {
 
     protected Animator animator;
 
-    private float speed = 0;
-    private float direction = 0;
+    public float speed = 0;
+    public float direction = 0;
     private Locomotion locomotion = null;
 
 	// Use this for initialization
@@ -29,8 +29,25 @@ public class LocomotionPlayer : MonoBehaviour {
 	{
         if (animator && Camera.main)
 		{
-            JoystickToEvents.Do(transform,Camera.main.transform, ref speed, ref direction);
-            locomotion.Do(speed * 6, direction * 180);
+//            JoystickToEvents.Do(transform,Camera.main.transform, ref speed, ref direction);
+//			direction = 1;
+//			direction = (direction < 90 || direction > 270) ? 90 : 270;
+//			print (direction);
+
+
+
+//			if (Input.GetKeyDown(KeyCode.A))
+//				transform.rotation = Quaternion.Euler(0, -90, 0);
+//			if (Input.GetKeyDown(KeyCode.D))
+//				transform.rotation = Quaternion.Euler(0, 90, 0);
+//			if (Input.GetKey(KeyCode.A))
+//				locomotion.Do(6, 0);
+//			if (Input.GetKey(KeyCode.D))
+//				locomotion.Do(6, 0);
+//			if (Input.GetKeyUp(KeyCode.A))
+//				locomotion.Do(-60, 0);
+//			if (Input.GetKeyUp(KeyCode.D))
+//				locomotion.Do(-60, 0);
 		}		
 	}
 }

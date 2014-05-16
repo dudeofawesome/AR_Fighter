@@ -1,19 +1,22 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MainMenuGUI.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Locomotion Setup/Scripts/LocomotionPlayer.cs">
     <Files>
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="200" Column="4" />
+      <File FileName="Assets/Locomotion Setup/Scripts/LocomotionPlayer.cs" Line="39" Column="25" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Locomotion Setup" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="LocomotionPlayer.cs" selected="True" />
+              </Node>
+            </Node>
             <Node name="Qualcomm Augmented Reality" expanded="True">
               <Node name="Scripts" expanded="True" />
             </Node>
-            <Node name="Scripts" expanded="True">
-              <Node name="MainMenuGUI.cs" selected="True" />
-            </Node>
+            <Node name="Scripts" expanded="True" />
           </Node>
         </State>
       </Pad>
