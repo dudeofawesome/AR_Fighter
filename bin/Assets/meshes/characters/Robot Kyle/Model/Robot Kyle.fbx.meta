@@ -586,7 +586,7 @@ ModelImporter:
       transformModified: 1
     - name: Right_Ankle_Joint_01
       position: {x: .434050024, y: 9.49949026e-08, z: -8.99790109e-09}
-      rotation: {x: 2.23517418e-08, y: 2.98023206e-08, z: .494364977, w: -.86925447}
+      rotation: {x: 2.235174e-08, y: 2.98023188e-08, z: .494364947, w: -.86925441}
       scale: {x: .999999762, y: 1.00000024, z: 1}
       transformModified: 1
     - name: Right_Toe_Joint_01
@@ -606,7 +606,7 @@ ModelImporter:
       transformModified: 1
     - name: Left_Upper_Arm_Joint_01
       position: {x: -.0635852739, y: 1.17662175e-07, z: 3.16649675e-08}
-      rotation: {x: .0810570642, y: .122538924, z: .0857566074, w: .985423684}
+      rotation: {x: .0810570568, y: .122538917, z: .0857565999, w: .985423625}
       scale: {x: 1.00000012, y: 1.00000024, z: 1}
       transformModified: 1
     - name: Left_Forearm_Joint_01
@@ -616,7 +616,7 @@ ModelImporter:
       transformModified: 1
     - name: Left_Wrist_Joint_01
       position: {x: -.176925525, y: -.24830173, z: .0419351161}
-      rotation: {x: -.00276801828, y: .00809838995, z: .462682188, w: .886482954}
+      rotation: {x: -.00276801805, y: .00809838902, z: .462682158, w: .886482894}
       scale: {x: 1, y: .99999994, z: .999999821}
       transformModified: 1
     - name: Left_Index_Finger_Joint_01a
@@ -631,7 +631,7 @@ ModelImporter:
       transformModified: 1
     - name: Left_Index_Finger_Joint_01c
       position: {x: -.0229450054, y: -6.53607799e-08, z: 2.56659405e-09}
-      rotation: {x: -.0110165682, y: -.000252212165, z: -.0228816476, w: .999677479}
+      rotation: {x: -.0110165672, y: -.000252212136, z: -.0228816457, w: .99967742}
       scale: {x: 1, y: 1, z: .999999881}
       transformModified: 1
     - name: Left_Middle_Finger_Joint_01a
@@ -771,7 +771,7 @@ ModelImporter:
       transformModified: 1
     - name: Right_Ring_Finger_Joint_01b
       position: {x: .038334541, y: -7.61330739e-07, z: 5.34346327e-08}
-      rotation: {x: .000756190857, y: .000507933903, z: .0118389092, w: .999929547}
+      rotation: {x: .000756190799, y: .000507933844, z: .0118389083, w: .999929488}
       scale: {x: .99999994, y: .999999523, z: .999999702}
       transformModified: 1
     - name: Right_Ring_Finger_Joint_01c
