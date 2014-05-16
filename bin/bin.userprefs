@@ -1,22 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Locomotion Setup/Scripts/LocomotionPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CharacterController.cs">
     <Files>
-      <File FileName="Assets/Locomotion Setup/Scripts/LocomotionPlayer.cs" Line="39" Column="25" />
+      <File FileName="Assets/Locomotion Setup/Scripts/LocomotionPlayer.cs" Line="51" Column="3" />
+      <File FileName="Assets/Scripts/CharacterController.cs" Line="61" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Locomotion Setup" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="LocomotionPlayer.cs" selected="True" />
-              </Node>
-            </Node>
-            <Node name="Qualcomm Augmented Reality" expanded="True">
               <Node name="Scripts" expanded="True" />
             </Node>
-            <Node name="Scripts" expanded="True" />
+            <Node name="Scripts" expanded="True">
+              <Node name="CharacterController.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
