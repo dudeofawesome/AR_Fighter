@@ -49,7 +49,6 @@
      <Compile Include="Assets\Locomotion Setup\Scripts\SmoothFollow.js" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\Editor\projsettings.txt" />
-     <None Include="Assets\ImmersiveMode\Documentation\readme.txt" />
      <None Include="Assets\license_3rdpartynotice.txt" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\RenderVideoBackground.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
