@@ -272,6 +272,7 @@ public class CharacterController : MonoBehaviour {
 
 			// Drag
 			if (currentAttack != null) {
+				locomotion.Do (-60, 0);
 				rigidbody.velocity = new Vector3 (rigidbody.velocity.x * (0.5f), rigidbody.velocity.y, 0);
 			}
 			else if (!movementKeyDown && touchingGround) {
