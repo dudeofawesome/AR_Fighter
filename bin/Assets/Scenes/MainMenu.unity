@@ -597,6 +597,7 @@ MonoBehaviour:
   verticalSkin: {fileID: 11400000, guid: 7155a0e6a312b4cf4a6bb76bcae90f55, type: 2}
   scrollSkin: {fileID: 11400000, guid: 192434db35abe4affae30d72e15798fc, type: 2}
   howtoplaySkin: {fileID: 11400000, guid: 3723d6988dc7542489ae0861c9c476d4, type: 2}
+  inGameSkin: {fileID: 11400000, guid: f37051e2dc10c474b88f4369eb86e928, type: 2}
   mainLevel: Main
   menuPosition: 0
   loadingTexture: {fileID: 2800000, guid: 66614e8f6bc0a47aaaaf83c0e8e09858, type: 3}

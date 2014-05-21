@@ -192,12 +192,16 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.skin = null;
 			GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
 			GUI.skin = guiSkin;
-
+			
 			break;
 			
 		case MenuState.SETTINGS:
 			GUI.Label (new Rect (45, 75, 325, 325), "");
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> master
 			if (GUI.Button (new Rect (340, 150, 460, 70), "Visual Settings")) {
 				menuPosition = MenuState.SETTINGSVI;
 				
@@ -309,7 +313,7 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.skin = null;
 			GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
 			GUI.skin = guiSkin;
-
+			
 			break;
 		case MenuState.HOWTOPLAY:
 			GUI.skin = howtoplaySkin;
@@ -430,5 +434,3 @@ public class MainMenuGUI : MonoBehaviour
 	}
 	
 }
-
-
