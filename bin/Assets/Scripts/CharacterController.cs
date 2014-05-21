@@ -176,9 +176,14 @@ public class CharacterController : MonoBehaviour {
 							// Phone tilt controls
 							if (PlayerPrefs.GetInt("controlScheme") == 0 || PlayerPrefs.GetInt("controlScheme") == 1) {
 								float _tilt = (sceneCamera.transform.position.z > 1 ? -1 : 1) * Mathf.Clamp (Input.acceleration.x * 4, -1, 1);
-								if (_tilt > -0.1 && _tilt < 0.1)
+								if (_tilt > -0.1 && _tilt < 0.1) {
 									_tilt = 0;
-								rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
+//									movementKeyDown = false;
+									locomotion.Do (-60, 0);
+								}
+								else
+									move((_tilt < 0) ? true : false, _tilt);
+//								rigidbody.AddForce(new Vector3(movementForce * _tilt,0,0));
 								if (_tilt > 0) {
 									transform.rotation = Quaternion.Euler( 0, 0, 0);
 									movementKeyDown = true;
@@ -336,7 +341,8 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	[RPC] public void move (bool left, float speed) {
-		locomotion.Do(6, 0);
+		speed = Mathf.Abs(speed);
+		locomotion.Do(speed * 6, 0);
 		rigidbody.AddForce(new Vector3(movementForce * (left ? -1 : 1) * speed,0,0));
 		transform.rotation = Quaternion.Euler( 0, (left ? 180 : 0), 0);
 		movementKeyDown = true;
@@ -395,8 +401,15 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	[RPC] public void OnVelocityChange (Vector3 velocity) {
-		if (!photonView.isMine)
+		if (!photonView.isMine) {
 			rigidbody.velocity = velocity;
+			if (velocity == Vector3.zero) {
+				locomotion.Do(-60, 0);
+			}
+			else {
+				locomotion.Do(6, 0);
+			}
+		}
 	}
 
 	void OnDestroy () {

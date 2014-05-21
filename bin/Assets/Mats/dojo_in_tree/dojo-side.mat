@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: leaves
+  m_Name: dojo-side
   m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -17,14 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 3ee757901946a4694827fc8a3f162948, type: 3}
-          m_Scale: {x: 5, y: 5}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _BumpMap
-        second:
-          m_Texture: {fileID: 2800000, guid: dab0806454e4d924491b1b84dddaa6b7, type: 3}
+          m_Texture: {fileID: 2800000, guid: 166d5ae82a6ad4b918e9eac1fd96b642, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats: {}
@@ -32,4 +25,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .904638231, g: .921568632, b: .384313732, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
