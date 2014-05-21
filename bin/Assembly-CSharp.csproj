@@ -46,6 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Locomotion Setup\Locomotion\Scripts\Locomotion.cs" />
+     <Compile Include="Assets\Locomotion Setup\Scripts\JoystickToEvents.cs" />
+     <Compile Include="Assets\Locomotion Setup\Scripts\LocomotionPlayer.cs" />
      <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\CustomTypes.cs" />
      <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\Enums.cs" />
      <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\Extensions.cs" />

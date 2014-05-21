@@ -14,7 +14,7 @@ public class LightFlicker : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		float r = Random.Range(-1, 1) * 0.25f;
+		float r = Random.Range(-1, 1) * 0.2f;
 		if (GetComponent<Light>().intensity - r >= 2 && GetComponent<Light>().intensity - r <= 5)
 			GetComponent<Light>().intensity += r;
 		else
