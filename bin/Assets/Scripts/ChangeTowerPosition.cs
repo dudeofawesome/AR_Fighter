@@ -14,7 +14,7 @@ public class ChangeTowerPosition : MonoBehaviour {
 		Vector3 _pos;
 		Vector3 _rot;
 		if (_tower.transform.position.z < 10 && _tower.transform.position.z > -10){
-			_pos = new Vector3 (_tower.transform.position.x * 0.999769f, 0.1827326f, 3.7f);
+			_pos = new Vector3 (_tower.transform.position.x * 0.999769f, 0.1827326f, 4.5f);
 			_rot = new Vector3(0f, 0f, 0f);
 		}
 		else{

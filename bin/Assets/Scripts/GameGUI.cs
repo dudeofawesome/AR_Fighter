@@ -169,7 +169,7 @@ public class GameGUI : MonoBehaviour {
 			
 		case MenuState.MAIN:
 			
-			if (GUI.Button (new Rect (650, 5, 120, 50), "Pause")) {
+			if (GUI.Button (new Rect (720, 5, 50, 50), "||")) {
 				menuPosition = MenuState.PAUSE;
 				
 			}
@@ -225,18 +225,6 @@ public class GameGUI : MonoBehaviour {
 		}
 		
 		GUI.matrix = svMat; // restore matrix
-		
-		if (PlayerPrefs.GetInt ("controlScheme") == 2) {
-			if (GUI.Button (new Rect (5, Screen.height - 55, 50, 50), "<")) {
-				myPlayer.GetComponent<CharacterController> ().move (true, 1);
-			}
-			if (GUI.Button (new Rect (Screen.width - 55, Screen.height - 55, 50, 50), ">")) {
-				myPlayer.GetComponent<CharacterController> ().move (true, 1);
-			}
-			if (GUI.Button (new Rect (Screen.width - 55, Screen.height - 110, 50, 50), "^")) {
-				myPlayer.GetComponent<CharacterController> ().jump ();
-			}
-		}
 	}
 	
 	bool rectangleCollision(Rect r1, Rect r2, int padding) {
