@@ -197,11 +197,7 @@ public class MainMenuGUI : MonoBehaviour
 			
 		case MenuState.SETTINGS:
 			GUI.Label (new Rect (45, 75, 325, 325), "");
-<<<<<<< HEAD
-			
-=======
 
->>>>>>> Alpha-Louis
 			if (GUI.Button (new Rect (340, 150, 460, 70), "Visual Settings")) {
 				menuPosition = MenuState.SETTINGSVI;
 				
