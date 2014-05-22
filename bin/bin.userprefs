@@ -1,8 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MainMenuGUI.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameGUI.cs">
     <Files>
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="293" Column="47" />
+      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="262" Column="15" />
+      <File FileName="Assets/Scripts/SessionStarter.cs" Line="27" Column="2" />
+      <File FileName="Assets/Scripts/GameGUI.cs" Line="34" Column="40" />
+      <File FileName="Assets/Scripts/MultiplayerSyncer.cs" Line="28" Column="1" />
+      <File FileName="Assets/Scripts/CharacterController.cs" Line="81" Column="65" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
