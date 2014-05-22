@@ -26,17 +26,17 @@ public class GameGUI : MonoBehaviour {
 	void Start () {
 		HOTween.Init(false, false, true);
 		HOTween.EnableOverwriteManager();
-		
+
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject player in players) {
 			if (player.GetComponent<CharacterController>().controlMe && !player.GetComponent<CharacterController>().networkControl)
 				myPlayer = player;
-			else
+			else if (PhotonNetwork.room != null)
 				GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), player.gameObject));
 		}
 		if (myPlayer == null)
 			myPlayer = players[players.Length - 1];
-		
+			
 		if (Application.isEditor) {
 			if (!PhotonNetwork.offlineMode) 
 				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
@@ -169,9 +169,12 @@ public class GameGUI : MonoBehaviour {
 			
 		case MenuState.MAIN:
 			
-			if (GUI.Button (new Rect (650, 5, 120, 50), "Pause")) {
+			if (GUI.Button (new Rect (720, 5, 50, 50), "||")) {
 				menuPosition = MenuState.PAUSE;
-				
+				if (!PhotonNetwork.offlineMode) 
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
+				else
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
 			}
 			break;
 		case MenuState.PAUSE:
@@ -179,6 +182,10 @@ public class GameGUI : MonoBehaviour {
 			
 			if (GUI.Button (new Rect (200, 170, 400, 50), "Resume")) {
 				menuPosition = MenuState.MAIN;
+				if (!PhotonNetwork.offlineMode) 
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
+				else
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
 			}
 			else if (GUI.Button (new Rect (200, 224, 400, 50), "Control Settings")) {
 				menuPosition = MenuState.CONTROLSETTINGS;
@@ -187,6 +194,7 @@ public class GameGUI : MonoBehaviour {
 				menuPosition = MenuState.VISUALEFFECTS;
 				
 			} else if (GUI.Button (new Rect (200, 332, 400, 50), "Disconnect")) {
+				PhotonNetwork.LeaveRoom();
 				Application.LoadLevel("MainMenu");
 			}
 			break;
@@ -225,18 +233,6 @@ public class GameGUI : MonoBehaviour {
 		}
 		
 		GUI.matrix = svMat; // restore matrix
-		
-		if (PlayerPrefs.GetInt ("controlScheme") == 2) {
-			if (GUI.Button (new Rect (5, Screen.height - 55, 50, 50), "<")) {
-				myPlayer.GetComponent<CharacterController> ().move (true, 1);
-			}
-			if (GUI.Button (new Rect (Screen.width - 55, Screen.height - 55, 50, 50), ">")) {
-				myPlayer.GetComponent<CharacterController> ().move (true, 1);
-			}
-			if (GUI.Button (new Rect (Screen.width - 55, Screen.height - 110, 50, 50), "^")) {
-				myPlayer.GetComponent<CharacterController> ().jump ();
-			}
-		}
 	}
 	
 	bool rectangleCollision(Rect r1, Rect r2, int padding) {
