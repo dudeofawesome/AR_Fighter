@@ -422,6 +422,12 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	void OnDestroy () {
-		GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Remove(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), gameObject));
+		List<HUD.GUIelement> ge = GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements;
+		for (int i = 0; i < ge.Count; i++) {
+			if (ge[i].relatesTo.Equals(gameObject)) {
+				GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Remove(ge[i]);
+			}
+		}
+		print ("got rid of lbl");
 	}
 }

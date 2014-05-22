@@ -16,6 +16,7 @@ public class MultiplayerSyncer : MonoBehaviour {
 			_myPlayer.GetComponent<CharacterController>().sceneCamera = GameObject.Find ("ARCamera");
 		}
 		else if (GameObject.Find("SessionStarter") != null && GameObject.Find("SessionStarter").GetComponent<SessionStarter>().singlePlayer == true) {
+			GameObject.Find ("GUI").GetComponent<GameGUI>().GUIelements.Clear();
 			GameObject _pl = (GameObject) Instantiate(playerPrefab, new Vector3(10, 30, 0), Quaternion.Euler(new Vector3(0, 0, 0)));
 			_pl.GetComponent<CharacterController>().controlMe = true;
 			_pl.GetComponent<CharacterController>().networkControl = false;

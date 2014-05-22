@@ -26,17 +26,17 @@ public class GameGUI : MonoBehaviour {
 	void Start () {
 		HOTween.Init(false, false, true);
 		HOTween.EnableOverwriteManager();
-		
+
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject player in players) {
 			if (player.GetComponent<CharacterController>().controlMe && !player.GetComponent<CharacterController>().networkControl)
 				myPlayer = player;
-			else
+			else if (PhotonNetwork.room != null)
 				GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), player.gameObject));
 		}
 		if (myPlayer == null)
 			myPlayer = players[players.Length - 1];
-		
+			
 		if (Application.isEditor) {
 			if (!PhotonNetwork.offlineMode) 
 				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);

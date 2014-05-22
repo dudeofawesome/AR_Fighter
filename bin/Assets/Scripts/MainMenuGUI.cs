@@ -259,6 +259,7 @@ public class MainMenuGUI : MonoBehaviour
 					PhotonNetwork.offlineMode = true;
 				}
 				menuPosition = MenuState.LOADING;
+				op = null;
 				op = Application.LoadLevelAsync (mainLevel);
 				op.allowSceneActivation = false;
 				HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
