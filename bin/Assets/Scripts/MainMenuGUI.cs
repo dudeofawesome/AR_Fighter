@@ -40,6 +40,7 @@ public class MainMenuGUI : MonoBehaviour
 	Rect rect;
 	Vector2 pivot;
 	private int tweenSwitch = 0;
+	AsyncOperation op = null;
 	
 	// Use this for initialization
 	void Start ()
@@ -67,36 +68,6 @@ public class MainMenuGUI : MonoBehaviour
 				scrollPosition.y += touch.deltaPosition.y;
 			}
 		}
-		
-		
-		
-		if (tweenSwitch == 0) {
-			//HOTween.To (GameObject.Find ("Map").transform, 10, "rotation", Quaternion.Euler (new Vector3 (0, 0, 0)));
-			HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 300, 0))).Ease (EaseType.Linear).OnComplete (tweenFunction));
-		}
-		
-		//HOTween.To (GameObject.Find ("Map").transform, 5, "rotation", Quaternion.Euler (new Vector3 (0, 180, 0)));
-		
-		
-		
-		
-		
-		
-		
-	}
-	
-	void tweenFunction ()
-	{
-		Debug.Log ("Work");
-		tweenSwitch = 1;
-		HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 60, 0))).Ease (EaseType.Linear).OnComplete (tweenFunction2));
-	}
-	
-	void tweenFunction2 ()
-	{
-		HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 180, 0))).Ease (EaseType.Linear));
-		HOTween.To (GameObject.Find ("Main Camera").transform, 15, "position", new Vector3 (GameObject.Find ("dojo_in_tree").transform.position.x, GameObject.Find ("dojo_in_tree").transform.position.y + 3f, GameObject.Find ("dojo_in_tree").transform.position.z));
-		
 	}
 	
 	void OnGUI ()
@@ -287,7 +258,12 @@ public class MainMenuGUI : MonoBehaviour
 					PhotonNetwork.Disconnect();
 					PhotonNetwork.offlineMode = true;
 				}
-				Application.LoadLevel (mainLevel);
+				menuPosition = MenuState.LOADING;
+				op = Application.LoadLevelAsync (mainLevel);
+				op.allowSceneActivation = false;
+				HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/dojo_in_tree/TweenTo").transform.position);
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
 			}
 			GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
 			GUI.Button (new Rect (0, 140, 340, 70), "Setting3");
@@ -428,5 +404,9 @@ public class MainMenuGUI : MonoBehaviour
 		
 		return rAdjustedBounds.Contains (screenPos);
 	}
-	
+
+	void actuallyLoadLevel (TweenEvent data) {
+		print ("switch scene");
+		op.allowSceneActivation = true;
+	}
 }
