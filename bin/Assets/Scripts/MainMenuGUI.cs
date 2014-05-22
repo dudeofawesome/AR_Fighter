@@ -40,7 +40,7 @@ public class MainMenuGUI : MonoBehaviour
 	Rect rect;
 	Vector2 pivot;
 	private int tweenSwitch = 0;
-	AsyncOperation op = null;
+	public AsyncOperation op = null;
 	
 	// Use this for initialization
 	void Start ()
@@ -406,7 +406,6 @@ public class MainMenuGUI : MonoBehaviour
 	}
 
 	void actuallyLoadLevel (TweenEvent data) {
-		print ("switch scene");
 		op.allowSceneActivation = true;
 	}
 }

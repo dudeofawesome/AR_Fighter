@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Holoville.HOTween;
 
 [AddComponentMenu("Multiplayer/Session Starter")]
 public class SessionStarter : MonoBehaviour {
@@ -46,7 +47,12 @@ public class SessionStarter : MonoBehaviour {
 			if (PhotonNetwork.room.customProperties.ContainsKey("gameLevel")) {
 				switch (PhotonNetwork.room.customProperties["gameLevel"].ToString()) {
 					case "treeTower" :
-						Application.LoadLevel("Main");
+						GameObject.Find("GUI").GetComponent<MainMenuGUI>().menuPosition = MainMenuGUI.MenuState.LOADING;
+						GameObject.Find("GUI").GetComponent<MainMenuGUI>().op = Application.LoadLevelAsync (GameObject.Find("GUI").GetComponent<MainMenuGUI>().mainLevel);
+						GameObject.Find("GUI").GetComponent<MainMenuGUI>().op.allowSceneActivation = false;
+						HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
+						HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/dojo_in_tree/TweenTo").transform.position);
+						HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
 					break;
 				}
 			}
@@ -62,5 +68,9 @@ public class SessionStarter : MonoBehaviour {
 //		else {
 //			print (PhotonNetwork.GetRoomList().Length);
 //		}
+	}
+
+	void actuallyLoadLevel (TweenEvent data) {
+		GameObject.Find("GUI").GetComponent<MainMenuGUI>().op.allowSceneActivation = true;
 	}
 }
