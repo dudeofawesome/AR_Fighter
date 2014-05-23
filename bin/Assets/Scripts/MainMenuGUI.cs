@@ -41,6 +41,7 @@ public class MainMenuGUI : MonoBehaviour
 	Vector2 pivot;
 	private int tweenSwitch = 0;
 	public AsyncOperation op = null;
+	public float alphaFadeValue = 0;
 	
 	// Use this for initialization
 	void Start ()
@@ -262,9 +263,12 @@ public class MainMenuGUI : MonoBehaviour
 				op = null;
 				op = Application.LoadLevelAsync (mainLevel);
 				op.allowSceneActivation = false;
+				GameObject.Find("Map").GetComponent<RotateAroundByAccel>().enabled = false;
+				HOTween.Kill();
 				HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
 				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/dojo_in_tree/TweenTo").transform.position);
 				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
+				HOTween.To(this, 0.5f, "alphaFadeValue", 1, false, EaseType.EaseInBack, 3.5f);
 			}
 			GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
 			GUI.Button (new Rect (0, 140, 340, 70), "Setting3");
@@ -356,18 +360,8 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.LOADING:
-			UpdateSettings ();
-			
-			
-			Matrix4x4 matrixBackup = GUI.matrix;
-			GUIUtility.RotateAroundPivot (angle, pivot);
-			GUI.DrawTexture (rect, loadingTexture);
-			GUI.matrix = matrixBackup;
-			angle += 5;
-			
-			
-			
-			
+			GUI.color = new Color(0, 0, 0, alphaFadeValue);
+			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), loadingTexture );
 			
 			break;
 		}
