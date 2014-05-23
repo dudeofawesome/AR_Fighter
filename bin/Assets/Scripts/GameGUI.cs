@@ -12,7 +12,10 @@ public class GameGUI : MonoBehaviour {
 	private float originalWidth = 800;
 	private float originalHeight = 480;
 	private Vector3 scale;
-	
+
+	public float alphaFadeValue = 1;
+	public Texture loadingTexture = null;
+
 	public enum MenuState {
 		MAIN,
 		PAUSE,
@@ -43,6 +46,9 @@ public class GameGUI : MonoBehaviour {
 			else
 				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
 		}
+
+		HOTween.Kill();
+		HOTween.To(this, 1f, "alphaFadeValue", 0);
 	}
 	
 	// Update is called once per frame
@@ -97,11 +103,15 @@ public class GameGUI : MonoBehaviour {
 				GUIelements.RemoveAt(i);
 			}
 		}
+
+		if (alphaFadeValue > 0 && Time.frameCount > 120) {
+			alphaFadeValue = 0;
+		}
 	}
 	
 	void OnGUI () {
 		GUI.skin = guiSkin;
-		
+
 		foreach	(HUD.GUIelement element in GUIelements) {
 			switch (element.type) {
 			case HUD.GUIelement.ElementType.MESSAGE :
@@ -232,6 +242,13 @@ public class GameGUI : MonoBehaviour {
 			break;
 		}
 		
+		
+		if (alphaFadeValue > 0) {
+			GUI.color = new Color(0, 0, 0, alphaFadeValue);
+			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), loadingTexture );
+			GUI.color = new Color(255, 255, 255);
+		}
+
 		GUI.matrix = svMat; // restore matrix
 	}
 	
@@ -240,5 +257,17 @@ public class GameGUI : MonoBehaviour {
 		// bool widthOverlap =  (r1.xMin >= r2.xMin) && (r1.xMin <= r2.xMax) || (r2.xMin >= r1.xMin) && (r2.xMin <= r1.xMax);
 		// bool heightOverlap = (r1.yMin >= r2.yMin) && (r1.yMin <= r2.yMax) || (r2.yMin >= r1.yMin) && (r2.yMin <= r1.yMax);
 		// return (widthOverlap && heightOverlap);
+	}
+
+	void OnDestroy () {
+		HOTween.Kill ();
+		GUIelements.Clear ();
+
+		// Destroy all players
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			Destroy(player);
+		}
+
 	}
 }
