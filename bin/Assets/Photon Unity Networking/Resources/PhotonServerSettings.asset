@@ -31,4 +31,5 @@ MonoBehaviour:
   - OnVelocityChange
   - OnLoseCard
   - netPause
+  - UpdateDamage
   DisableAutoOpenWizard: 0
