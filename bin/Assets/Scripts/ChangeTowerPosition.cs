@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class ChangeTowerPosition : MonoBehaviour {
+
+	enum TowerType {DOJO, TURRET, BOAT};
+	[SerializeField]
+	private TowerType towerType = TowerType.DOJO;
 	
 	// Use this for initialization
 	void Start () {

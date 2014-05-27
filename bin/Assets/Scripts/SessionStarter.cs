@@ -39,7 +39,15 @@ public class SessionStarter : MonoBehaviour {
 				switch (PhotonNetwork.room.customProperties["gameLevel"].ToString()) {
 					case "treeTower" :
 						GameObject.Find("GUI").GetComponent<MainMenuGUI>().menuPosition = MainMenuGUI.MenuState.LOADING;
-						GameObject.Find("GUI").GetComponent<MainMenuGUI>().op = Application.LoadLevelAsync (GameObject.Find("GUI").GetComponent<MainMenuGUI>().mainLevel);
+						GameObject.Find("GUI").GetComponent<MainMenuGUI>().op = Application.LoadLevelAsync (GameObject.Find("GUI").GetComponent<MainMenuGUI>().mainLevelDojo);
+						GameObject.Find("GUI").GetComponent<MainMenuGUI>().op.allowSceneActivation = false;
+						HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
+						HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/dojo_in_tree/TweenTo").transform.position);
+						HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
+					break;
+					case "castleTurret" :
+						GameObject.Find("GUI").GetComponent<MainMenuGUI>().menuPosition = MainMenuGUI.MenuState.LOADING;
+						GameObject.Find("GUI").GetComponent<MainMenuGUI>().op = Application.LoadLevelAsync (GameObject.Find("GUI").GetComponent<MainMenuGUI>().mainLevelTurret);
 						GameObject.Find("GUI").GetComponent<MainMenuGUI>().op.allowSceneActivation = false;
 						HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
 						HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/dojo_in_tree/TweenTo").transform.position);
