@@ -6,8 +6,9 @@ public class MainMenuGUI : MonoBehaviour
 {
 	
 	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin;
-	public string mainLevel;
-	
+	public string mainLevelDojo;
+	public string mainLevelTurret;
+
 	
 	public enum MenuState
 	{
@@ -261,7 +262,7 @@ public class MainMenuGUI : MonoBehaviour
 				}
 				menuPosition = MenuState.LOADING;
 				op = null;
-				op = Application.LoadLevelAsync (mainLevel);
+				op = Application.LoadLevelAsync (mainLevelDojo);
 				op.allowSceneActivation = false;
 				GameObject.Find("Map").GetComponent<RotateAroundByAccel>().enabled = false;
 				HOTween.Kill();
@@ -270,7 +271,28 @@ public class MainMenuGUI : MonoBehaviour
 				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
 				HOTween.To(this, 0.5f, "alphaFadeValue", 1, false, EaseType.EaseInBack, 3.5f);
 			}
-			GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
+			if (GUI.Button (new Rect (0, 70, 340, 70), "Castle Turret")) {
+				if (PhotonNetwork.room != null) {
+					ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable ();
+					ht.Add ("gameLevel", "castleTurret");
+					PhotonNetwork.room.SetCustomProperties (ht);
+					GameObject.Find ("SessionStarter").GetComponent<SessionStarter> ().singlePlayer = false;
+				}
+				else {
+					PhotonNetwork.Disconnect();
+					PhotonNetwork.offlineMode = true;
+				}
+				menuPosition = MenuState.LOADING;
+				op = null;
+				op = Application.LoadLevelAsync (mainLevelTurret);
+				op.allowSceneActivation = false;
+				GameObject.Find("Map").GetComponent<RotateAroundByAccel>().enabled = false;
+				HOTween.Kill();
+				HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/castle_turret/TweenTo").transform.position);
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
+				HOTween.To(this, 0.5f, "alphaFadeValue", 1, false, EaseType.EaseInBack, 3.5f);
+			}
 			GUI.Button (new Rect (0, 140, 340, 70), "Setting3");
 			if (GUI.Button (new Rect (0, 210, 340, 70), "Setting4")) {
 				menuPosition = MenuState.MAIN;

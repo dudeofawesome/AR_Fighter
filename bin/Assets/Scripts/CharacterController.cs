@@ -303,8 +303,15 @@ public class CharacterController : MonoBehaviour {
 			ledgeGrabCountdown--;
 		}
 
-		if (!PhotonNetwork.offlineMode && rigidbody.velocity != lastVelocity)
-			photonView.RPC ("OnVelocityChange", PhotonTargets.Others, rigidbody.velocity);
+		if (!PhotonNetwork.offlineMode) {
+			if (Time.frameCount % 30 == 0) {
+				photonView.RPC ("UpdateDamage", PhotonTargets.Others, this.damage);
+			}
+
+			if (rigidbody.velocity != lastVelocity) {
+				photonView.RPC ("OnVelocityChange", PhotonTargets.Others, rigidbody.velocity);
+			}
+		}
 		lastVelocity = rigidbody.velocity;
 	}
 
@@ -381,15 +388,6 @@ public class CharacterController : MonoBehaviour {
 		}
 	}
 
-	//[RPC] public void Attack2(){
-	//	if (currentAttack == null) {
-	//		currentAttack = new MyPlayer.Attack(this.gameObject);
-
-	//		}
-
-
-	//}
-
 	[RPC] public void attack () {
 		print ("attacking");
 		if (currentAttack == null)
@@ -429,5 +427,9 @@ public class CharacterController : MonoBehaviour {
 			}
 		}
 		print ("got rid of lbl");
+	}
+
+	[RPC] public void UpdateDamage (float damage) {
+		this.damage = damage;
 	}
 }
