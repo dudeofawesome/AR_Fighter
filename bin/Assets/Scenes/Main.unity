@@ -5612,6 +5612,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPlayer: {fileID: 0}
   guiSkin: {fileID: 11400000, guid: 192434db35abe4affae30d72e15798fc, type: 2}
+  inGameSkin: {fileID: 0}
+  pauseSkin: {fileID: 11400000, guid: 4b6fd6cebcfbf46f6a2d1c19dd65699f, type: 2}
   paused: 0
   alphaFadeValue: 1
   loadingTexture: {fileID: 2800000, guid: c1041fc170fc54b31aea03206138a8b0, type: 3}

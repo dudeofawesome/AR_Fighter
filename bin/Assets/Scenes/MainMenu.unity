@@ -132,6 +132,64 @@ MeshFilter:
   m_PrefabInternal: {fileID: 173673271}
   m_GameObject: {fileID: 971596}
   m_Mesh: {fileID: 4300006, guid: 7ed457138d7a14b66b38ea234086782a, type: 3}
+--- !u!1 &105011681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100012, guid: f7d17ee27aa6443a8995b0d4074428ce, type: 3}
+  m_PrefabInternal: {fileID: 1869628562}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 105011682}
+  - 33: {fileID: 105011684}
+  - 23: {fileID: 105011683}
+  m_Layer: 0
+  m_Name: Cylinder_004
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &105011682
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400012, guid: f7d17ee27aa6443a8995b0d4074428ce, type: 3}
+  m_PrefabInternal: {fileID: 1869628562}
+  m_GameObject: {fileID: 105011681}
+  m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106709}
+  m_LocalPosition: {x: 0, y: 3.5, z: -1.52989855e-07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1082395071}
+--- !u!23 &105011683
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300010, guid: f7d17ee27aa6443a8995b0d4074428ce,
+    type: 3}
+  m_PrefabInternal: {fileID: 1869628562}
+  m_GameObject: {fileID: 105011681}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: d66fe46f07e3147b5a682a55210f85f8, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!33 &105011684
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300010, guid: f7d17ee27aa6443a8995b0d4074428ce,
+    type: 3}
+  m_PrefabInternal: {fileID: 1869628562}
+  m_GameObject: {fileID: 105011681}
+  m_Mesh: {fileID: 4300010, guid: f7d17ee27aa6443a8995b0d4074428ce, type: 3}
 --- !u!1 &109814166
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +852,7 @@ Transform:
   - {fileID: 1767703030}
   - {fileID: 753819430}
   - {fileID: 1796075254}
+  - {fileID: 105011682}
   - {fileID: 759009769}
   - {fileID: 109814167}
   m_Father: {fileID: 1559064922}
@@ -843,6 +902,7 @@ MonoBehaviour:
   verticalSkin: {fileID: 11400000, guid: 7155a0e6a312b4cf4a6bb76bcae90f55, type: 2}
   scrollSkin: {fileID: 11400000, guid: 192434db35abe4affae30d72e15798fc, type: 2}
   howtoplaySkin: {fileID: 11400000, guid: 3723d6988dc7542489ae0861c9c476d4, type: 2}
+  inGameSkin: {fileID: 11400000, guid: f37051e2dc10c474b88f4369eb86e928, type: 2}
   mainLevel: Main
   menuPosition: 0
   loadingTexture: {fileID: 2800000, guid: c1041fc170fc54b31aea03206138a8b0, type: 3}
