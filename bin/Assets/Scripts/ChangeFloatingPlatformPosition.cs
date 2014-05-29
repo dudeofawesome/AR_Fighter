@@ -30,9 +30,11 @@ public class ChangeFloatingPlatformPosition : MonoBehaviour {
 				case PlatformType.CASTLEWALL :
 					if (Mathf.Abs(platform.transform.position.x - tower.transform.position.x) < 20) {
 					      _pos.x = tower.transform.position.x + 9;
+						_pos.y = 0;
 					}
 					else {
 						_pos.x = platform.transform.position.x * 0.999769f;
+						_pos.y = 0;
 					}
 				break;
 				case PlatformType.PIER :

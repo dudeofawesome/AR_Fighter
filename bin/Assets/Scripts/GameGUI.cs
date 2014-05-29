@@ -48,7 +48,7 @@ public class GameGUI : MonoBehaviour {
 		}
 
 		HOTween.Kill();
-		HOTween.To(this, 1f, "alphaFadeValue", 0);
+		HOTween.To(this, 1, "alphaFadeValue", 0f);
 	}
 	
 	// Update is called once per frame
@@ -262,6 +262,7 @@ public class GameGUI : MonoBehaviour {
 	void OnDestroy () {
 		HOTween.Kill ();
 		GUIelements.Clear ();
+		Time.timeScale = 1;
 
 		// Destroy all players
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");

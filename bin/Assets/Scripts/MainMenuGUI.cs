@@ -48,7 +48,7 @@ public class MainMenuGUI : MonoBehaviour
 	void Start ()
 	{
 		
-		
+		HOTween.Kill ();
 		
 		UpdateSettings ();
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
