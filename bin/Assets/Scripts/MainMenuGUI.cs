@@ -96,7 +96,7 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.Label (new Rect (30, 75, 325, 325), "");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 			
-			GUI.Box(new Rect(380,100,400,72), "Sole Fighter");
+			GUI.Box(new Rect(380,100,400,72), "Sole Champion");
 			
 			
 			if (GUI.Button (new Rect (380, 165, 400, 55), "Start")) {
