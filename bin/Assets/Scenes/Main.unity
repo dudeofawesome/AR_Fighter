@@ -4499,6 +4499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ecfbd5477b144d1a58ead36c415d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerType: 0
 --- !u!95 &497925407
 Animator:
   serializedVersion: 2
@@ -7697,6 +7698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1b5100b44fc48d1bfd4b925e94bf06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platformType: 0
 --- !u!1 &1823458942
 GameObject:
   m_ObjectHideFlags: 0
