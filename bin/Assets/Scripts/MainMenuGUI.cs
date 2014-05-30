@@ -239,9 +239,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.LEVELLOADER:
 			GUI.skin = scrollSkin;
 			
+
+			GUI.Box (new Rect (30, 20, 770, 460), "");
 			GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
-			GUI.Box (new Rect (30, 90, 770, 390), "");
-			
 			
 			
 			scrollPosition = GUI.BeginScrollView (new Rect (430, 100, 370, 330),
