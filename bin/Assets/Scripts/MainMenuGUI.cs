@@ -18,6 +18,7 @@ public class MainMenuGUI : MonoBehaviour
 		SETTINGS,
 		SETTINGSVI,
 		SETTINGSCONTROLS, 
+		SETTINGSAUDIO,
 		HOWTOPLAY,
 		HOWTODOWNLOAD,
 		HOWTOPRINT,
@@ -181,6 +182,11 @@ public class MainMenuGUI : MonoBehaviour
 				
 				
 			}
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Audio")) {
+				menuPosition = MenuState.SETTINGSAUDIO;
+				
+				
+			}
 			
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -190,7 +196,30 @@ public class MainMenuGUI : MonoBehaviour
 			
 			
 			break;
+
+		case MenuState.SETTINGSAUDIO:
+			GUI.Label (new Rect (30, 75, 325, 325), "");
+			GUI.Box(new Rect(380,100,400,72), "Audio");
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Sound Effects")) {
+
+				
+				
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Master")) {
+
+				
+			}
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Music")) {
+
+				
+				
+			}
 			
+			
+			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
+				menuPosition = MenuState.SETTINGS;
+			}
+				break;
+
 		case MenuState.SETTINGSVI:
 			//GUI.skin = verticalSkin;
 			
@@ -240,11 +269,11 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.skin = scrollSkin;
 			
 
-			GUI.Box (new Rect (30, 20, 770, 460), "");
-			GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
+			GUI.Box (new Rect (0, 20, 800, 460), "");
+			GUI.Label (new Rect (50, 20, 550, 85), "Select Visual Style");
 			
 			
-			scrollPosition = GUI.BeginScrollView (new Rect (430, 100, 370, 330),
+			scrollPosition = GUI.BeginScrollView (new Rect (430, 120, 360, 330),
 			                                      scrollPosition, new Rect (0, 0, 340, 420));
 			
 			// Make four buttons - one in each corner. The coordinate system is defined
