@@ -348,7 +348,7 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "Introduction");
 			GUI.Label (new Rect (0, 50, 800, 450), "Sole Champion is a mobile device game that utilizes AR cards to create 3D environments. " +
-			           "The application is a fighting game played alone against AI or with friends. The players brawl each other in an free-for-all to decide who will emerge as the top fighter.");
+			           "The application is a fighting game played alone against AI or with friends. The players brawl each other in a free-for-all to see who will emerge as the top fighter.");
 
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.MAIN;
@@ -356,30 +356,15 @@ public class MainMenuGUI : MonoBehaviour
 				menuPosition = MenuState.HOWTODOWNLOAD;
 			}
 			break;
-			
-			
-		case MenuState.HOWTODOWNLOAD:
-			GUI.skin = howtoplaySkin;
-			GUI.Box (new Rect (0, 0, 800, 50), "How to Download");
-			GUI.Label (new Rect (0, 50, 800, 450), "Sole champion is avaliable in the android Play Store. " +
-			           "Using the search bar, the game should be easily found and downloaded from the store to your device. " + "\n"+
-			           "The game was built with the variety of phones in mind; however, the app is in development, so bugs and errors might occur.");
-			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
-				menuPosition = MenuState.MAIN;
-			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
-				menuPosition = MenuState.HOWTOPLAY;
-			} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
-				menuPosition = MenuState.HOWTOPRINT;
-			}
-			
-			break;
+
 			
 		case MenuState.HOWTOPRINT:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Print");
 			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion on a mobile device requires AR cards to create the map. " +
 				"The platform card is the main card that can snap to other cards and allows the users to create their own map. " + "\n"+
-				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read it.");
+				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read them." + "\n" +
+			           "The cards can be downloaded from http://0rleans.com");
 			GUI.skin = howtoplaySkin;
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
