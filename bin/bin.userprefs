@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MainMenuGUI.cs">
     <Files>
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="451" Column="1" />
-      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="397" Column="62" />
+      <File FileName="Assets/Scripts/MainMenuGUI.cs" Line="293" Column="15" />
+      <File FileName="Assets/Scripts/GameGUI.cs" Line="137" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
