@@ -18,6 +18,7 @@ public class MainMenuGUI : MonoBehaviour
 		SETTINGS,
 		SETTINGSVI,
 		SETTINGSCONTROLS, 
+		SETTINGSAUDIO,
 		HOWTOPLAY,
 		HOWTODOWNLOAD,
 		HOWTOPRINT,
@@ -181,6 +182,11 @@ public class MainMenuGUI : MonoBehaviour
 				
 				
 			}
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Audio")) {
+				menuPosition = MenuState.SETTINGSAUDIO;
+				
+				
+			}
 			
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -190,7 +196,30 @@ public class MainMenuGUI : MonoBehaviour
 			
 			
 			break;
+
+		case MenuState.SETTINGSAUDIO:
+			GUI.Label (new Rect (30, 75, 325, 325), "");
+			GUI.Box(new Rect(380,100,400,72), "Audio");
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Sound Effects")) {
+
+				
+				
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Master")) {
+
+				
+			}
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Music")) {
+
+				
+				
+			}
 			
+			
+			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
+				menuPosition = MenuState.SETTINGS;
+			}
+				break;
+
 		case MenuState.SETTINGSVI:
 			//GUI.skin = verticalSkin;
 			
@@ -239,12 +268,12 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.LEVELLOADER:
 			GUI.skin = scrollSkin;
 			
-			GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
-			GUI.Box (new Rect (30, 90, 770, 390), "");
+
+			GUI.Box (new Rect (0, 20, 800, 460), "");
+			GUI.Label (new Rect (50, 20, 550, 85), "Select Visual Style");
 			
 			
-			
-			scrollPosition = GUI.BeginScrollView (new Rect (430, 100, 370, 330),
+			scrollPosition = GUI.BeginScrollView (new Rect (430, 120, 360, 330),
 			                                      scrollPosition, new Rect (0, 0, 340, 420));
 			
 			// Make four buttons - one in each corner. The coordinate system is defined
@@ -318,34 +347,24 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOPLAY:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "Introduction");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
-			
+			GUI.Label (new Rect (0, 50, 800, 450), "Sole Champion is a mobile device game that utilizes AR cards to create 3D environments. " +
+			           "The application is a fighting game played alone against AI or with friends. The players brawl each other in a free-for-all to see who will emerge as the top fighter.");
+
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
 				menuPosition = MenuState.HOWTODOWNLOAD;
 			}
 			break;
-			
-			
-		case MenuState.HOWTODOWNLOAD:
-			GUI.skin = howtoplaySkin;
-			GUI.Box (new Rect (0, 0, 800, 50), "How to Download");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
-			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
-				menuPosition = MenuState.MAIN;
-			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
-				menuPosition = MenuState.HOWTOPLAY;
-			} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
-				menuPosition = MenuState.HOWTOPRINT;
-			}
-			
-			break;
+
 			
 		case MenuState.HOWTOPRINT:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Print");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
+			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion on a mobile device requires AR cards to create the map. " +
+				"The platform card is the main card that can snap to other cards and allows the users to create their own map. " + "\n"+
+				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read them." + "\n" +
+			           "The cards can be downloaded from http://0rleans.com");
 			GUI.skin = howtoplaySkin;
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
@@ -359,7 +378,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOSETUP:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Set Up");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
+			GUI.Label (new Rect (0, 50, 800, 450), "The device should have the application downloaded and have a camera to detect the AR cards. " +
+				"Run the application and select either singleplayer or multiplayer. " +
+				"In multiplayer mode, a room is created by the host and other players are able to join. The AR cards should be placed on a flat surface and be in view of every player's device.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -372,7 +393,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOUSE:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Use");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
+			GUI.Label (new Rect (0, 50, 800, 450), "The users have the option to select different control schemes. " + "\n"+
+			           "Full Tilt - actions are all done by tilting. " + "\n"+ "Tilt and Buttons - tilt for movement, jump and attack with buttons. " +"\n"+
+				"On Screen Buttons - actions are displayed with buttons on the screen.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
