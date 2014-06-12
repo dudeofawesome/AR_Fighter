@@ -107,7 +107,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   AndroidKeystoreName: /Users/dudeofawesome/Downloads/user.keystore
-  AndroidKeyaliasName: release
+  AndroidKeyaliasName: 
   resolutionDialogBanner: {fileID: 2800000, guid: a0aeb83d1e5a049d688875e25dd8554f,
     type: 3}
   m_BuildTargetIcons:

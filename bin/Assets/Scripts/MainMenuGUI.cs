@@ -5,11 +5,10 @@ using Holoville.HOTween;
 public class MainMenuGUI : MonoBehaviour
 {
 	
-	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin;
+	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin, inGameSkin;
 	public string mainLevelDojo;
 	public string mainLevelTurret;
 
-	
 	public enum MenuState
 	{
 		MAIN,
@@ -19,6 +18,7 @@ public class MainMenuGUI : MonoBehaviour
 		SETTINGS,
 		SETTINGSVI,
 		SETTINGSCONTROLS, 
+		SETTINGSAUDIO,
 		HOWTOPLAY,
 		HOWTODOWNLOAD,
 		HOWTOPRINT,
@@ -48,7 +48,7 @@ public class MainMenuGUI : MonoBehaviour
 	void Start ()
 	{
 		
-		
+		HOTween.Kill ();
 		
 		UpdateSettings ();
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -94,26 +94,26 @@ public class MainMenuGUI : MonoBehaviour
 			}
 			
 			
-			GUI.Label (new Rect (45, 75, 325, 325), "");
+			GUI.Label (new Rect (30, 75, 325, 325), "");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 			
+			GUI.Box(new Rect(380,100,400,72), "Sole Champion");
 			
 			
-			
-			if (GUI.Button (new Rect (490, 50, 340, 70), "Start")) {
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Start")) {
 				
 				menuPosition = MenuState.PLAYERS;
 				
 				
-			} else if (GUI.Button (new Rect (490, 150, 340, 70), "Settings")) {
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Settings")) {
 				menuPosition = MenuState.SETTINGS;
 				
 				
-			} else if (GUI.Button (new Rect (490, 250, 340, 70), "How To Play")) {
+			} else if (GUI.Button (new Rect (380, 265, 400, 55), "How To Play")) {
 				menuPosition = MenuState.HOWTOPLAY;
 				
 				
-			} else if (GUI.Button (new Rect (490, 350, 340, 70), "Exit")) {
+			} else if (GUI.Button (new Rect (380, 315, 400, 55), "Exit")) {
 				//QUIT GAME
 				Application.Quit ();
 			}
@@ -123,13 +123,14 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.PLAYERS:
-			GUI.Label (new Rect (45, 75, 325, 325), "");
-			if (GUI.Button (new Rect (340, 150, 460, 70), "Single Player")) {
+			GUI.Label (new Rect (30, 75, 325, 325), "");
+			GUI.Box(new Rect(380,100,400,72), "Players");
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Single Player")) {
 				
 				menuPosition = MenuState.LEVELLOADER;
 				
 				
-			} else if (GUI.Button (new Rect (340, 250, 460, 70), "Multiplayer")) {
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Multiplayer")) {
 				menuPosition = MenuState.SERVER;
 			}
 			
@@ -169,14 +170,20 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.SETTINGS:
-			GUI.Label (new Rect (45, 75, 325, 325), "");
+			GUI.Label (new Rect (30, 75, 325, 325), "");
 
-			if (GUI.Button (new Rect (340, 150, 460, 70), "Visual Settings")) {
+			GUI.Box(new Rect(380,100,400,72), "Settings");
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Visuals")) {
 				menuPosition = MenuState.SETTINGSVI;
 				
 				
-			} else if (GUI.Button (new Rect (340, 250, 460, 70), "Control Settings")) {
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Controls")) {
 				menuPosition = MenuState.SETTINGSCONTROLS;
+				
+				
+			}
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Audio")) {
+				menuPosition = MenuState.SETTINGSAUDIO;
 				
 				
 			}
@@ -189,21 +196,45 @@ public class MainMenuGUI : MonoBehaviour
 			
 			
 			break;
-			
-		case MenuState.SETTINGSVI:
-			GUI.skin = verticalSkin;
-			
-			GUI.Box (new Rect (50, 20, 700, 70), "Set Visual Effects Intensity");
-			GUI.Box (new Rect (30, 90, 770, 390), "");
-			var names = QualitySettings.names;
-			
-			
-			GUILayout.BeginArea (new Rect (120, 100, 680, 600));
-			for (var i = 0; i < names.Length; i++) {
-				if (GUILayout.Button (names [i]))
-					QualitySettings.SetQualityLevel (i, true);
+
+		case MenuState.SETTINGSAUDIO:
+			GUI.Label (new Rect (30, 75, 325, 325), "");
+			GUI.Box(new Rect(380,100,400,72), "Audio");
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Sound Effects")) {
+
+				
+				
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Master")) {
+
+				
 			}
-			GUILayout.EndArea ();
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Music")) {
+
+				
+				
+			}
+			
+			
+			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
+				menuPosition = MenuState.SETTINGS;
+			}
+				break;
+
+		case MenuState.SETTINGSVI:
+			//GUI.skin = verticalSkin;
+			
+			GUI.Box (new Rect (100, 10, 600, 72), "Visual Effect Setting");
+	
+			var names = QualitySettings.names;
+			int pausey = 75;
+			
+			//GUILayout.BeginArea (new Rect (120, 100, 680, 600));
+			for (var i = 0; i < names.Length; i++) {
+				if (GUI.Button (new Rect(100, pausey, 600, 55),names [i]))
+					QualitySettings.SetQualityLevel (i, true);
+				pausey += 50;
+			}
+			//GUILayout.EndArea ();
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.SETTINGS;
@@ -215,19 +246,17 @@ public class MainMenuGUI : MonoBehaviour
 			
 		case MenuState.SETTINGSCONTROLS:
 			
-			GUILayout.BeginArea (new Rect (120, 100, 680, 600));
-			if (GUILayout.Button ("Full Tilt")) {
+			//GUILayout.BeginArea (new Rect (120, 100, 680, 600));
+			//GUILayout.EndArea ();
+			
+			GUI.Box (new Rect (100, 100, 600, 72), "Control Setting");
+			//GUILayout.BeginArea (new Rect (200, 170, 400, 500));
+			if (GUI.Button (new Rect (100, 165, 600, 55), "Full Tilt"))
 				PlayerPrefs.SetInt ("controlScheme", 0);
-			}
-			if (GUILayout.Button ("Tilt with buttons")) {
+			if (GUI.Button (new Rect (100, 215, 600, 55),"Tilt with buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 1);
-			}
-			if (GUILayout.Button ("On screen buttons")) {
+			if (GUI.Button (new Rect (100, 265, 600, 55),"On screen buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 2);
-			}
-			GUILayout.EndArea ();
-			
-			
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.SETTINGS;
@@ -239,12 +268,12 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.LEVELLOADER:
 			GUI.skin = scrollSkin;
 			
-			GUI.Box (new Rect (50, 20, 500, 70), "Select Visual Style");
-			GUI.Box (new Rect (30, 90, 770, 390), "");
+
+			GUI.Box (new Rect (0, 20, 800, 460), "");
+			GUI.Label (new Rect (50, 20, 550, 85), "Select Visual Style");
 			
 			
-			
-			scrollPosition = GUI.BeginScrollView (new Rect (430, 100, 370, 330),
+			scrollPosition = GUI.BeginScrollView (new Rect (430, 120, 360, 330),
 			                                      scrollPosition, new Rect (0, 0, 340, 420));
 			
 			// Make four buttons - one in each corner. The coordinate system is defined
@@ -304,10 +333,11 @@ public class MainMenuGUI : MonoBehaviour
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.PLAYERS;
-			} else if (GUI.Button (new Rect (200, 400, 150, 70), "Start!")) {
-				menuPosition = MenuState.LOADING;
+			} 
+			//else if (GUI.Button (new Rect (200, 400, 150, 70), "Start!")) {
+			//	menuPosition = MenuState.LOADING;
 				//Application.LoadLevel (mainLevel);
-			}
+			//}
 			
 			GUI.skin = null;
 			GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
@@ -317,34 +347,24 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOPLAY:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "Introduction");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
-			
+			GUI.Label (new Rect (0, 50, 800, 450), "Sole Champion is a mobile device game that utilizes AR cards to create 3D environments. " +
+			           "The application is a fighting game played alone against AI or with friends. The players brawl each other in a free-for-all to see who will emerge as the top fighter.");
+
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
 				menuPosition = MenuState.HOWTODOWNLOAD;
 			}
 			break;
-			
-			
-		case MenuState.HOWTODOWNLOAD:
-			GUI.skin = howtoplaySkin;
-			GUI.Box (new Rect (0, 0, 800, 50), "How to Download");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
-			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
-				menuPosition = MenuState.MAIN;
-			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
-				menuPosition = MenuState.HOWTOPLAY;
-			} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
-				menuPosition = MenuState.HOWTOPRINT;
-			}
-			
-			break;
+
 			
 		case MenuState.HOWTOPRINT:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Print");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
+			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion on a mobile device requires AR cards to create the map. " +
+				"The platform card is the main card that can snap to other cards and allows the users to create their own map. " + "\n"+
+				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read them." + "\n" +
+			           "The cards can be downloaded from http://0rleans.com");
 			GUI.skin = howtoplaySkin;
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
@@ -358,7 +378,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOSETUP:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Set Up");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
+			GUI.Label (new Rect (0, 50, 800, 450), "The device should have the application downloaded and have a camera to detect the AR cards. " +
+				"Run the application and select either singleplayer or multiplayer. " +
+				"In multiplayer mode, a room is created by the host and other players are able to join. The AR cards should be placed on a flat surface and be in view of every player's device.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -371,7 +393,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOUSE:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Use");
-			GUI.Label (new Rect (0, 50, 800, 450), "");
+			GUI.Label (new Rect (0, 50, 800, 450), "The users have the option to select different control schemes. " + "\n"+
+			           "Full Tilt - actions are all done by tilting. " + "\n"+ "Tilt and Buttons - tilt for movement, jump and attack with buttons. " +"\n"+
+				"On Screen Buttons - actions are displayed with buttons on the screen.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -405,11 +429,9 @@ public class MainMenuGUI : MonoBehaviour
 	
 	void UpdateSettings ()
 	{
-		//pos = new Vector2 (transform.localPosition.x + 200, transform.localPosition.y + 100);
-		//pos = new Vector2 (size.x,size.y);
-		//rect = new Rect (pos.x - size.x * .01f, pos.y - size.y * .01f, size.x, size.y);
-		rect = new Rect (Screen.width / 2 + 100, Screen.height / 2 + 10, size.x, size.y);
-		//pivot = new Vector2 (rect.width/2, rect.height/2);
+		//pos = new Vector2 (350, 150);
+		rect = new Rect (350, 150, 150, 150);
+		//pivot = new Vector2 (258, 150);
 		pivot = new Vector2 (Screen.width / 2, Screen.height / 2);
 		
 	}

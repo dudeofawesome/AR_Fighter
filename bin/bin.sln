@@ -41,7 +41,13 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																																																																																																																														GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																																																																																																																			GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																																																																																																																																																																																					GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																																																																																																																																																																																							GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> Alpha-Kevin
+>>>>>>> Alpha-Louis
 =======
 																																																																																																																																																																											GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> Alpha-Louis
