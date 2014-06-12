@@ -347,7 +347,8 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOPLAY:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "Introduction");
-			GUI.Label (new Rect (0, 50, 800, 450), "Sole Champion is a game on the mobile device platform that utilizes AR cards to create 3D environments. The application is a fighting game played alone against AI or with friends.");
+			GUI.Label (new Rect (0, 50, 800, 450), "Sole Champion is a mobile device game that utilizes AR cards to create 3D environments. " +
+			           "The application is a fighting game played alone against AI or with friends. The players brawl each other in an free-for-all to decide who will emerge as the top fighter.");
 
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.MAIN;
@@ -376,8 +377,8 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOPRINT:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Print");
-			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion on a mobile device requires cards to create the map. " +
-				"The platform card is the main card that can snap to other cards and allow the users to create their own map. " + "\n"+
+			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion on a mobile device requires AR cards to create the map. " +
+				"The platform card is the main card that can snap to other cards and allows the users to create their own map. " + "\n"+
 				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read it.");
 			GUI.skin = howtoplaySkin;
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
@@ -393,7 +394,7 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Set Up");
 			GUI.Label (new Rect (0, 50, 800, 450), "The device should have the application downloaded and have a camera to detect the AR cards. " +
-				"Run the application and select either single or multiplayer. " +
+				"Run the application and select either singleplayer or multiplayer. " +
 				"In multiplayer mode, a room is created by the host and other players are able to join. The AR cards should be placed on a flat surface and be in view of every player's device.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
@@ -407,9 +408,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOUSE:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Use");
-			GUI.Label (new Rect (0, 50, 800, 450), "The users have the option to select different control schemes. " +
-				"In Full Tilt, the movement and actions are made by tilting. With Tilt and Buttons, the movement is made by tilting and the jump and attack are enacted by buttons. " +
-				"On Screen Buttons show the user the avaliable actions with buttons on the screen.");
+			GUI.Label (new Rect (0, 50, 800, 450), "The users have the option to select different control schemes. " + "\n"+
+			           "Full Tilt - actions are all done by tilting. " + "\n"+ "Tilt and Buttons - tilt for movement, jump and attack with buttons. " +"\n"+
+				"On Screen Buttons - actions are displayed with buttons on the screen.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
