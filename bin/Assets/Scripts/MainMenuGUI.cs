@@ -5,10 +5,10 @@ using Holoville.HOTween;
 public class MainMenuGUI : MonoBehaviour
 {
 	
-	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin;
-	public string mainLevel;
-	
-	
+	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin, inGameSkin;
+	public string mainLevelDojo;
+	public string mainLevelTurret;
+
 	public enum MenuState
 	{
 		MAIN,
@@ -40,12 +40,14 @@ public class MainMenuGUI : MonoBehaviour
 	Rect rect;
 	Vector2 pivot;
 	private int tweenSwitch = 0;
+	public AsyncOperation op = null;
+	public float alphaFadeValue = 0;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		
-		
+		HOTween.Kill ();
 		
 		UpdateSettings ();
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -67,36 +69,6 @@ public class MainMenuGUI : MonoBehaviour
 				scrollPosition.y += touch.deltaPosition.y;
 			}
 		}
-		
-		
-		
-		if (tweenSwitch == 0) {
-			//HOTween.To (GameObject.Find ("Map").transform, 10, "rotation", Quaternion.Euler (new Vector3 (0, 0, 0)));
-			HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 300, 0))).Ease (EaseType.Linear).OnComplete (tweenFunction));
-		}
-		
-		//HOTween.To (GameObject.Find ("Map").transform, 5, "rotation", Quaternion.Euler (new Vector3 (0, 180, 0)));
-		
-		
-		
-		
-		
-		
-		
-	}
-	
-	void tweenFunction ()
-	{
-		Debug.Log ("Work");
-		tweenSwitch = 1;
-		HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 60, 0))).Ease (EaseType.Linear).OnComplete (tweenFunction2));
-	}
-	
-	void tweenFunction2 ()
-	{
-		HOTween.To (GameObject.Find ("Map").transform, 5, new TweenParms ().Prop ("rotation", Quaternion.Euler (new Vector3 (0, 180, 0))).Ease (EaseType.Linear));
-		HOTween.To (GameObject.Find ("Main Camera").transform, 15, "position", new Vector3 (GameObject.Find ("dojo_in_tree").transform.position.x, GameObject.Find ("dojo_in_tree").transform.position.y + 3f, GameObject.Find ("dojo_in_tree").transform.position.z));
-		
 	}
 	
 	void OnGUI ()
@@ -121,26 +93,26 @@ public class MainMenuGUI : MonoBehaviour
 			}
 			
 			
-			GUI.Label (new Rect (45, 75, 325, 325), "");
+			GUI.Label (new Rect (30, 75, 325, 325), "");
 			//PlayerPrefs.SetString ("name",GUI.TextField (new Rect(100, 200, 100, 50), PlayerPrefs.GetString("name")));
 			
+			GUI.Box(new Rect(380,100,400,72), "Sole Champion");
 			
 			
-			
-			if (GUI.Button (new Rect (490, 50, 340, 70), "Start")) {
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Start")) {
 				
 				menuPosition = MenuState.PLAYERS;
 				
 				
-			} else if (GUI.Button (new Rect (490, 150, 340, 70), "Settings")) {
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Settings")) {
 				menuPosition = MenuState.SETTINGS;
 				
 				
-			} else if (GUI.Button (new Rect (490, 250, 340, 70), "How To Play")) {
+			} else if (GUI.Button (new Rect (380, 265, 400, 55), "How To Play")) {
 				menuPosition = MenuState.HOWTOPLAY;
 				
 				
-			} else if (GUI.Button (new Rect (490, 350, 340, 70), "Exit")) {
+			} else if (GUI.Button (new Rect (380, 315, 400, 55), "Exit")) {
 				//QUIT GAME
 				Application.Quit ();
 			}
@@ -150,13 +122,14 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.PLAYERS:
-			GUI.Label (new Rect (45, 75, 325, 325), "");
-			if (GUI.Button (new Rect (340, 150, 460, 70), "Single Player")) {
+			GUI.Label (new Rect (30, 75, 325, 325), "");
+			GUI.Box(new Rect(380,100,400,72), "Players");
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Single Player")) {
 				
 				menuPosition = MenuState.LEVELLOADER;
 				
 				
-			} else if (GUI.Button (new Rect (340, 250, 460, 70), "Multiplayer")) {
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Multiplayer")) {
 				menuPosition = MenuState.SERVER;
 			}
 			
@@ -196,13 +169,14 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.SETTINGS:
-			GUI.Label (new Rect (45, 75, 325, 325), "");
-			
-			if (GUI.Button (new Rect (340, 150, 460, 70), "Visual Settings")) {
+			GUI.Label (new Rect (30, 75, 325, 325), "");
+
+			GUI.Box(new Rect(380,100,400,72), "Settings");
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Visuals")) {
 				menuPosition = MenuState.SETTINGSVI;
 				
 				
-			} else if (GUI.Button (new Rect (340, 250, 460, 70), "Control Settings")) {
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Controls")) {
 				menuPosition = MenuState.SETTINGSCONTROLS;
 				
 				
@@ -218,19 +192,20 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.SETTINGSVI:
-			GUI.skin = verticalSkin;
+			//GUI.skin = verticalSkin;
 			
-			GUI.Box (new Rect (50, 20, 700, 70), "Set Visual Effects Intensity");
-			GUI.Box (new Rect (30, 90, 770, 390), "");
+			GUI.Box (new Rect (100, 10, 600, 72), "Visual Effect Setting");
+	
 			var names = QualitySettings.names;
+			int pausey = 75;
 			
-			
-			GUILayout.BeginArea (new Rect (120, 100, 680, 600));
+			//GUILayout.BeginArea (new Rect (120, 100, 680, 600));
 			for (var i = 0; i < names.Length; i++) {
-				if (GUILayout.Button (names [i]))
+				if (GUI.Button (new Rect(100, pausey, 600, 55),names [i]))
 					QualitySettings.SetQualityLevel (i, true);
+				pausey += 50;
 			}
-			GUILayout.EndArea ();
+			//GUILayout.EndArea ();
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.SETTINGS;
@@ -242,19 +217,17 @@ public class MainMenuGUI : MonoBehaviour
 			
 		case MenuState.SETTINGSCONTROLS:
 			
-			GUILayout.BeginArea (new Rect (120, 100, 680, 600));
-			if (GUILayout.Button ("Full Tilt")) {
+			//GUILayout.BeginArea (new Rect (120, 100, 680, 600));
+			//GUILayout.EndArea ();
+			
+			GUI.Box (new Rect (100, 100, 600, 72), "Control Setting");
+			//GUILayout.BeginArea (new Rect (200, 170, 400, 500));
+			if (GUI.Button (new Rect (100, 165, 600, 55), "Full Tilt"))
 				PlayerPrefs.SetInt ("controlScheme", 0);
-			}
-			if (GUILayout.Button ("Tilt with buttons")) {
+			if (GUI.Button (new Rect (100, 215, 600, 55),"Tilt with buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 1);
-			}
-			if (GUILayout.Button ("On screen buttons")) {
+			if (GUI.Button (new Rect (100, 265, 600, 55),"On screen buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 2);
-			}
-			GUILayout.EndArea ();
-			
-			
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.SETTINGS;
@@ -287,9 +260,39 @@ public class MainMenuGUI : MonoBehaviour
 					PhotonNetwork.Disconnect();
 					PhotonNetwork.offlineMode = true;
 				}
-				Application.LoadLevel (mainLevel);
+				menuPosition = MenuState.LOADING;
+				op = null;
+				op = Application.LoadLevelAsync (mainLevelDojo);
+				op.allowSceneActivation = false;
+				GameObject.Find("Map").GetComponent<RotateAroundByAccel>().enabled = false;
+				HOTween.Kill();
+				HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/dojo_in_tree/TweenTo").transform.position);
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
+				HOTween.To(this, 0.5f, "alphaFadeValue", 1, false, EaseType.EaseInBack, 3.5f);
 			}
-			GUI.Button (new Rect (0, 70, 340, 70), "Setting2");
+			if (GUI.Button (new Rect (0, 70, 340, 70), "Castle Turret")) {
+				if (PhotonNetwork.room != null) {
+					ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable ();
+					ht.Add ("gameLevel", "castleTurret");
+					PhotonNetwork.room.SetCustomProperties (ht);
+					GameObject.Find ("SessionStarter").GetComponent<SessionStarter> ().singlePlayer = false;
+				}
+				else {
+					PhotonNetwork.Disconnect();
+					PhotonNetwork.offlineMode = true;
+				}
+				menuPosition = MenuState.LOADING;
+				op = null;
+				op = Application.LoadLevelAsync (mainLevelTurret);
+				op.allowSceneActivation = false;
+				GameObject.Find("Map").GetComponent<RotateAroundByAccel>().enabled = false;
+				HOTween.Kill();
+				HOTween.To(GameObject.Find ("Map").transform, 4, new TweenParms().Prop("rotation", new Vector3(0,360,0), true).UpdateType(UpdateType.TimeScaleIndependentUpdate).OnComplete(actuallyLoadLevel));
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "position", GameObject.Find ("Map/castle_turret/TweenTo").transform.position);
+				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
+				HOTween.To(this, 0.5f, "alphaFadeValue", 1, false, EaseType.EaseInBack, 3.5f);
+			}
 			GUI.Button (new Rect (0, 140, 340, 70), "Setting3");
 			if (GUI.Button (new Rect (0, 210, 340, 70), "Setting4")) {
 				menuPosition = MenuState.MAIN;
@@ -301,10 +304,11 @@ public class MainMenuGUI : MonoBehaviour
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.PLAYERS;
-			} else if (GUI.Button (new Rect (200, 400, 150, 70), "Start!")) {
-				menuPosition = MenuState.LOADING;
+			} 
+			//else if (GUI.Button (new Rect (200, 400, 150, 70), "Start!")) {
+			//	menuPosition = MenuState.LOADING;
 				//Application.LoadLevel (mainLevel);
-			}
+			//}
 			
 			GUI.skin = null;
 			GUI.Label (new Rect (5, 5, 200, 20), "status: " + PhotonNetwork.connectionStateDetailed.ToString() + ((PhotonNetwork.room != null) ? " " + PhotonNetwork.room.name + " room" : ""));
@@ -379,18 +383,8 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.LOADING:
-			UpdateSettings ();
-			
-			
-			Matrix4x4 matrixBackup = GUI.matrix;
-			GUIUtility.RotateAroundPivot (angle, pivot);
-			GUI.DrawTexture (rect, loadingTexture);
-			GUI.matrix = matrixBackup;
-			angle += 5;
-			
-			
-			
-			
+			GUI.color = new Color(0, 0, 0, alphaFadeValue);
+			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), loadingTexture );
 			
 			break;
 		}
@@ -412,11 +406,9 @@ public class MainMenuGUI : MonoBehaviour
 	
 	void UpdateSettings ()
 	{
-		//pos = new Vector2 (transform.localPosition.x + 200, transform.localPosition.y + 100);
-		//pos = new Vector2 (size.x,size.y);
-		//rect = new Rect (pos.x - size.x * .01f, pos.y - size.y * .01f, size.x, size.y);
-		rect = new Rect (Screen.width / 2 + 100, Screen.height / 2 + 10, size.x, size.y);
-		//pivot = new Vector2 (rect.width/2, rect.height/2);
+		//pos = new Vector2 (350, 150);
+		rect = new Rect (350, 150, 150, 150);
+		//pivot = new Vector2 (258, 150);
 		pivot = new Vector2 (Screen.width / 2, Screen.height / 2);
 		
 	}
@@ -428,5 +420,8 @@ public class MainMenuGUI : MonoBehaviour
 		
 		return rAdjustedBounds.Contains (screenPos);
 	}
-	
+
+	void actuallyLoadLevel (TweenEvent data) {
+		op.allowSceneActivation = true;
+	}
 }

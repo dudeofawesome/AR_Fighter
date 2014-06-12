@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX;UNITY_TEAM_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -46,21 +46,38 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GUITouchScroll\GUITouchScrollJS.js" />
+     <Compile Include="Assets\Locomotion Setup\Scripts\SmoothFollow.js" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\readme_SDK.txt" />
+     <None Include="Assets\Editor\projsettings.txt" />
      <None Include="Assets\license_3rdpartynotice.txt" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\RenderVideoBackground.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Plugins\release_history.txt" />
+     <None Include="Assets\meshes\characters\ninja1\ninja animation ranges.txt" />
+     <None Include="Assets\HOTween_License.txt" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\Editor\QCAR\WebcamProfiles\profiles.xml" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\DepthMask.shader" />
      <None Include="Assets\StreamingAssets\QCAR\AR_Fighter.xml" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\StreamingAssets\QCAR\unity.txt" />
+     <None Include="Assets\Photon Unity Networking\readme.txt" />
+     <None Include="Assets\Mats\dojo_in_tree\Roof Tesselator.shader" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\BrightTexture.shader" />
+     <None Include="Assets\Plugins\Photon3Unity3D.xml" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\Text3D.shader" />
+     <None Include="Assets\Photon Unity Networking\changelog.txt" />
  <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\HOTween">
+ <HintPath>Assets\HOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\Plugins\Photon3Unity3D">
+ <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
  </Reference>
  <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
  <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>

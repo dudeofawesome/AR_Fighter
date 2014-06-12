@@ -6,13 +6,16 @@ using Holoville.HOTween;
 public class GameGUI : MonoBehaviour {
 	public List<HUD.GUIelement> GUIelements = new List<HUD.GUIelement>();
 	public GameObject myPlayer = null;
-	public GUISkin guiSkin;
+	public GUISkin guiSkin,inGameSkin,pauseSkin;
 	public bool paused = false;
 	
 	private float originalWidth = 800;
 	private float originalHeight = 480;
 	private Vector3 scale;
-	
+
+	public float alphaFadeValue = 1;
+	public Texture loadingTexture = null;
+
 	public enum MenuState {
 		MAIN,
 		PAUSE,
@@ -26,23 +29,26 @@ public class GameGUI : MonoBehaviour {
 	void Start () {
 		HOTween.Init(false, false, true);
 		HOTween.EnableOverwriteManager();
-		
+
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject player in players) {
 			if (player.GetComponent<CharacterController>().controlMe && !player.GetComponent<CharacterController>().networkControl)
 				myPlayer = player;
-			else
+			else if (PhotonNetwork.room != null)
 				GameObject.Find("GUI").GetComponent<GameGUI>().GUIelements.Add(new HUD.GUIelement(HUD.GUIelement.ElementType.HEALTH, new Rect(Screen.width - 100, 0, 100, 50), player.gameObject));
 		}
 		if (myPlayer == null)
 			myPlayer = players[players.Length - 1];
-		
+			
 		if (Application.isEditor) {
 			if (!PhotonNetwork.offlineMode) 
 				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
 			else
 				GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
 		}
+
+		HOTween.Kill();
+		HOTween.To(this, 1, "alphaFadeValue", 0f);
 	}
 	
 	// Update is called once per frame
@@ -97,11 +103,15 @@ public class GameGUI : MonoBehaviour {
 				GUIelements.RemoveAt(i);
 			}
 		}
+
+		if (alphaFadeValue > 0 && Time.frameCount > 120) {
+			alphaFadeValue = 0;
+		}
 	}
 	
 	void OnGUI () {
 		GUI.skin = guiSkin;
-		
+
 		foreach	(HUD.GUIelement element in GUIelements) {
 			switch (element.type) {
 			case HUD.GUIelement.ElementType.MESSAGE :
@@ -169,74 +179,81 @@ public class GameGUI : MonoBehaviour {
 			
 		case MenuState.MAIN:
 			
-			if (GUI.Button (new Rect (650, 5, 120, 50), "Pause")) {
+			if (GUI.Button (new Rect (720, 5, 50, 50), "||")) {
 				menuPosition = MenuState.PAUSE;
-				
+				if (!PhotonNetwork.offlineMode) 
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
+				else
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
 			}
 			break;
 		case MenuState.PAUSE:
-			GUI.Box (new Rect (200, 100, 400, 70), "Paused");
+			GUI.skin = pauseSkin; 
+			GUI.Box (new Rect (150, 100, 500, 72), "Paused");
 			
-			if (GUI.Button (new Rect (200, 170, 400, 50), "Resume")) {
+			if (GUI.Button (new Rect (150, 165, 500, 55), "Resume")) {
 				menuPosition = MenuState.MAIN;
+				if (!PhotonNetwork.offlineMode) 
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().photonView.RPC("netPause", PhotonTargets.All, !paused);
+				else
+					GameObject.Find ("Multiplayer").GetComponent<MultiplayerSyncer>().netPause(!paused);
 			}
-			else if (GUI.Button (new Rect (200, 224, 400, 50), "Control Settings")) {
+			else if (GUI.Button (new Rect (150, 215, 500, 55), "Control Settings")) {
 				menuPosition = MenuState.CONTROLSETTINGS;
 				
-			} else if (GUI.Button (new Rect (200, 278, 400, 50), "Visual Effects")) {
+			} else if (GUI.Button (new Rect (150, 265, 500, 55), "Visual Effects")) {
 				menuPosition = MenuState.VISUALEFFECTS;
 				
-			} else if (GUI.Button (new Rect (200, 332, 400, 50), "Disconnect")) {
+			} else if (GUI.Button (new Rect (150, 315, 500, 55), "Disconnect")) {
+				PhotonNetwork.LeaveRoom();
 				Application.LoadLevel("MainMenu");
 			}
 			break;
 			
 		case MenuState.CONTROLSETTINGS:
-			GUI.Box (new Rect (200, 100, 400, 70), "Control Setting");
-			GUILayout.BeginArea (new Rect (200, 170, 400, 500));
-			if (GUILayout.Button ("Full Tilt"))
+			GUI.skin = pauseSkin;
+			GUI.Box (new Rect (150, 100, 500, 72), "Control Setting");
+			//GUILayout.BeginArea (new Rect (200, 170, 400, 500));
+			if (GUI.Button (new Rect (150, 165, 500, 55), "Full Tilt"))
 				PlayerPrefs.SetInt ("controlScheme", 0);
-			if (GUILayout.Button ("Tilt with buttons"))
+			if (GUI.Button (new Rect (150, 215, 500, 55),"Tilt with buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 1);
-			if (GUILayout.Button ("On screen buttons"))
+			if (GUI.Button (new Rect (150, 265, 500, 55),"On screen buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 2);
-			if(GUILayout.Button ("Back"))
+			if(GUI.Button (new Rect (150, 315, 500, 55),"Back"))
 				menuPosition = MenuState.PAUSE;
-			GUILayout.EndArea ();
+			//GUILayout.EndArea ();
 			
 			
 			break;
 		case MenuState.VISUALEFFECTS:
-			GUI.Box (new Rect (200, 10, 400, 70), "Visual Effects");
+			GUI.skin = pauseSkin;
+			GUI.Box (new Rect (150, 10, 500, 72), "Visual Effects");;
 			
 			var names = QualitySettings.names;
-			
-			GUILayout.BeginArea (new Rect (200, 80, 400, 500));
+			int pausey = 75;
+			//GUILayout.BeginArea (new Rect (200, 80, 400, 500));
 			for (var i = 0; i < names.Length; i++) {
-				if (GUILayout.Button (names [i]))
+				if (GUI.Button (new Rect(150, pausey, 500, 55),names [i]))
 					QualitySettings.SetQualityLevel (i, true);
+				pausey += 50;
 			}
-			if(GUILayout.Button ("Back"))
+			if(GUI.Button (new Rect (150, 375, 500, 55),"Back"))
 				menuPosition = MenuState.PAUSE;
-			GUILayout.EndArea ();
+			//GUILayout.EndArea ();
 			
 			
 			break;
 		}
 		
-		GUI.matrix = svMat; // restore matrix
 		
-		if (PlayerPrefs.GetInt ("controlScheme") == 2) {
-			if (GUI.Button (new Rect (5, Screen.height - 55, 50, 50), "<")) {
-				myPlayer.GetComponent<CharacterController> ().move (true, 1);
-			}
-			if (GUI.Button (new Rect (Screen.width - 55, Screen.height - 55, 50, 50), ">")) {
-				myPlayer.GetComponent<CharacterController> ().move (true, 1);
-			}
-			if (GUI.Button (new Rect (Screen.width - 55, Screen.height - 110, 50, 50), "^")) {
-				myPlayer.GetComponent<CharacterController> ().jump ();
-			}
+		if (alphaFadeValue > 0) {
+			GUI.color = new Color(0, 0, 0, alphaFadeValue);
+			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), loadingTexture );
+			GUI.color = new Color(255, 255, 255);
 		}
+
+		GUI.matrix = svMat; // restore matrix
 	}
 	
 	bool rectangleCollision(Rect r1, Rect r2, int padding) {
@@ -244,5 +261,18 @@ public class GameGUI : MonoBehaviour {
 		// bool widthOverlap =  (r1.xMin >= r2.xMin) && (r1.xMin <= r2.xMax) || (r2.xMin >= r1.xMin) && (r2.xMin <= r1.xMax);
 		// bool heightOverlap = (r1.yMin >= r2.yMin) && (r1.yMin <= r2.yMax) || (r2.yMin >= r1.yMin) && (r2.yMin <= r1.yMax);
 		// return (widthOverlap && heightOverlap);
+	}
+
+	void OnDestroy () {
+		HOTween.Kill ();
+		GUIelements.Clear ();
+		Time.timeScale = 1;
+
+		// Destroy all players
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			Destroy(player);
+		}
+
 	}
 }

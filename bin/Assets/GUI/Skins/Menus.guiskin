@@ -15,11 +15,11 @@ MonoBehaviour:
   m_box:
     m_Name: box
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 22090946d5de84007a95c5d55cfb13d1, type: 3}
+      m_Background: {fileID: 2800000, guid: 375c7dd0745bc40f3b294c3e6b4f1b62, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: 22090946d5de84007a95c5d55cfb13d1, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Background: {fileID: 2800000, guid: 375c7dd0745bc40f3b294c3e6b4f1b62, type: 3}
+      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Active:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -74,13 +74,13 @@ MonoBehaviour:
   m_button:
     m_Name: button
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 22090946d5de84007a95c5d55cfb13d1, type: 3}
+      m_Background: {fileID: 2800000, guid: cae3a6731299a4574b27216d1943f7a0, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: 22090946d5de84007a95c5d55cfb13d1, type: 3}
+      m_Background: {fileID: 2800000, guid: cae3a6731299a4574b27216d1943f7a0, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Active:
-      m_Background: {fileID: 2800000, guid: 22090946d5de84007a95c5d55cfb13d1, type: 3}
+      m_Background: {fileID: 2800000, guid: cae3a6731299a4574b27216d1943f7a0, type: 3}
       m_TextColor: {r: .899999976, g: .899999976, b: .899999976, a: 1}
     m_Focused:
       m_Background: {fileID: 0}
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_label:
     m_Name: label
     m_Normal:
-      m_Background: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
+      m_Background: {fileID: 2800000, guid: c6be9a385e18f4c49b48ea207f8a67c0, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: fb86fb7d9e6724b3080aa1781724a33d, type: 3}
