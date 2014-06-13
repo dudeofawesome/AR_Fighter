@@ -47,7 +47,10 @@ public class MainMenuGUI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
+		if (PlayerPrefs.GetInt ("controlScheme") == 0) {
+			PlayerPrefs.SetInt ("controlScheme", 1);
+		}
+
 		HOTween.Kill ();
 		
 		UpdateSettings ();
@@ -250,9 +253,8 @@ public class MainMenuGUI : MonoBehaviour
 			//GUILayout.EndArea ();
 			
 			GUI.Box (new Rect (100, 100, 600, 72), "Control Setting");
-			//GUILayout.BeginArea (new Rect (200, 170, 400, 500));
-			if (GUI.Button (new Rect (100, 165, 600, 55), "Full Tilt"))
-				PlayerPrefs.SetInt ("controlScheme", 0);
+//			if (GUI.Button (new Rect (100, 165, 600, 55), "Full Tilt"))
+//				PlayerPrefs.SetInt ("controlScheme", 0);
 			if (GUI.Button (new Rect (100, 215, 600, 55),"Tilt with buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 1);
 			if (GUI.Button (new Rect (100, 265, 600, 55),"On screen buttons"))
