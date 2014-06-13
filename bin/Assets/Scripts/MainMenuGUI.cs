@@ -180,13 +180,13 @@ public class MainMenuGUI : MonoBehaviour
 				menuPosition = MenuState.SETTINGSVI;
 				
 				
-			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Controls")) {
-				menuPosition = MenuState.SETTINGSCONTROLS;
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Audio")) {
+				menuPosition = MenuState.SETTINGSAUDIO;
 				
 				
 			}
-			else if (GUI.Button (new Rect (380, 265, 400, 55), "Audio")) {
-				menuPosition = MenuState.SETTINGSAUDIO;
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Controls")) {
+				menuPosition = MenuState.SETTINGSCONTROLS;
 				
 				
 			}
@@ -203,15 +203,15 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.SETTINGSAUDIO:
 			GUI.Label (new Rect (30, 75, 325, 325), "");
 			GUI.Box(new Rect(380,100,400,72), "Audio");
-			if (GUI.Button (new Rect (380, 165, 400, 55), "Sound Effects")) {
+			if (GUI.Button (new Rect (380, 165, 400, 55), "Master")) {
 
 				
 				
-			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Master")) {
+			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Music")) {
 
 				
 			}
-			else if (GUI.Button (new Rect (380, 265, 400, 55), "Music")) {
+			else if (GUI.Button (new Rect (380, 265, 400, 55), "Sound Effects")) {
 
 				
 				
@@ -302,6 +302,7 @@ public class MainMenuGUI : MonoBehaviour
 				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
 				HOTween.To(this, 0.5f, "alphaFadeValue", 1, false, EaseType.EaseInBack, 3.5f);
 			}
+
 			if (GUI.Button (new Rect (0, 70, 340, 70), "Castle Turret")) {
 				if (PhotonNetwork.room != null) {
 					ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable ();
@@ -324,12 +325,11 @@ public class MainMenuGUI : MonoBehaviour
 				HOTween.To(GameObject.Find ("Main Camera").transform, 4, "rotation", Quaternion.Euler(0, -40, 0));
 				HOTween.To(this, 0.5f, "alphaFadeValue", 1, false, EaseType.EaseInBack, 3.5f);
 			}
-			GUI.Button (new Rect (0, 140, 340, 70), "Setting3");
-			if (GUI.Button (new Rect (0, 210, 340, 70), "Setting4")) {
-				menuPosition = MenuState.MAIN;
-			}
-			GUI.Button (new Rect (0, 280, 340, 70), "Setting5");
-			GUI.Button (new Rect (0, 350, 340, 70), "Setting6");
+
+			GUI.Button (new Rect (0, 140, 340, 70), "Coming Soon");
+			GUI.Button (new Rect (0, 210, 340, 70), "Coming Soon");
+			GUI.Button (new Rect (0, 280, 340, 70), "Coming Soon");
+			GUI.Button (new Rect (0, 350, 340, 70), "Coming Soon");
 			// End the scroll view that we began above.
 			GUI.EndScrollView ();
 			
@@ -355,7 +355,7 @@ public class MainMenuGUI : MonoBehaviour
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
-				menuPosition = MenuState.HOWTODOWNLOAD;
+				menuPosition = MenuState.HOWTOPRINT;
 			}
 			break;
 
@@ -371,7 +371,7 @@ public class MainMenuGUI : MonoBehaviour
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
-				menuPosition = MenuState.HOWTODOWNLOAD;
+				menuPosition = MenuState.HOWTOPLAY;
 			} else if (GUI.Button (new Rect (630, 400, 150, 70), "Next")) {
 				menuPosition = MenuState.HOWTOSETUP;
 			}
