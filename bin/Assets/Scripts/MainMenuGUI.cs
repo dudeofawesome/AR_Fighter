@@ -363,7 +363,7 @@ public class MainMenuGUI : MonoBehaviour
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Print");
 			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion on a mobile device requires AR cards to create the map. " +
 				"The platform card is the main card that can snap to other cards and allows the users to create their own map. " + "\n"+
-				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read them." + "\n" +
+				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read them. " + "\n" +
 			           "The cards can be downloaded from http://0rleans.com");
 			GUI.skin = howtoplaySkin;
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
