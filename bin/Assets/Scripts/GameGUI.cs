@@ -49,6 +49,8 @@ public class GameGUI : MonoBehaviour {
 
 		HOTween.Kill();
 		HOTween.To(this, 1, "alphaFadeValue", 0f);
+
+		SetAudioLevels ();
 	}
 	
 	// Update is called once per frame
@@ -274,5 +276,10 @@ public class GameGUI : MonoBehaviour {
 			Destroy(player);
 		}
 
+	}
+
+	void SetAudioLevels () {
+		AudioListener.volume = (float) ((double) PlayerPrefs.GetInt ("masterVolume") / 100.0);
+		GameObject.Find("Music").GetComponent<AudioSource>().volume = (float) (((double) PlayerPrefs.GetInt ("musicVolume") / 100.0) * 0.3);
 	}
 }

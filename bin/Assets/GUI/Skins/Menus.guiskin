@@ -59,9 +59,9 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 0
-    m_Alignment: 1
+    m_Alignment: 4
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 40
+    m_FontSize: 35
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_horizontalSlider:
     m_Name: horizontalslider
     m_Normal:
-      m_Background: {fileID: 11009, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -487,10 +487,10 @@ MonoBehaviour:
   m_horizontalSliderThumb:
     m_Name: horizontalsliderthumb
     m_Normal:
-      m_Background: {fileID: 11011, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 1b9774394b5744ea3a972496898873b9, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 11012, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 1b9774394b5744ea3a972496898873b9, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
       m_Background: {fileID: 11010, guid: 0000000000000000e000000000000000, type: 0}
@@ -540,7 +540,7 @@ MonoBehaviour:
     m_ImagePosition: 2
     m_ContentOffset: {x: 0, y: 0}
     m_FixedWidth: 0
-    m_FixedHeight: 12
+    m_FixedHeight: 38
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_verticalSlider:
@@ -664,7 +664,7 @@ MonoBehaviour:
   m_horizontalScrollbar:
     m_Name: horizontalscrollbar
     m_Normal:
-      m_Background: {fileID: 11008, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -723,13 +723,13 @@ MonoBehaviour:
   m_horizontalScrollbarThumb:
     m_Name: horizontalscrollbarthumb
     m_Normal:
-      m_Background: {fileID: 11007, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 1b9774394b5744ea3a972496898873b9, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 1b9774394b5744ea3a972496898873b9, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 1b9774394b5744ea3a972496898873b9, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
       m_Background: {fileID: 0}
