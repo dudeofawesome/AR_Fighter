@@ -5,7 +5,7 @@ using Holoville.HOTween;
 public class MainMenuGUI : MonoBehaviour
 {
 	
-	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin, inGameSkin;
+	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin, inGameSkin, audioLevelSkin;
 	public string mainLevelDojo;
 	public string mainLevelTurret;
 
@@ -47,6 +47,14 @@ public class MainMenuGUI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		if (PlayerPrefs.GetInt ("firstLaunch") == 0) {
+			PlayerPrefs.SetInt ("masterVolume", 100);
+			PlayerPrefs.SetInt ("musicVolume", 100);
+			PlayerPrefs.SetInt ("soundEffectVolume", 100);
+
+			PlayerPrefs.SetInt ("firstLaunch", 1);
+		}
+
 		if (PlayerPrefs.GetInt ("controlScheme") == 0) {
 			PlayerPrefs.SetInt ("controlScheme", 1);
 		}
@@ -58,6 +66,8 @@ public class MainMenuGUI : MonoBehaviour
 		//2 and a half seconds
 		HOTween.Init (false, false, false);
 		HOTween.DisableOverwriteManager ();
+
+		SetAudioLevels ();
 		
 		//Application.LoadLevel (mainLevel);
 	}
@@ -201,27 +211,32 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 
 		case MenuState.SETTINGSAUDIO:
+			GUI.skin = guiSkin;
 			GUI.Label (new Rect (30, 75, 325, 325), "");
 			GUI.Box(new Rect(380,100,400,72), "Audio");
-			if (GUI.Button (new Rect (380, 165, 400, 55), "Master")) {
 
-				
-				
-			} else if (GUI.Button (new Rect (380, 215, 400, 55), "Music")) {
+			int _a = PlayerPrefs.GetInt ("masterVolume");
+			PlayerPrefs.SetInt ("masterVolume", (int) GUI.HorizontalSlider(new Rect(435, 173, 288, 30), _a, 0, 100));
+			GUI.Button (new Rect (380, 165, 400, 55), "Master");
+			GUI.HorizontalSlider(new Rect(435, 173, 288, 30), _a, 0, 100);
 
-				
-			}
-			else if (GUI.Button (new Rect (380, 265, 400, 55), "Sound Effects")) {
+			_a = PlayerPrefs.GetInt ("musicVolume");
+			PlayerPrefs.SetInt ("musicVolume", (int) GUI.HorizontalSlider(new Rect(435, 223, 288, 30), _a, 0, 100));
+			GUI.Button (new Rect (380, 215, 400, 55), "Music");
+			GUI.HorizontalSlider(new Rect(435, 223, 288, 30), _a, 0, 100);
 
-				
-				
-			}
-			
-			
+			_a = PlayerPrefs.GetInt ("soundEffectVolume");
+			PlayerPrefs.SetInt ("soundEffectVolume", (int) GUI.HorizontalSlider(new Rect(435, 273, 289, 30), _a, 0, 100));
+			GUI.Button (new Rect (380, 265, 400, 55), "Sound Effects");
+			GUI.HorizontalSlider(new Rect(435, 273, 289, 30), _a, 0, 100);
+
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
 				menuPosition = MenuState.SETTINGS;
 			}
-				break;
+
+			SetAudioLevels();
+
+			break;
 
 		case MenuState.SETTINGSVI:
 			//GUI.skin = verticalSkin;
@@ -448,5 +463,10 @@ public class MainMenuGUI : MonoBehaviour
 
 	void actuallyLoadLevel (TweenEvent data) {
 		op.allowSceneActivation = true;
+	}
+
+	void SetAudioLevels () {
+		AudioListener.volume = (float) ((double) PlayerPrefs.GetInt ("masterVolume") / 100.0);
+		GameObject.Find("Music").GetComponent<AudioSource>().volume = (float) (((double) PlayerPrefs.GetInt ("musicVolume") / 100.0) * 0.3);
 	}
 }
