@@ -906,6 +906,7 @@ MonoBehaviour:
   howtoplaySkin: {fileID: 11400000, guid: 3723d6988dc7542489ae0861c9c476d4, type: 2}
   inGameSkin: {fileID: 11400000, guid: f37051e2dc10c474b88f4369eb86e928, type: 2}
   audioLevelSkin: {fileID: 11400000, guid: 7049214c6d8ad474da6e59a9f5b97bd5, type: 2}
+  serverPickerSkin: {fileID: 11400000, guid: 8f4cc6eb0da664313b98683eeff0022f, type: 2}
   mainLevelDojo: Main
   mainLevelTurret: Main_turret
   menuPosition: 0
