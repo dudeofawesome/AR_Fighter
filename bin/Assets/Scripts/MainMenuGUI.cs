@@ -48,6 +48,8 @@ public class MainMenuGUI : MonoBehaviour
 	void Start ()
 	{
 		if (PlayerPrefs.GetInt ("firstLaunch") == 0) {
+			menuPosition = MenuState.HOWTOPLAY;
+
 			PlayerPrefs.SetInt ("masterVolume", 100);
 			PlayerPrefs.SetInt ("musicVolume", 100);
 			PlayerPrefs.SetInt ("soundEffectVolume", 100);
