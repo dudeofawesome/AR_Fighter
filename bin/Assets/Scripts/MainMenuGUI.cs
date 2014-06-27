@@ -5,7 +5,7 @@ using Holoville.HOTween;
 public class MainMenuGUI : MonoBehaviour
 {
 	
-	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin, inGameSkin, audioLevelSkin;
+	public GUISkin guiSkin, verticalSkin, scrollSkin, howtoplaySkin, inGameSkin, audioLevelSkin, serverPickerSkin;
 	public string mainLevelDojo;
 	public string mainLevelTurret;
 
@@ -48,6 +48,8 @@ public class MainMenuGUI : MonoBehaviour
 	void Start ()
 	{
 		if (PlayerPrefs.GetInt ("firstLaunch") == 0) {
+			menuPosition = MenuState.HOWTOPLAY;
+
 			PlayerPrefs.SetInt ("masterVolume", 100);
 			PlayerPrefs.SetInt ("musicVolume", 100);
 			PlayerPrefs.SetInt ("soundEffectVolume", 100);
@@ -153,23 +155,28 @@ public class MainMenuGUI : MonoBehaviour
 			break;
 			
 		case MenuState.SERVER:
-			GUI.skin = null;
-			
+			GUI.skin = serverPickerSkin;
+
+			GUI.Box (new Rect (220, 0, 530, 360), "");
+			scrollPosition = GUI.BeginScrollView (new Rect (220, 20, 530, 330),
+			                                      scrollPosition, new Rect (0, 0, 340, 420));
 			if (PhotonNetwork.connected && PhotonNetwork.room == null) {
 				RoomInfo[] _rooms = PhotonNetwork.GetRoomList ();
 				int i = 0;
 				for (i = 0; i < _rooms.Length; i++) {
-					if (GUI.Button (new Rect (Screen.width / 2 - 100, 10 + i * 30, 200, 25), _rooms [i].name + " " + _rooms [i].playerCount + "/" + _rooms [i].maxPlayers)) {
+					if (GUI.Button (new Rect (0, 5 + i * 45, 530, 50), _rooms [i].name + " | " + _rooms [i].playerCount + "/" + _rooms [i].maxPlayers)) {
 						GameObject.Find ("SessionStarter").GetComponent<SessionStarter> ().roomHost = false;
 						PhotonNetwork.JoinRoom (_rooms [i].name);
 					}
 				}
-				if (GUI.Button (new Rect (Screen.width / 2 - 100, 10 + i * 30, 200, 25), "Create new room")) {
+				if (GUI.Button (new Rect (0, 5 + i * 45, 530, 50), "Create new room")) {
 					print ("created room with name " + System.Environment.UserName);
 					PhotonNetwork.CreateRoom (System.Environment.UserName + "'s Room", new RoomOptions () { maxPlayers = 2 }, null);
 					menuPosition = MenuState.LEVELLOADER;
 				}
 			}
+			GUI.EndScrollView();
+
 			GUI.skin = guiSkin;
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -268,11 +275,11 @@ public class MainMenuGUI : MonoBehaviour
 			//GUILayout.EndArea ();
 			
 			GUI.Box (new Rect (100, 100, 600, 72), "Control Setting");
-//			if (GUI.Button (new Rect (100, 165, 600, 55), "Full Tilt"))
+//			if (GUI.Button (new Rect (100, 265, 600, 55), "Full Tilt"))
 //				PlayerPrefs.SetInt ("controlScheme", 0);
 			if (GUI.Button (new Rect (100, 215, 600, 55),"Tilt with buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 1);
-			if (GUI.Button (new Rect (100, 265, 600, 55),"On screen buttons"))
+			if (GUI.Button (new Rect (100, 165, 600, 55),"On screen buttons"))
 				PlayerPrefs.SetInt ("controlScheme", 2);
 			
 			if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -378,10 +385,13 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOPRINT:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Print");
-			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion on a mobile device requires AR cards to create the map. " +
-				"The platform card is the main card that can snap to other cards and allows the users to create their own map. " + "\n"+
-				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the phone can read them." +
-			           "The cards can be downloaded from http://0rleans.com");
+			GUI.Label (new Rect (0, 50, 800, 450), "Playing Sole Champion requires AR cards to display the world. " +
+				"The platform card is the main card that can snap to other cards and allows the users to create position their world. " +
+				"The cards should be downloaded and printed on cardstock or high quality paper to ensure that the camera can see them. " +
+			           "The cards can be downloaded at");
+			if (GUI.Button(new Rect(0,350,850,45), "http://0rleans.com/images/AR_Targets.jpg")) {
+				Application.OpenURL("http://0rleans.com/images/AR_Targets.jpg");
+			}
 			GUI.skin = howtoplaySkin;
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
@@ -395,9 +405,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOSETUP:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Set Up");
-			GUI.Label (new Rect (0, 50, 800, 450), "The device should have the application downloaded and have a camera to detect the AR cards. " +
-				"Run the application and select either singleplayer or multiplayer. " +
-				"In multiplayer mode, a room is created by the host and other players are able to join. The AR cards should be placed on a flat surface and be in view of every player's device.");
+			GUI.Label (new Rect (0, 50, 800, 450), "Once the cards have been printed out, lay the card lebeled \"R\" face up on the left edge of the table. " +
+			    "This card will act as the left edge of the playing field, and will make the playing field appear on the table. " +
+				"The AR cards should be placed on a flat surface and be in view of every player's device.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
@@ -410,9 +420,9 @@ public class MainMenuGUI : MonoBehaviour
 		case MenuState.HOWTOUSE:
 			GUI.skin = howtoplaySkin;
 			GUI.Box (new Rect (0, 0, 800, 50), "How to Use");
-			GUI.Label (new Rect (0, 50, 800, 450), "The users have the option to select different control schemes. " + "\n"+
-			           "Full Tilt - actions are all done by tilting. " + "\n"+ "Tilt and Buttons - tilt for movement, jump and attack with buttons. " +"\n"+
-				"On Screen Buttons - actions are displayed with buttons on the screen.");
+			GUI.Label (new Rect (0, 50, 800, 450), "You may select different control schemes in the settings menu. " +
+			           /*"Full Tilt - actions are all done by tilting. " + */ "\n"+ "Tilt with Buttons - move by tilting the device left and right, jump and attack with buttons. " +"\n"+
+				"On Screen Buttons - all actions are done with buttons on the screen.");
 			if (GUI.Button (new Rect (315, 400, 150, 70), "Main")) {
 				menuPosition = MenuState.MAIN;
 			} else if (GUI.Button (new Rect (0, 400, 150, 70), "Back")) {
